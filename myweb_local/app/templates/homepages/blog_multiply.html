@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>大狗二狗的狗窝</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage/homepage.css') }}">
+    <!--[if lte IE 8]><script src="{{ url_for('static',filename='js/ie/html5shiv.js') }}"></script><![endif]-->
+    <link rel="icon" href="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" type="image/x-icon">
+    <!--[if lte IE 9]><link rel="stylesheet" href="{{ url_for('static',filename='css/ie/ie9.css') }}" /><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="{{ url_for('static',filename='css/ie/ie8.css') }}" /><![endif]-->
+</head>
+<body>
+    <div id="wrapper">
+        <header id="header">
+            <h1>
+                两只汪财
+            </h1>
+            <nav class="links">
+                <ul>
+                    <li><a href="blog">写点日志</a></li>
+                    <li><a href="#">撒狗粮啦</a></li>
+                    <li><a href="#">娱乐活动</a></li>
+                    <li><a href="#">留下你的爪印</a></li>
+                </ul>
+            </nav>
+            <nav class="main">
+                <ul>
+                    <li class="search">
+                        <a class="fa-search" href="#search">Search</a>
+                        <form id="search" method="get" action="#">
+                            <input type="text" name="query" placeholder="Search"/>
+                        </form>
+                    </li>
+                    <li class="menu">
+                        <a class="fa-bars" href="#menu">follow me</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </header>
+        <section id="menu">
+
+            <!--search content-->
+            <section>
+                <form class="search" method="get" action="#">
+                    <input type="text" name="query" placeholder="search" />
+                </form>
+            </section>
+
+            <section>
+                <ul class="links">
+                    <li>
+                        <a href="blog">写点日志</a>
+                    </li>
+                    <li>
+                        <a href="#">撒狗粮啦</a>
+                    </li>
+                    <li>
+                        <a href="#">娱乐活动</a>
+                    </li>
+                    <li>
+                        <a href="#">留下你的爪印</a>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <ul class="actions vertical">
+                    <li>
+                        <a href="LoginIn" class="button big fit">登陆</a>
+                    </li>
+                </ul>
+            </section>
+        </section>
+
+        <!--main-->
+        <div id="main">
+            <article class="post">
+                <header>
+                    <!--博客题目-->
+                    <div class="title">
+                        <!--标题-->
+                        <h2><a href="#">第一篇，纪念我们的爱情</a></h2>
+                        <!--简介-->
+                        <p>大狗二狗的狗窝准备开工啦，希望大猪蹄子能够每天开开心心</p>
+                    </div>
+
+                    <!--相关信息-->
+                    <div class="meta">
+                        <time class="published" datetime="2019-3-13">3-13 1:29</time>
+                        <a href="#" class="author">
+                            <span class="name">大狗</span>
+                            <img src="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" alt="" />
+                        </a>
+                    </div>
+                </header>
+                <!--图片-->
+                <a href="#" class="image featured">
+                    <img src="{{ url_for('static',filename='images/photos/2019/3/01.jpeg') }}" alt="" />
+                </a>
+                <p>
+                    这是第一篇文章,狗窝才刚刚搭上第一块砖，作为开篇的第一句当然要来一句，李雪锴！李二狗！李大猪蹄！我爱你！
+                    不知不觉已经和二狗牵手走过了两年啦，😘😘，二狗总是担心工作的问题，有点闷闷不乐的，但我觉得宝宝完全没有必要，因为锴锴是我见过的最努力的人了，
+                    我比较担心我会待在南京回不去，我不想分开，我想如果之后不行的话，就去苏州在找一个工作吧！
+                </p>
+                <footer>
+
+                </footer>
+            </article>
+
+            <article class="post">
+                <header>
+                    <!--博客题目-->
+                    <div class="title">
+                        <!--标题-->
+                        <h2><a href="#">网站计划表</a></h2>
+                        <!--简介-->
+                        <p>需要实现的功能的列表以及完成程度，莫名头大</p>
+                    </div>
+
+                    <!--相关信息-->
+                    <div class="meta">
+                        <time class="published" datetime="2019-3-13">3-18 1:15</time>
+                        <a href="#" class="author">
+                            <span class="name">大狗</span>
+                            <img src="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" alt="" />
+                        </a>
+                    </div>
+                </header>
+                <!--图片-->
+                <a href="#" class="image featured">
+                    <img src="{{ url_for('static',filename='images/photos/2019/3/18.jpg') }}" alt="" />
+                </a>
+                <p>
+                    <ul>
+                        <li>登陆功能（80%）</li>
+                        <li>用户管理，包括修改密码，修改头像（0%）</li>
+                        <li>主页只显示日志的部分内容，可跳转到详情页（0%）</li>
+                        <li>数据库和文件系统实现（0%）</li>
+                        <li>日志可以通过在线编写，并且支持markdown格式（0%）</li>
+                        <li>支持文件、图片上传和下载（0%）</li>
+                        <li>实现邮箱留言功能（0%）</li>
+                        <li>日志可设置是否公开可见（0%）</li>
+                        <li>在娱乐活动中添加相关的工具，视频，游戏等等（0%）</li>
+                        <li>狗粮区可以显示图片和视频，先暂时方格显示，之后需要改成随机大小显示（0%）</li>
+                        <li>日志可以分类，自己添加分类项（0%）</li>
+                        <li>支持动态显示，动态添加信息（0%）</li>
+                    </ul>
+                </p>
+                <footer>
+
+                </footer>
+            </article>
+
+            <!--页面显示-->
+
+            <ul class="actions pagination">
+                <li><a href="#" class="disabled button big next">显示更多</a></li>
+            </ul>
+        </div>
+
+        <!--左侧目录-->
+        <section id="sidebar">
+            <!--介绍-->
+            <section id="intro">
+                <a href="#" class="logo"><img src="{{ url_for('static', filename='images/icons/twodog.jpeg') }}" alt="" /></a>
+                <header>大狗二狗的狗窝</header>
+            </section>
+
+            <!--最近创作-->
+            <section>
+                <div class="mini-posts">
+
+                    <!--小简介-->
+                    <article class="mini-post">
+                        <header>
+                            <h3><a href="#">第一篇，纪念我们的爱情</a></h3>
+                            <time class="published" datetime="2019-12-12">3-13 1:29</time>
+                            <h5>大狗二狗的狗窝准备开工啦，希望大猪蹄子能够每天开开心心</h5>
+                        </header>
+                        <a href="#" class="image"><img src="{{ url_for('static',filename='images/photos/2019/3/01.jpeg') }}" alt=""/></a>
+                    </article>
+
+                    <article class="mini-post">
+                        <header>
+                            <h3><a href="#">网站计划表</a></h3>
+                            <time class="published" datetime="2019-12-12">3-18 1:15</time>
+                            <h5>需要实现的功能的列表以及完成程度，莫名头大</h5>
+                        </header>
+                        <a href="#" class="image"><img src="{{ url_for('static',filename='images/photos/2019/3/18.jpg') }}" alt=""/></a>
+                    </article>
+
+                </div>
+            </section>
+        </section>
+
+
+    </div>
+
+    <!--Script-->
+    <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/skel.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/util.js') }}"></script>
+    <!--[if lte IE 8]><script src="{{ url_for('static', filename='js/ie/respond.min.js') }}"></script><![endif]-->
+    <script src="{{ url_for('static',filename='js/main.js') }}"></script>
+</body>
+</html>
