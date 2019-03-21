@@ -1,11 +1,12 @@
 from .main import main
 from .Adminstrator import adminstartor
+from .Blog import blog
 #需要注册的 蓝图列表
 #gesh
 DEFAULT_BLUEPRINT = (
     (main, ''),
-    (adminstartor, '/LoginIn')
-
+    (adminstartor, '/LoginIn'),
+    (blog, '/blog')
 )
 
 
