@@ -1,80 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>大狗二狗的狗窝</title>
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage/homepage.css') }}">
-    <!--[if lte IE 8]><script src="{{ url_for('static',filename='js/ie/html5shiv.js') }}"></script><![endif]-->
-    <link rel="icon" href="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" type="image/x-icon">
-    <!--[if lte IE 9]><link rel="stylesheet" href="{{ url_for('static',filename='css/ie/ie9.css') }}" /><![endif]-->
-    <!--[if lte IE 8]><link rel="stylesheet" href="{{ url_for('static',filename='css/ie/ie8.css') }}" /><![endif]-->
-</head>
-<body>
-    <div id="wrapper">
-        <header id="header">
-            <h1>
-                两只汪财
-            </h1>
-            <nav class="links">
-                <ul>
-                    <li><a href="#">写点日志</a></li>
-                    <li><a href="#">撒狗粮啦</a></li>
-                    <li><a href="#">娱乐活动</a></li>
-                    <li><a href="#">留下你的爪印</a></li>
-                </ul>
-            </nav>
-            <nav class="main">
-                <ul>
-                    <li class="search">
-                        <a class="fa-search" href="#search">Search</a>
-                        <form id="search" method="get" action="#">
-                            <input type="text" name="query" placeholder="Search"/>
-                        </form>
-                    </li>
-                    <li class="menu">
-                        <a class="fa-bars" href="#menu">follow me</a>
-                    </li>
-                </ul>
-            </nav>
-
-        </header>
-        <section id="menu">
-
-            <!--search content-->
-            <section>
-                <form class="search" method="get" action="#">
-                    <input type="text" name="query" placeholder="search" />
-                </form>
-            </section>
-
-            <section>
-                <ul class="links">
-                    <li>
-                        <a href="#">写点日志</a>
-                    </li>
-                    <li>
-                        <a href="#">撒狗粮啦</a>
-                    </li>
-                    <li>
-                        <a href="#">娱乐活动</a>
-                    </li>
-                    <li>
-                        <a href="#">留下你的爪印</a>
-                    </li>
-                </ul>
-            </section>
-            <section>
-                <ul class="actions vertical">
-                    <li>
-                        <a href="LoginIn" class="button big fit">登陆</a>
-                    </li>
-                </ul>
-            </section>
-        </section>
-
+{% extends "base.html" %}
+{% block main %}
         <!--main-->
         <div id="main">
             <article class="post">
@@ -105,15 +30,4 @@
             <!--页面显示-->
 
         </div>
-
-
-    </div>
-
-    <!--Script-->
-    <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js/skel.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js/util.js') }}"></script>
-    <!--[if lte IE 8]><script src="{{ url_for('static', filename='js/ie/respond.min.js') }}"></script><![endif]-->
-    <script src="{{ url_for('static',filename='js/main.js') }}"></script>
-</body>
-</html>
+{% endblock %}
