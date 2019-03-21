@@ -1,6 +1,6 @@
 def readUser():
     result = []
-    with open('app/static/UserData/Users/User') as f:
+    with open('app/static/UserData/Users/User','r',encoding='UTF-8') as f:
         for each in f.readlines():
             user = each.strip('\n').strip(' ').split(' ')
             if len(user) == 2:
