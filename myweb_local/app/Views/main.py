@@ -1,7 +1,23 @@
-from flask import Blueprint,render_template,url_for
-
+from flask import Blueprint,render_template,url_for,redirect
+from flask_login import current_user,logout_user
 main = Blueprint('main',__name__)
 
 @main.route('/',methods = ['GET','POST'])
 def homepage():
-    return render_template('homepages/homepage.html')
+    try:
+        name = current_user.username
+    except:
+        name = None
+    if name is not None:
+        return render_template('homepages/homepage.html',cuser = name)
+    else:
+        return render_template('homepages/homepage.html')
+@main.route('/blog/<num>')
+def bloginfoshow(num=None):
+    return 'hello'
+
+@main.route('/Logout')
+def logout():
+    logout_user()
+    return redirect(url_for('main.homepage'))
+
