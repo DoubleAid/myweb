@@ -5,13 +5,11 @@ from .Blog import blog
 #gesh
 DEFAULT_BLUEPRINT = (
     (main, ''),
-    (adminstartor, '/LoginIn'),
+    (adminstartor, '/Login'),
     (blog, '/blog')
 )
 
 
 def config_blueprint(app):
     for blueprint, prefix in DEFAULT_BLUEPRINT:
-        print(str(blueprint))
-        print(prefix)
         app.register_blueprint(blueprint, url_prefix=prefix)
