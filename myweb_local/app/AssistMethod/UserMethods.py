@@ -18,7 +18,6 @@ class User(UserMixin):
     # @password.setter
     def password(self, password):
         """保存用户，密码hash，id到json文件"""
-        print(1)
         self.password_hash = generate_password_hash(password)
         with open(PROFILE_FILE,'w+') as f:
             try:
