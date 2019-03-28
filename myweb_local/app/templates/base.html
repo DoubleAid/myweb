@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>大狗二狗的狗窝</title>
-
+    {% block link %}{% endblock %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage/homepage.css') }}">
     <!--[if lte IE 8]><script src="{{ url_for('static',filename='js/ie/html5shiv.js') }}"></script><![endif]-->
     <link rel="icon" href="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" type="image/x-icon">
@@ -71,8 +71,8 @@
             <section>
                 <ul class="actions vertical">
                     <li>
-                        {% if cuser %}
-                            <a href="/Logout" class="button big fit">{{ cuser }}退出登陆</a>
+                        {% if user %}
+                            <a href="/Logout" class="button big fit">{{ user }}退出登陆</a>
                         {% else %}
                             <a href ="/Login" class="button big fit">登录</a>
                         {% endif %}
