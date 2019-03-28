@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/blog/blog_write.css') }}" />
+<script src="{{ url_for('static',filename='js/showdown.min.js') }}"></script>
+{% endblock %}
+
+{% block main %}
+
+<div id="main">
+            <article class="post">
+                <form method="post">
+                    <ul style="list-style: none;">
+                        <li>
+                            <input type="text" placeholder="标题 默认为公开哦！你可以在标题的后面添加'::private'来设置为隐私" name="title" autocomplete="off"/>
+                            <p></p>
+                        </li>
+                        <li>
+                            <textarea style="resize:none;" rows="2" name="introduce" placeholder="简介"></textarea>
+                            <p></p>
+                        </li>
+                        <li>
+                            <input type="file" name="file"/>
+                            <p></p>
+                        </li>
+                        <li>
+                            <p>预览</p>
+                            <div id="overwatch"></div>
+                            <textarea style="resize:none;" row="5" placeholder="markdown 格式" name="content" id="content" onkeyup="compile()"></textarea>
+                            <p></p>
+                        </li>
+                        <li>
+                            <input type="submit" value="上传"/>
+                            <p></p>
+                        </li>
+                    </ul>
+                </form>
+            </article>
+            <!--页面显示-->
+
+            <!--<ul class="actions pagination">-->
+                <!--<li><a href="#" class="disabled button big next"></a></li>-->
+            <!--</ul>-->
+        </div>
+<script type="text/javascript">
+function compile(){
+    var text = document.getElementById("content").value;
+    var converter = new showdown.Converter();
+    var html = converter.makeHtml(text);
+    document.getElementById("overwatch").innerHTML = html;
+}
+</script>
+{% endblock %}
