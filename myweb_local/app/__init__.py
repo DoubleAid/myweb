@@ -14,8 +14,6 @@ def config_login(app):
     login_manager.session_protection = "strong"
     login_manager.login_view = 'LoginIn'
     login_manager.init_app(app)
-    # app.config['SESSION_TYPE'] = 'filesystem'
-    # Session(app)
     @login_manager.user_loader
     def load_user(user_id):
         return User.get(user_id)
