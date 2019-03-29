@@ -4,6 +4,8 @@
 import json
 import uuid
 import linecache
+import time
+
 #test
 # SOURCE_FILE = "../Data/blog.json"
 # LOG_FILE = '../Data/blog.log'
@@ -11,18 +13,28 @@ import linecache
 SOURCE_FILE = 'app/Data/index.json'
 LOG_FILE = 'app/Data/blog.log'
 
+# json 格式
+# [
+#   title: 标题
+#   permission: 权限 False为不公开 True为公开
+#   time: 时间
+#   introduce: 简介
+#   content：博文
+# ]
+
 class Blog:
     def __init__(self, uuid=None,type="id"):
         """
         :param uuid:记录为博客的唯一标识符
+        :type type:type有两种类型 id 输入 id的hash值，num 为序列数
         """
         if uuid is None:
             self.id = self.get_id()
             self.title = ""
-            self.time = ""
+            self.time = None
             self.introduce = ""
-            self.photo = ""
             self.content = ""
+            self.permission = True
         else:
             if type == "id" and uuid is not None:
                 self.id = uuid
@@ -30,9 +42,9 @@ class Blog:
                 self.id = linecache.getline(LOG_FILE, uuid).strip()
             data = self.get()
             self.title = data[0]
-            self.time = data[1]
-            self.introduce = data[2]
-            self.photo = data[3]
+            self.permission = data[1]
+            self.time = data[2]
+            self.introduce = data[3]
             self.content = data[4]
 
     def delete(self,id=None):
@@ -73,15 +85,6 @@ class Blog:
                 if id not in user_profiles:
                     f.close()
                     return id
-            # try:
-            #     with open(SOURCE_FILE) as f:
-            #         user_profiles = json.load(f)
-            #         if id not in user_profiles:
-            #             break
-            # except IOError:
-            #     pass
-            # except ValueError:
-            #     pass
 
     def get(self):
         try:
@@ -108,15 +111,34 @@ class Blog:
             self.time = value
         elif type == "data":
             self.title = value[0]
-            self.time = value[1]
-            self.introduce = value[2]
-            self.photo = value[3]
+            self.permission = value[1]
+            self.time = value[2]
+            self.introduce = value[3]
             self.content = value[4]
         else:
             return False
         return True
 
+    def add_title(self,title):
+        self.title = title
+
+    def add_introduce(self, introduce):
+        self.introduce = introduce
+
+    def add_content(self,content):
+        self.content = content
+
+    def add_time(self,ntime=None):
+        if ntime is None:
+            ntime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            print(ntime)
+            self.time = ntime
+        else:
+            self.time = ntime
+
     def save(self):
+        if self.time is None:
+            self.add_time()
         profiles={}
         with open(SOURCE_FILE,'r',encoding="UTF-8") as f:
             lines = f.readlines()
@@ -126,13 +148,12 @@ class Blog:
                 print(data)
                 profiles.update(data)
             profiles[self.id] = [self.title,
+                                 self.permission,
                                  self.time,
                                  self.introduce,
-                                 self.photo,
                                  self.content]
         with open(SOURCE_FILE, 'w', encoding="UTF-8") as t:
             json.dump(profiles,t)
-
         with open(LOG_FILE,'r+') as f:
             log = f.read()
             print(log)
@@ -140,9 +161,19 @@ class Blog:
                 f.seek(0, 0)
                 f.writelines(self.id+"\n"+str(log))
 
+    def set_permission(self, flag=True):
+        self.permission = flag
 
-if __name__ == "__main__":
-    blog = Blog()
-    blog.modify(type="title",value="asdfasdfeee")
-    blog.modify(type="introduce",value="hhhhhhh,adf我从未见过如此厚颜无耻之人")
-    blog.save()
+    def isPrivate(self):
+        return self.permission
+
+# if __name__ == "__main__":
+#     blog = Blog()
+#     blog.modify(type="title",value="asdfasdfeee")
+#     blog.modify(type="introduce",value="hhhhhhh,adf我从未见过如此厚颜无耻之人")
+#     blog.save()
+
+
+
+
+
