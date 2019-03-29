@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template,url_for,request
+from flask import Blueprint,render_template,url_for,request,redirect
 from flask_login import current_user
 from app.AssistMethod.BlogMethods import Blog
 
@@ -26,19 +26,19 @@ def bloginfoshow(num=None):
 def write_blog():
     if request.method == "POST":
         blog = Blog()
-        img = request.files['file']
         title = request.form['title']
         introduce = request.form['introduce']
         content = request.form['content']
         if "::private" in title:
             title = title.replace("::private",'')
-            public = False
+            blog.set_permission(flag=False)
         else:
-            public = True
-        print(public)
-        print(title)
-        print(introduce)
-        print(content)
+            blog.set_permission(flag=True)
+        blog.add_title(title)
+        blog.add_introduce(introduce)
+        blog.add_content(content)
+        blog.save()
+        return redirect(url_for('main.homepage'))
         # img.save("app/static/images/text.png")
         # img.save(url_for("static",filename="images/1.png"))
     # return render_template('blog/blog_write.html',user=current_user.username)
