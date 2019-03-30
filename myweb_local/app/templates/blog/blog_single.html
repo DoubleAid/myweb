@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block link %}
+<script src="{{ url_for('static',filename='js/showdown.min.js') }}"></script>
+{% endblock %}
+{% block main %}
+    <div id="main">
+            <article class="post">
+                <header>
+                    <!--博客题目-->
+                    <div class="title">
+                        <!--标题-->
+                        <h2><a href="#">{{ data['title'] }}</a></h2>
+                        <!--简介-->
+                        <p>{{ data['introduce'] }}</p>
+                    </div>
 
-</body>
-</html>
+                    <!--相关信息-->
+                    <div class="meta">
+                        <time class="published" datetime="2019-3-13">{{ data['time'] }}</time>
+                        <a href="#" class="author">
+                            <span class="name">大狗</span>
+                            <img src="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" alt="" />
+                        </a>
+                    </div>
+                </header>
+                <!--图片-->
+                <!--<a href="#" class="image featured">-->
+                    <!--<img src="{{ url_for('static',filename='images/photos/2019/3/01.jpeg') }}" alt="" />-->
+                <!--</a>-->
+                <div id="content">
+                    {{ data['content']|safe}}
+                </div>
+                <footer>
+
+                </footer>
+            </article>
+
+            <!--页面显示-->
+
+            <ul class="actions pagination">
+                <li><a href="#" class="button big before">前一篇</a></li>
+                <li><a href="#" class="disabled button big next">下一篇</a></li>
+            </ul>
+        </div>
+{% endblock %}
