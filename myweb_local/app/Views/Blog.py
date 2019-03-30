@@ -1,6 +1,7 @@
 from flask import Blueprint,render_template,url_for,request,redirect
 from flask_login import current_user
 from app.AssistMethod.BlogMethods import Blog
+import markdown
 
 blog = Blueprint('blog',__name__)
 
@@ -18,8 +19,18 @@ def multiple_blogs():
 
 @blog.route('/<num>')
 def bloginfoshow(num=None):
-    print(num)
-    return 'hello'+str(num)
+    blog = Blog(num)
+    permission = blog.get_permission()
+    data = blog.get_data()
+    data['content'] = markdown.markdown(data['content'], output_format='html5')
+    if permission is False:
+        try:
+            name = current_user.username
+            return render_template('blog/blog_single.html',user=name ,data=data)
+        except:
+            return 404
+    else:
+        return render_template('blog/blog_single.html', data=data)
 
 
 @blog.route('/write',methods = ['GET','POST'])
@@ -29,6 +40,8 @@ def write_blog():
         title = request.form['title']
         introduce = request.form['introduce']
         content = request.form['content']
+        if len(title)==0 or len(introduce)==0 or len(content)==0:
+            return 404
         if "::private" in title:
             title = title.replace("::private",'')
             blog.set_permission(flag=False)
@@ -38,7 +51,7 @@ def write_blog():
         blog.add_introduce(introduce)
         blog.add_content(content)
         blog.save()
-        return redirect(url_for('main.homepage'))
+        return redirect(url_for('blog.bloginfoshow',num = blog.id))
         # img.save("app/static/images/text.png")
         # img.save(url_for("static",filename="images/1.png"))
     # return render_template('blog/blog_write.html',user=current_user.username)
@@ -46,4 +59,5 @@ def write_blog():
 
 @blog.route('/<num>/modify')
 def modify(num):
+    # blog = Blog(num)
     return str(num)+"modify"
