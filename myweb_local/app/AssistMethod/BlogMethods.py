@@ -122,6 +122,31 @@ class Blog:
     def add_title(self,title):
         self.title = title
 
+    def get_title(self):
+        return self.title
+
+    def get_introduce(self):
+        return self.introduce
+
+    def get_time(self):
+        return self.time
+
+    def get_content(self):
+        return self.content
+
+    def get_permission(self):
+        return self.permission
+
+    def get_data(self):
+        data={
+            'title':self.title,
+            'permission':self.permission,
+            'time':self.time,
+            'introduce':self.introduce,
+            'content':self.content
+        }
+        return data
+
     def add_introduce(self, introduce):
         self.introduce = introduce
 
@@ -130,7 +155,7 @@ class Blog:
 
     def add_time(self,ntime=None):
         if ntime is None:
-            ntime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            ntime = time.strftime("%Y-%m-%d %H:%M", time.localtime())
             print(ntime)
             self.time = ntime
         else:
