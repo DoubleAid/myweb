@@ -1,10 +1,10 @@
 from flask import Blueprint,render_template,url_for,request,redirect
 from flask_login import current_user
 from app.AssistMethod.BlogMethods import Blog
+import os
 import markdown
-
+CURRENT_PATH = os.getcwd()
 blog = Blueprint('blog',__name__)
-
 
 @blog.route('/')
 def multiple_blogs():
@@ -33,12 +33,24 @@ def bloginfoshow(num=None):
         return render_template('blog/blog_single.html', data=data)
 
 
+@blog.route('/page<num>')
+def blogs_show_by_page(num=None):
+    if num == 1:
+        return
+
 @blog.route('/write',methods = ['GET','POST'])
 def write_blog():
     if request.method == "POST":
         blog = Blog()
         title = request.form['title']
         introduce = request.form['introduce']
+        file = None
+        try:
+            file = request.files['file']
+        except:
+            pass
+        # file_path = CURRENT_PATH+"/app/Data/Blog/"+str(blog.id)+"/1."
+        # file.save("D://a.jpg")
         content = request.form['content']
         if len(title)==0 or len(introduce)==0 or len(content)==0:
             return 404
@@ -49,6 +61,8 @@ def write_blog():
             blog.set_permission(flag=True)
         blog.add_title(title)
         blog.add_introduce(introduce)
+        if file is not None:
+            blog.add_image(file)
         blog.add_content(content)
         blog.save()
         return redirect(url_for('blog.bloginfoshow',num = blog.id))
