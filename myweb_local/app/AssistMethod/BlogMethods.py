@@ -161,6 +161,9 @@ class Blog:
         else:
             self.time = ntime
 
+    def add_image(self,file):
+        return
+
     def save(self):
         if self.time is None:
             self.add_time()
@@ -191,6 +194,9 @@ class Blog:
 
     def isPrivate(self):
         return self.permission
+
+    def save_image(self,file):
+        return
 
 # if __name__ == "__main__":
 #     blog = Blog()
