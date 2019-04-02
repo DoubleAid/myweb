@@ -2,6 +2,7 @@ from flask import Blueprint,render_template,url_for,request,redirect
 from flask_login import current_user
 from app.AssistMethod.BlogMethods import Blog
 import os
+import base64
 import markdown
 CURRENT_PATH = os.getcwd()
 blog = Blueprint('blog',__name__)
@@ -16,22 +17,26 @@ def multiple_blogs():
         return render_template('blog/blog_multiply.html', user=name)
     return render_template('blog/blog_multiply.html')
 
-
 @blog.route('/<num>')
 def bloginfoshow(num=None):
     blog = Blog(num)
     permission = blog.get_permission()
     data = blog.get_data()
+    if len(data['title']) == 0:
+        return 404
+    data['images'][0] = url_for('static',filename='../Data/Blog/'+num+"/"+data['images'][0])
+    with open("app/"+data['images'][0],'r') as img_f:
+        img_stream = img_f.read()
+        img_stream = base64.b64encode(img_stream)
     data['content'] = markdown.markdown(data['content'], output_format='html5')
     if permission is False:
         try:
             name = current_user.username
-            return render_template('blog/blog_single.html',user=name ,data=data)
+            return render_template('blog/blog_single.html',user=name ,data=data, img_stream=img_stream)
         except:
             return 404
     else:
-        return render_template('blog/blog_single.html', data=data)
-
+        return render_template('blog/blog_single.html', data=data, img_stream=img_stream)
 
 @blog.route('/page<num>')
 def blogs_show_by_page(num=None):
@@ -46,7 +51,10 @@ def write_blog():
         introduce = request.form['introduce']
         file = None
         try:
-            file = request.files['file']
+            # file = request.files['file']
+            files = request.files.getlist('file')
+            for file in files:
+                blog.add_image(file)
         except:
             pass
         # file_path = CURRENT_PATH+"/app/Data/Blog/"+str(blog.id)+"/1."
@@ -61,8 +69,6 @@ def write_blog():
             blog.set_permission(flag=True)
         blog.add_title(title)
         blog.add_introduce(introduce)
-        if file is not None:
-            blog.add_image(file)
         blog.add_content(content)
         blog.save()
         return redirect(url_for('blog.bloginfoshow',num = blog.id))
