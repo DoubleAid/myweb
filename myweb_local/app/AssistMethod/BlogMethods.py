@@ -5,7 +5,13 @@ import json
 import uuid
 import linecache
 import time
+import os
 
+CURRENT_PATH = os.getcwd()
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'JPG', 'PNG', 'bmp'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 #test
 # SOURCE_FILE = "../Data/blog.json"
 # LOG_FILE = '../Data/blog.log'
@@ -19,6 +25,7 @@ LOG_FILE = 'app/Data/blog.log'
 #   permission: 权限 False为不公开 True为公开
 #   time: 时间
 #   introduce: 简介
+#   images: 图片名
 #   content：博文
 # ]
 
@@ -33,6 +40,7 @@ class Blog:
             self.title = ""
             self.time = None
             self.introduce = ""
+            self.images = []
             self.content = ""
             self.permission = True
         else:
@@ -45,7 +53,8 @@ class Blog:
             self.permission = data[1]
             self.time = data[2]
             self.introduce = data[3]
-            self.content = data[4]
+            self.images = data[4]
+            self.content = data[5]
 
     def delete(self,id=None):
         if id is None:
@@ -103,8 +112,6 @@ class Blog:
             self.title = value
         elif type == "introduce":
             self.introduce = value
-        elif type == "photo":
-            self.photo = value
         elif type == "content":
             self.content = value
         elif type == "time":
@@ -114,7 +121,8 @@ class Blog:
             self.permission = value[1]
             self.time = value[2]
             self.introduce = value[3]
-            self.content = value[4]
+            self.images = value[4]
+            self.content = value[5]
         else:
             return False
         return True
@@ -143,6 +151,7 @@ class Blog:
             'permission':self.permission,
             'time':self.time,
             'introduce':self.introduce,
+            'images':self.images,
             'content':self.content
         }
         return data
@@ -156,12 +165,17 @@ class Blog:
     def add_time(self,ntime=None):
         if ntime is None:
             ntime = time.strftime("%Y-%m-%d %H:%M", time.localtime())
-            print(ntime)
             self.time = ntime
         else:
             self.time = ntime
 
     def add_image(self,file):
+        file_path = CURRENT_PATH+"/app/Data/Blog/"+str(self.id)+"/"
+        if allowed_file(file.filename):
+            if os.path.exists(file_path) is False:
+                os.mkdir(file_path)
+            file.save(file_path+file.filename)
+            self.images.append(file.filename)
         return
 
     def save(self):
@@ -171,20 +185,18 @@ class Blog:
         with open(SOURCE_FILE,'r',encoding="UTF-8") as f:
             lines = f.readlines()
             for each in lines:
-                print(each)
                 data = json.loads(str(each))
-                print(data)
                 profiles.update(data)
             profiles[self.id] = [self.title,
                                  self.permission,
                                  self.time,
                                  self.introduce,
+                                 self.images,
                                  self.content]
         with open(SOURCE_FILE, 'w', encoding="UTF-8") as t:
             json.dump(profiles,t)
         with open(LOG_FILE,'r+') as f:
             log = f.read()
-            print(log)
             if self.id+"\n" not in log:
                 f.seek(0, 0)
                 f.writelines(self.id+"\n"+str(log))
@@ -194,9 +206,6 @@ class Blog:
 
     def isPrivate(self):
         return self.permission
-
-    def save_image(self,file):
-        return
 
 # if __name__ == "__main__":
 #     blog = Blog()
