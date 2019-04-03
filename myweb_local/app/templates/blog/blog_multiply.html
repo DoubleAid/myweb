@@ -78,11 +78,44 @@
 
                 </footer>
             </article>
+            {% if data %}
+                <article class="post">
+                <header>
+                    <!--博客题目-->
+                    <div class="title">
+                        <!--标题-->
+                        <h2><a href="/blog/{{ data['id'] }}">{{ data['title'] }}</a></h2>
+                        <!--简介-->
+                        <p>{{ data['introduce'] }}</p>
+                    </div>
 
+                    <!--相关信息-->
+                    <div class="meta">
+                        <time class="published" datetime="2019-3-13">{{ data['time'] }}</time>
+                        <a href="#" class="author">
+                            <span class="name">大狗</span>
+                            <img src="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" alt="" />
+                        </a>
+                    </div>
+                </header>
+                <!--图片-->
+                    {% if data['images'] %}
+                <a href="/blog/{{ data['id'] }}" class="image featured">
+                    <img src="../static/Data/Blog/{{ data['id'] }}/{{ data['images'][0] }}" alt="" />
+                </a>
+                    {% endif %}
+                <p>
+                    {{ data['content'] }}
+                </p>
+                <footer>
+
+                </footer>
+            </article>
+            {% endif %}
             <!--页面显示-->
 
             <ul class="actions pagination">
-                <li><a href="#" class="disabled button big next">显示更多</a></li>
+                <li><a href="/blog/page={{ page }}" id="showmore" class="disabled button big next">显示更多</a></li>
             </ul>
         </div>
 
@@ -140,4 +173,17 @@
                 </div>
             </section>
         </section>
+<!--<script type="text/javascript">-->
+    <!--$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};-->
+    <!--$(function(){-->
+        <!--$('#showmore').bind('click', function(){-->
+            <!--$.getJSON($SCRIPT_ROOT + '/getnext',{-->
+                <!--page:-->
+            <!--})-->
+        <!--}-->
+        <!---->
+        <!--)-->
+    <!--}-->
+    <!--);-->
+<!--</script>-->
 {% endblock %}
