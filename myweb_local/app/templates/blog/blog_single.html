@@ -24,17 +24,13 @@
                     </div>
                 </header>
                 <!--图片-->
-                <!--{% if data['images'] %}-->
-                    <!--{% for image in data['images'] %}-->
-                        <!--<a href="#" class="image featured">-->
-                            <!--<img src={{ image|e }} alt="" />-->
-                        <!--</a>-->
-                    <!--{% endfor %}-->
-                <!--{% endif %}-->
-
-                <a href="#" class="image featured">
-                    <img src="data:;base64,{{ img_stream }}" alt="" />
-                </a>
+                {% if data['images'] %}
+                    {% for image in data['images'] %}
+                        <a href="#" class="image featured">
+                            <img src="../static/Data/Blog/{{ data['id'] }}/{{ image }}" alt="" />
+                        </a>
+                    {% endfor %}
+                {% endif %}
                 <div id="content">
                     {{ data['content']|safe}}
                 </div>
