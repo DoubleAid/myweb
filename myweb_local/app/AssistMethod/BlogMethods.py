@@ -16,8 +16,8 @@ def allowed_file(filename):
 # SOURCE_FILE = "../Data/blog.json"
 # LOG_FILE = '../Data/blog.log'
 # web
-SOURCE_FILE = 'app/Data/index.json'
-LOG_FILE = 'app/Data/blog.log'
+SOURCE_FILE = 'app/static/Data/index.json'
+LOG_FILE = 'app/static/Data/blog.log'
 
 # json 格式
 # [
@@ -147,6 +147,7 @@ class Blog:
 
     def get_data(self):
         data={
+            'id':self.id,
             'title':self.title,
             'permission':self.permission,
             'time':self.time,
@@ -170,8 +171,9 @@ class Blog:
             self.time = ntime
 
     def add_image(self,file):
-        file_path = CURRENT_PATH+"/app/Data/Blog/"+str(self.id)+"/"
+        file_path = CURRENT_PATH+"/app/static/Data/Blog/"+str(self.id)+"/"
         if allowed_file(file.filename):
+            print(file_path)
             if os.path.exists(file_path) is False:
                 os.mkdir(file_path)
             file.save(file_path+file.filename)
