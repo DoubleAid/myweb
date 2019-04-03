@@ -1,21 +1,22 @@
-from flask import Blueprint,render_template,url_for,request,redirect
+from flask import Blueprint,render_template,url_for,request,redirect, Response
 from flask_login import current_user
 from app.AssistMethod.BlogMethods import Blog
 import os
-import base64
 import markdown
 CURRENT_PATH = os.getcwd()
 blog = Blueprint('blog',__name__)
 
 @blog.route('/')
 def multiple_blogs():
+    blog = Blog(uuid=1,type="num")
+    data = blog.get_data()
     try:
         name = current_user.username
     except:
         name = None
     if name is not None:
-        return render_template('blog/blog_multiply.html', user=name)
-    return render_template('blog/blog_multiply.html')
+        return render_template('blog/blog_multiply.html', user=name, data=data)
+    return render_template('blog/blog_multiply.html', data=data)
 
 @blog.route('/<num>')
 def bloginfoshow(num=None):
@@ -24,19 +25,15 @@ def bloginfoshow(num=None):
     data = blog.get_data()
     if len(data['title']) == 0:
         return 404
-    data['images'][0] = url_for('static',filename='../Data/Blog/'+num+"/"+data['images'][0])
-    with open("app/"+data['images'][0],'r') as img_f:
-        img_stream = img_f.read()
-        img_stream = base64.b64encode(img_stream)
     data['content'] = markdown.markdown(data['content'], output_format='html5')
     if permission is False:
         try:
             name = current_user.username
-            return render_template('blog/blog_single.html',user=name ,data=data, img_stream=img_stream)
+            return render_template('blog/blog_single.html',user=name ,data=data)
         except:
             return 404
     else:
-        return render_template('blog/blog_single.html', data=data, img_stream=img_stream)
+        return render_template('blog/blog_single.html', data=data)
 
 @blog.route('/page<num>')
 def blogs_show_by_page(num=None):
@@ -49,9 +46,7 @@ def write_blog():
         blog = Blog()
         title = request.form['title']
         introduce = request.form['introduce']
-        file = None
         try:
-            # file = request.files['file']
             files = request.files.getlist('file')
             for file in files:
                 blog.add_image(file)
@@ -81,3 +76,11 @@ def write_blog():
 def modify(num):
     # blog = Blog(num)
     return str(num)+"modify"
+
+@blog.route('/getnext')
+def return_next_one():
+    print(1)
+    a = request.args.get('page','0',type=int)
+    blog = Blog(uuid=a,type="num")
+    date = blog.get_data()
+
