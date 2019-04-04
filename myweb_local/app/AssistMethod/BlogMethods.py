@@ -48,6 +48,8 @@ class Blog:
                 self.id = uuid
             elif type == "num" and uuid is not None:
                 self.id = linecache.getline(LOG_FILE, uuid).strip()
+            	if len(self.id)==0:
+                	return
             data = self.get()
             self.title = data[0]
             self.permission = data[1]
@@ -156,6 +158,10 @@ class Blog:
             'content':self.content
         }
         return data
+
+    def get_blog_num(self):
+        with open(LOG_FILE,'r+') as f:
+            return len(f.readlines())
 
     def add_introduce(self, introduce):
         self.introduce = introduce
