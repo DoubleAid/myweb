@@ -77,10 +77,4 @@ def modify(num):
     # blog = Blog(num)
     return str(num)+"modify"
 
-@blog.route('/getnext')
-def return_next_one():
-    print(1)
-    a = request.args.get('page','0',type=int)
-    blog = Blog(uuid=a,type="num")
-    date = blog.get_data()
 
