@@ -15,16 +15,17 @@ def homepage():
     else:
         return render_template('homepages/homepage.html')
 
+
 @main.route('/getnext')
 def get_next_date():
     id = request.args.get('page', 0, type=int)
-    blog = Blog(uuid=id, type="num")
-    if blog.get_blog_num() < id:
-        return jsonify(result={'page':id, 'html':None})
+    if Blog.get_blog_num() < id:
+        return jsonify(result={'page': id, 'html': None})
     else:
+        blog = Blog(uuid=id, type="num")
         data = blog.get_data()
-        page = id+1
-        return jsonify(result={'page':page, 'html':data})
+        return jsonify(result={'page': id+1, 'html': data})
+
 
 @main.route('/Logout')
 def logout():
