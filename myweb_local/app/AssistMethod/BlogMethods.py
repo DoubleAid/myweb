@@ -6,6 +6,7 @@ import uuid
 import linecache
 import time
 import os
+import shutil
 
 CURRENT_PATH = os.getcwd()
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'JPG', 'PNG', 'bmp'}
@@ -47,10 +48,16 @@ class Blog:
             if type == "id" and uuid is not None:
                 self.id = uuid
             elif type == "num" and uuid is not None:
+                print(self.get_blog_num())
+                if uuid > self.get_blog_num():
+                    return
                 self.id = linecache.getline(LOG_FILE, uuid).strip()
-            	if len(self.id)==0:
-                	return
+                if len(self.id)==0:
+                    return
             data = self.get()
+            if data is False:
+                print("no find")
+                return
             self.title = data[0]
             self.permission = data[1]
             self.time = data[2]
@@ -58,11 +65,9 @@ class Blog:
             self.images = data[4]
             self.content = data[5]
 
-    def delete(self,id=None):
-        if id is None:
-            delete_id = self.id
-        else:
-            delete_id = id
+    @staticmethod
+    def delete(self):
+        delete_id = id
         try:
             with open(SOURCE_FILE, "w+") as f:
                 try:
@@ -82,8 +87,6 @@ class Blog:
 
     def get_id(self):
         """
-        :param title: 为文章的标题，类型为str类型
-        :param time: 为时间，类型为str，格式为"m-dd hh:mm",中间用空格隔开
         :return: 返回值为id，如果存在则返回，不存在就创建一个
         """
         while True:
@@ -109,16 +112,16 @@ class Blog:
             pass
         return False
 
-    def modify(self,type,value):
-        if type == "title":
+    def modify(self, mtype, value):
+        if mtype == "title":
             self.title = value
-        elif type == "introduce":
+        elif mtype == "introduce":
             self.introduce = value
-        elif type == "content":
+        elif mtype == "content":
             self.content = value
-        elif type == "time":
+        elif mtype == "time":
             self.time = value
-        elif type == "data":
+        elif mtype == "data":
             self.title = value[0]
             self.permission = value[1]
             self.time = value[2]
@@ -129,7 +132,7 @@ class Blog:
             return False
         return True
 
-    def add_title(self,title):
+    def add_title(self, title):
         self.title = title
 
     def get_title(self):
@@ -148,20 +151,50 @@ class Blog:
         return self.permission
 
     def get_data(self):
-        data={
-            'id':self.id,
-            'title':self.title,
-            'permission':self.permission,
-            'time':self.time,
-            'introduce':self.introduce,
-            'images':self.images,
-            'content':self.content
-        }
-        return data
+        try:
+            data = {
+                'id': self.id,
+                'title': self.title,
+                'permission': self.permission,
+                'time': self.time,
+                'introduce': self.introduce,
+                'images': self.images,
+                'content': self.content
+            }
+            return data
+        except:
+            return None
 
-    def get_blog_num(self):
-        with open(LOG_FILE,'r+') as f:
-            return len(f.readlines())
+    @staticmethod
+    def get_blog_num():
+        with open(LOG_FILE, 'r+') as f:
+            lines = f.readlines()
+            count = 0
+            for line in lines:
+                if len(line) != 0 and line != "\n":
+                    count += 1
+            return count
+
+    @staticmethod
+    def delete_blog(uuid):
+        #删除log
+        try:
+            with open(LOG_FILE, 'w+') as f:
+                lines = f.readlines()
+                lines.remove(str(uuid)+"\n")
+                for line in lines:
+                    f.readline(line)
+        except:
+            print("unfind uuid in LOG_FILE")
+        # 删除json
+        Blog.delete(uuid)
+        #删除图片
+        file_path = CURRENT_PATH + "/app/static/Data/Blog/" + str(uuid) + "/"
+        try:
+            shutil.rmtree(file_path)
+        except:
+            print("unfind file path"+str(file_path))
+        return
 
     def add_introduce(self, introduce):
         self.introduce = introduce
@@ -177,7 +210,7 @@ class Blog:
             self.time = ntime
 
     def add_image(self,file):
-        file_path = CURRENT_PATH+"/app/static/Data/Blog/"+str(self.id)+"/"
+        file_path = CURRENT_PATH + "/app/static/Data/Blog/"+str(self.id)+"/"
         if allowed_file(file.filename):
             print(file_path)
             if os.path.exists(file_path) is False:
@@ -189,21 +222,24 @@ class Blog:
     def save(self):
         if self.time is None:
             self.add_time()
-        profiles={}
-        with open(SOURCE_FILE,'r',encoding="UTF-8") as f:
-            lines = f.readlines()
-            for each in lines:
-                data = json.loads(str(each))
-                profiles.update(data)
-            profiles[self.id] = [self.title,
-                                 self.permission,
-                                 self.time,
-                                 self.introduce,
-                                 self.images,
-                                 self.content]
+        profiles = {}
+        try:
+            with open(SOURCE_FILE, 'r', encoding="UTF-8") as f:
+                lines = f.readlines()
+                for each in lines:
+                    data = json.loads(str(each))
+                    profiles.update(data)
+        except:
+            pass
+        profiles[self.id] = [self.title,
+                             self.permission,
+                             self.time,
+                             self.introduce,
+                             self.images,
+                             self.content]
         with open(SOURCE_FILE, 'w', encoding="UTF-8") as t:
-            json.dump(profiles,t)
-        with open(LOG_FILE,'r+') as f:
+            json.dump(profiles, t)
+        with open(LOG_FILE, 'r+') as f:
             log = f.read()
             if self.id+"\n" not in log:
                 f.seek(0, 0)
@@ -211,6 +247,13 @@ class Blog:
 
     def set_permission(self, flag=True):
         self.permission = flag
+
+    def delete_images(self):
+        file_path = CURRENT_PATH + "/app/static/Data/Blog/" + str(self.id) + "/"
+        shutil.rmtree(file_path)
+        os.mkdir(file_path)
+        self.images = []
+        return
 
     def isPrivate(self):
         return self.permission
