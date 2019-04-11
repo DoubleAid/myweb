@@ -10,24 +10,53 @@
             <article class="post">
                 <form method="post" enctype="multipart/form-data">
                     <ul style="list-style: none;">
-                        <li>
-                            <input type="text" placeholder="标题 (默认公开哦！你可以在标题的后面添加 ::private 来设置为隐私)" name="title" autocomplete="off"/>
+                        {% if data %}
+                            <li>
+                            <input type="text" placeholder="标题 (默认公开哦！你可以在标题的后面添加 ::private 来设置为隐私)" value="{{ data['title'] }}" name="title" autocomplete="off"/>
                             <p></p>
                         </li>
-                        <li>
-                            <textarea style="resize:none;" rows="2" name="introduce" placeholder="简介"></textarea>
+                            <!--<li>-->
+                                <!--<input type="text" placeholder="分类">-->
+                                <!--<p></p>-->
+                            <!--</li>-->
+                            <li>
+                            <textarea style="resize:none;" rows="2" name="introduce" placeholder="简介">{{ data['introduce'] }}</textarea>
                             <p></p>
                         </li>
-                        <li>
+                            <li>
                             <input type="file" multiple="" name="file">
                             <p></p>
                         </li>
-                        <li>
+                            <li>
+                            <p>预览</p>
+                            <div id="overwatch"></div>
+                            <textarea style="resize:none;" row="5" placeholder="markdown 格式" name="content" id="content" onkeyup="compile()">{{ data['content'] }}</textarea>
+                            <p></p>
+                        </li>
+                        {% else %}
+                            <li>
+                                <input type="text" placeholder="标题 (默认公开哦！你可以在标题的后面添加 ::private 来设置为隐私)" name="title" autocomplete="off"/>
+                                <p></p>
+                            </li>
+                            <li>
+                                <input type="text" name="category" id="category" placeholder="分类" onkeyup="get_category()">
+                                <p></p>
+                            </li>
+                            <li>
+                            <textarea style="resize:none;" rows="2" name="introduce" placeholder="简介"></textarea>
+                            <p></p>
+                        </li>
+                            <li>
+                            <input type="file" multiple="" name="file">
+                            <p></p>
+                        </li>
+                            <li>
                             <p>预览</p>
                             <div id="overwatch"></div>
                             <textarea style="resize:none;" row="5" placeholder="markdown 格式" name="content" id="content" onkeyup="compile()"></textarea>
                             <p></p>
                         </li>
+                        {% endif %}
                         <li>
                             <input type="submit" value="上传">
                             <p></p>
@@ -42,6 +71,11 @@
             <!--</ul>-->
         </div>
 <script type="text/javascript">
+$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+function get_category(){
+    var text = document.getElementById("category").value;
+    alert(text);
+}
 function compile(){
     var text = document.getElementById("content").value;
     var converter = new showdown.Converter();
