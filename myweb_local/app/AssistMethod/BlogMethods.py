@@ -33,10 +33,15 @@ LOG_FILE = 'app/static/Data/blog.log'
 class Blog:
     def __init__(self, uuid=None,type="id"):
         """
+        初始化博客类
+        如果没有参数，表示为新的博客，创建通用唯一识别码
         :param uuid:记录为博客的唯一标识符
+        type: type有两种，一种为id，表示输入的uuid为通用唯一识别码
+                        另一种为num，表示输入的uuid为在博客序列号
         :type type:type有两种类型 id 输入 id的hash值，num 为序列数
         """
         if uuid is None:
+            """如果没有通用唯一识别码，表示要新生成一个博客"""
             self.id = self.get_id()
             self.title = ""
             self.time = None
@@ -46,9 +51,11 @@ class Blog:
             self.permission = True
         else:
             if type == "id" and uuid is not None:
+                """表示输入的uuid为通用唯一识别码"""
                 self.id = uuid
             elif type == "num" and uuid is not None:
-                print(self.get_blog_num())
+                """表示输入的uuid为博客序列号"""
+                # print(self.get_blog_num())
                 if uuid > self.get_blog_num():
                     return
                 self.id = linecache.getline(LOG_FILE, uuid).strip()
@@ -87,9 +94,11 @@ class Blog:
 
     def get_id(self):
         """
+        生成一个博客日志中没有使用过的通用唯一识别码 uuid
         :return: 返回值为id，如果存在则返回，不存在就创建一个
         """
         while True:
+            """如果生成的uuid存在就重新生成，知道不相同为止"""
             id = str(uuid.uuid4())
             with open(SOURCE_FILE) as f:
                 try:
