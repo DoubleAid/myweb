@@ -1,12 +1,22 @@
+# ---------- 导入蓝图 ----------
+# 从 各个 分界面导入 蓝图
+# blog 为 博客 蓝图
+# music 为 音乐 蓝图
 from .main import main
 from .Adminstrator import adminstartor
-from .Blog import blog
-#需要注册的 蓝图列表
-#gesh
+from app.Views.navigation.Blog import blog
+from app.Views.navigation.Music import music
+from app.Views.navigation.Video import video
+from app.Views.navigation.Message import message
+
+# 注册蓝图
 DEFAULT_BLUEPRINT = (
     (main, ''),
     (adminstartor, '/Login'),
-    (blog, '/blog')
+    (blog, '/blog'),
+    (music, '/music'),
+    (video, '/video'),
+    (message, '/message')
 )
 
 
