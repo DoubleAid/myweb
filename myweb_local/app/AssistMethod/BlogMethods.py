@@ -13,13 +13,27 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'JPG', 'PNG', 'bmp'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-#test
-# SOURCE_FILE = "../Data/blog.json"
-# LOG_FILE = '../Data/blog.log'
-# web
-SOURCE_FILE = 'app/static/Data/index.json'
-LOG_FILE = 'app/static/Data/blog.log'
 
+# web 页面文件位置
+# SOURCE_FILE = 'app/static/source/blog/'
+# INDEX_FILE = 'app/static/source/blog/index.json'
+# 测试时文件位置
+SOURCE_FILE = '../static/source/blog/'
+INDEX_FILE = '../static/source/blog/index.json'
+
+HEAD = ['title', 'last_fetch_time', 'assort', 'permission']
+CONTENT = ['introduce', 'image', 'article', 'message']
+
+# 博客保存方式
+# 博客通过类别进行分类，没有指定类别的将分配到default类中去
+# 通过 index.json 按博客类别 划分
+# index 格式
+# {
+#   time:{ uuid:[类别,time] }, time 的格式 YYMMDDHHMM 十位数
+#   assort [
+#               assort_name: [uuid] # 按时间排序
+#           ]
+# }
 # json 格式
 # [
 #   title: 标题
@@ -31,248 +45,52 @@ LOG_FILE = 'app/static/Data/blog.log'
 # ]
 
 class Blog:
-    def __init__(self, uuid=None,type="id"):
+    def __init__(self, uuid=None,type="uuid"):
         """
         初始化博客类
         如果没有参数，表示为新的博客，创建通用唯一识别码
-        :param uuid:记录为博客的唯一标识符
+        uuid:记录为博客的唯一标识符
         type: type有两种，一种为id，表示输入的uuid为通用唯一识别码
                         另一种为num，表示输入的uuid为在博客序列号
         :type type:type有两种类型 id 输入 id的hash值，num 为序列数
         """
         if uuid is None:
-            """如果没有通用唯一识别码，表示要新生成一个博客"""
-            self.id = self.get_id()
-            self.title = ""
-            self.time = None
-            self.introduce = ""
-            self.images = []
-            self.content = ""
-            self.permission = True
+            # 如果没有通用唯一识别码，表示要新生成一个博客
+            self.blog = {'head': {'assort':'default'}, 'content': {}, 'id': Blog.create_uuid()}
         else:
-            if type == "id" and uuid is not None:
-                """表示输入的uuid为通用唯一识别码"""
-                self.id = uuid
+            if type == "uuid" and uuid is not None:
+                # 表示输入的uuid为通用唯一识别码"""
+                self.blog = self.get_blog_by_uuid(uuid)
             elif type == "num" and uuid is not None:
-                """表示输入的uuid为博客序列号"""
-                # print(self.get_blog_num())
-                if uuid > self.get_blog_num():
-                    return
-                self.id = linecache.getline(LOG_FILE, uuid).strip()
-                if len(self.id)==0:
-                    return
-            data = self.get()
-            if data is False:
-                print("no find")
-                return
-            self.title = data[0]
-            self.permission = data[1]
-            self.time = data[2]
-            self.introduce = data[3]
-            self.images = data[4]
-            self.content = data[5]
+                # 表示输入的uuid为博客序列号"""
+                self.blog = self.get_blog_by_num(uuid)
 
-    @staticmethod
-    def delete(self):
-        delete_id = id
+    def delete_blog(self):
+        delete_id = self.blog['id']
         try:
-            with open(SOURCE_FILE, "w+") as f:
-                try:
-                    profiles = json.load(f)
-                    if delete_id in profiles:
-                        profiles.pop(delete_id)
-                    else:
-                        print("No Found in the Source profile")
-                        return False
-                    f.write(json.dumps(profiles))
-                    return True
-                except ValueError:
-                    return False
+            # 先读取 index_file, 获取 blog 的 路径
+            with open(INDEX_FILE,'r+') as index:
+                index_profile = json.load(index)
+                assort_name = index_profile['time'][delete_id][0]
+            source_file_path = SOURCE_FILE+assort_name+"/blog.json"
+            index_profile['time'].pop(delete_id)
+            index_profile["assort"][assort_name].remove(delete_id)
+            with open(INDEX_FILE,'w+') as index:
+                json.dump(index_profile,index)
         except:
-            print("open Source file failed")
+            print("delete operation in index file failed")
             return False
-
-    def get_id(self):
-        """
-        生成一个博客日志中没有使用过的通用唯一识别码 uuid
-        :return: 返回值为id，如果存在则返回，不存在就创建一个
-        """
-        while True:
-            """如果生成的uuid存在就重新生成，知道不相同为止"""
-            id = str(uuid.uuid4())
-            with open(SOURCE_FILE) as f:
-                try:
-                    user_profiles = json.load(f)
-                except:
-                    return id
-                if id not in user_profiles:
-                    f.close()
-                    return id
-
-    def get(self):
         try:
-            with open(SOURCE_FILE) as f:
-                user_profiles = json.load(f)
-                if self.id in user_profiles:
-                    return user_profiles[self.id]
-        except IOError:
-            pass
-        except ValueError:
-            pass
-        return False
-
-    def modify(self, mtype, value):
-        if mtype == "title":
-            self.title = value
-        elif mtype == "introduce":
-            self.introduce = value
-        elif mtype == "content":
-            self.content = value
-        elif mtype == "time":
-            self.time = value
-        elif mtype == "data":
-            self.title = value[0]
-            self.permission = value[1]
-            self.time = value[2]
-            self.introduce = value[3]
-            self.images = value[4]
-            self.content = value[5]
-        else:
+            # 读取 source_profiles, 删除 相应的 博客
+            with open(source_file_path,'r+') as blog_profiles:
+                blogs = json.load(blog_profiles)
+                blogs.pop(delete_id)
+            with open(source_file_path,'w+') as blog_profiles:
+                json.dump(blogs,blog_profiles)
+        except:
+            print("delete operation in source file failed")
             return False
         return True
-
-    def add_title(self, title):
-        self.title = title
-
-    def get_title(self):
-        return self.title
-
-    def get_introduce(self):
-        return self.introduce
-
-    def get_time(self):
-        return self.time
-
-    def get_content(self):
-        return self.content
-
-    def get_permission(self):
-        return self.permission
-
-    def get_data(self):
-        try:
-            data = {
-                'id': self.id,
-                'title': self.title,
-                'permission': self.permission,
-                'time': self.time,
-                'introduce': self.introduce,
-                'images': self.images,
-                'content': self.content
-            }
-            return data
-        except:
-            return None
-
-    @staticmethod
-    def get_blog_num():
-        with open(LOG_FILE, 'r+') as f:
-            lines = f.readlines()
-            count = 0
-            for line in lines:
-                if len(line) != 0 and line != "\n":
-                    count += 1
-            return count
-
-    @staticmethod
-    def delete_blog(uuid):
-        #删除log
-        try:
-            with open(LOG_FILE, 'w+') as f:
-                lines = f.readlines()
-                lines.remove(str(uuid)+"\n")
-                for line in lines:
-                    f.readline(line)
-        except:
-            print("unfind uuid in LOG_FILE")
-        # 删除json
-        Blog.delete(uuid)
-        #删除图片
-        file_path = CURRENT_PATH + "/app/static/Data/Blog/" + str(uuid) + "/"
-        try:
-            shutil.rmtree(file_path)
-        except:
-            print("unfind file path"+str(file_path))
-        return
-
-    def add_introduce(self, introduce):
-        self.introduce = introduce
-
-    def add_content(self,content):
-        self.content = content
-
-    def add_time(self,ntime=None):
-        if ntime is None:
-            ntime = time.strftime("%Y-%m-%d %H:%M", time.localtime())
-            self.time = ntime
-        else:
-            self.time = ntime
-
-    def add_image(self,file):
-        file_path = CURRENT_PATH + "/app/static/Data/Blog/"+str(self.id)+"/"
-        if allowed_file(file.filename):
-            print(file_path)
-            if os.path.exists(file_path) is False:
-                os.mkdir(file_path)
-            file.save(file_path+file.filename)
-            self.images.append(file.filename)
-        return
-
-    def save(self):
-        if self.time is None:
-            self.add_time()
-        profiles = {}
-        try:
-            with open(SOURCE_FILE, 'r', encoding="UTF-8") as f:
-                lines = f.readlines()
-                for each in lines:
-                    data = json.loads(str(each))
-                    profiles.update(data)
-        except:
-            pass
-        profiles[self.id] = [self.title,
-                             self.permission,
-                             self.time,
-                             self.introduce,
-                             self.images,
-                             self.content]
-        with open(SOURCE_FILE, 'w', encoding="UTF-8") as t:
-            json.dump(profiles, t)
-        with open(LOG_FILE, 'r+') as f:
-            log = f.read()
-            if self.id+"\n" not in log:
-                f.seek(0, 0)
-                f.writelines(self.id+"\n"+str(log))
-
-    def set_permission(self, flag=True):
-        self.permission = flag
-
-    def delete_images(self):
-        file_path = CURRENT_PATH + "/app/static/Data/Blog/" + str(self.id) + "/"
-        shutil.rmtree(file_path)
-        os.mkdir(file_path)
-        self.images = []
-        return
-
-    def isPrivate(self):
-        return self.permission
-
-# if __name__ == "__main__":
-#     blog = Blog()
-#     blog.modify(type="title",value="asdfasdfeee")
-#     blog.modify(type="introduce",value="hhhhhhh,adf我从未见过如此厚颜无耻之人")
-#     blog.save()
-
 
 
 
