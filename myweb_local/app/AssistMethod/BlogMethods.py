@@ -244,3 +244,22 @@ class Blog:
             with open(source_file_path, mode="w+") as f:
                 blog_profiles[uuid] = self.blog
                 json.dump(blog_profiles,f)
+
+                
+# if __name__ == "__main__":
+#     # # 增
+#     blog = Blog()
+#     blog.write_item('title','12345')
+#     blog.save_blog()
+
+    # 查
+    # blog = Blog(type='uuid',uuid="03340bf5-87eb-43a1-9fed-4e8d1df9e7a0")
+    # print(blog)
+    # print(blog.get_blog_num())
+    # print(blog.get_item("ALL"))
+    #
+    #
+    # blog = Blog(type="num",uuid=1)
+    # print(blog.get_blog_num())
+    # blog.delete_blog()
+    # print(blog.get_blog_num())
