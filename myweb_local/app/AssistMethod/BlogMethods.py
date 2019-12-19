@@ -56,14 +56,13 @@ class Blog:
         """
         if uuid is None:
             # 如果没有通用唯一识别码，表示要新生成一个博客
-            self.blog = {'head': {'assort':'default'}, 'content': {}, 'id': Blog.create_uuid()}
-        else:
-            if type == "uuid" and uuid is not None:
-                # 表示输入的uuid为通用唯一识别码"""
-                self.blog = self.get_blog_by_uuid(uuid)
-            elif type == "num" and uuid is not None:
-                # 表示输入的uuid为博客序列号"""
-                self.blog = self.get_blog_by_num(uuid)
+            self.blog = {'head': {'assort':'default','permission':0}, 'content': {}, 'id': Blog.create_uuid()}
+        elif type == "uuid" and uuid is not None:
+            # 表示输入的uuid为通用唯一识别码"""
+            self.blog = self.get_blog_by_uuid(uuid)
+        elif type == "num" and uuid is not None:
+            # 表示输入的uuid为博客序列号"""
+            self.blog = self.get_blog_by_num(uuid)
 
     def delete_blog(self):
         delete_id = self.blog['id']
@@ -109,16 +108,15 @@ class Blog:
             id = str(uuid.uuid4())
             if id not in id_set:
                 return id
-
+    
+    # 获取 某个 类别 下 的所有 uuid 列表
     @staticmethod
     def get_blogs_by_assort(assort_name):
-        ans = []
-        with open(SOURCE_FILE) as f:
+        with open(INDEX_FILE) as f:
             blog_profiles = json.load(f)
-        for blog_id in blog_profiles:
-            if blog_profiles[blog_id]['head']['assort'] == assort_name:
-                ans.append(blog_profiles[blog_id])
-        return ans
+        if assort_name in blog_profiles['assort']:
+            return blog_profiles['assort'][assort_name]
+        return False
 
     @staticmethod
     def get_blog_by_num(num):
@@ -161,7 +159,7 @@ class Blog:
             return True
         return False
 
-    def get_item(self, mtype):
+    def get_item(self, mtype="all"):
         mtype = mtype.lower()
         try:
             if mtype == "id":
@@ -174,6 +172,7 @@ class Blog:
                 return self.blog
         except:
             return False
+        return False
 
     @staticmethod
     def get_blog_num():
@@ -191,13 +190,15 @@ class Blog:
         for t in [ct.tm_year%100,ct.tm_mon,ct.tm_mday,ct.tm_hour,ct.tm_min]:
             ans *= 100
             ans += t
-        return ans
+        strn = "{}-{}-{} {}:{}".format(ct.tm_year,ct.tm_mon,ct.tm_mday,ct.tm_hour,ct.tm_min)
+        return [ans, strn]
 
     def save_blog(self):
         uuid = self.blog['id']
         new_assort_name = self.blog['head']['assort']
-        current_time = self.get_current_time()
-        self.blog['head']['last_fetch_time'] = current_time
+        ctime = self.get_current_time()
+        current_time = ctime[0]
+        self.blog['head']['last_fetch_time'] = ctime[1]
         # 打开index.json, 先读取 json
         with open(INDEX_FILE, mode='r+') as f:
             # 尝试读取 index_file
