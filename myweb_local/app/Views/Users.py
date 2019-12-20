@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from flask_login import current_user
 
 profile = Blueprint('profile', __name__)
 
@@ -21,3 +22,11 @@ def about(user_url_slug):
     # 做些处理
     # return render_template('profile/about.html')
     return "about"
+
+
+def get_current_user():
+    try:
+        name = current_user.username
+    except:
+        name = None
+    return name
