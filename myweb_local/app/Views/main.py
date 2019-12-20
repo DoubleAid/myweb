@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, url_for, redirect,request, jsonify
 from flask_login import current_user, logout_user
 from app.AssistMethod.BlogMethods import Blog
+
 main = Blueprint('main', __name__)
 
 
@@ -10,10 +11,8 @@ def homepage():
         name = current_user.username
     except:
         name = None
-    if name is not None:
-        return render_template('homepages/homepage.html', user=name)
-    else:
-        return render_template('homepages/homepage.html')
+    return render_template('homepages/homepage.html', user=name)
+
 
 
 @main.route('/getnext')
@@ -24,8 +23,9 @@ def get_next_date():
         return jsonify(result={'page': id, 'html': None})
     else:
         blog = Blog(uuid=id, type="num")
-        data = blog.get_data()
+        data = blog.get_item(mtype="ALL")
         return jsonify(result={'page': id+1, 'html': data})
+
 
 ##########
 # get_brief 函数用来获取最近发出的博客信息
@@ -35,7 +35,7 @@ def get_brief():
     # for i in range(5):
     #     if i > Blog.get
     return jsonify(result="asdsa")
-    
+
 @main.route('/Logout')
 def logout():
     logout_user()
