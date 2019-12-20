@@ -1,75 +1,88 @@
 {% extends "base.html" %}
 {% block link %}
 <link rel="stylesheet" href="{{ url_for('static',filename='css/blog/blog_write.css') }}" />
-<script src="{{ url_for('static',filename='js/showdown.min.js') }}"></script>
 {% endblock %}
 
 {% block main %}
 
 <div id="main">
-            <article class="post">
-                <form method="post" enctype="multipart/form-data">
-                    <ul style="list-style: none;">
-                        {% if data %}
-                            <li>
-                            <input type="text" placeholder="标题 (默认公开哦！你可以在标题的后面添加 ::private 来设置为隐私)" value="{{ data['title'] }}" name="title" autocomplete="off"/>
+    <article class="post">
+        <form method="post" enctype="multipart/form-data">
+            <ul style="list-style: none;">
+                {% if blog %}
+                    <li>
+                        <input type="text" placeholder="标题" value="{{ blog['title'] }}" name="title" autocomplete="off"/>
+                        <p></p>
+                    </li>
+                    {% if blog['head']['permission'] == 0 %}
+                        <li>
+                            <input type="radio" name="permission" value="1"> 设置为隐私
+                            <input type="radio" name="permission" value="1">
                             <p></p>
                         </li>
-                            <!--<li>-->
-                                <!--<input type="text" placeholder="分类">-->
-                                <!--<p></p>-->
-                            <!--</li>-->
-                            <li>
-                            <textarea style="resize:none;" rows="2" name="introduce" placeholder="简介">{{ data['introduce'] }}</textarea>
+                    {% else %}
+                        <li>
+                            <input type="radio" name="permission" value="1" checked> 设置为隐私
                             <p></p>
                         </li>
-                            <li>
-                            <input type="file" multiple="" name="file">
-                            <p></p>
-                        </li>
-                            <li>
-                            <p>预览</p>
-                            <div id="overwatch"></div>
-                            <textarea style="resize:none;" row="5" placeholder="markdown 格式" name="content" id="content" onkeyup="compile()">{{ data['content'] }}</textarea>
-                            <p></p>
-                        </li>
-                        {% else %}
-                            <li>
-                                <input type="text" placeholder="标题 (默认公开哦！你可以在标题的后面添加 ::private 来设置为隐私)" name="title" autocomplete="off"/>
-                                <p></p>
-                            </li>
-                            <li>
-                                <input type="text" name="category" id="category" placeholder="分类" onkeyup="get_category()">
-                                <p></p>
-                            </li>
-                            <li>
+                    {% endif %}
+                    <li>
+                        <textarea style="resize:none;" rows="2" name="introduce" placeholder="简介">
+                            {{ blog['content']['introduce'] }}\
+                        </textarea>
+                        <p></p>
+                    </li>
+                    <li>
+                        <input type="file" multiple="" name="file">
+                        <p></p>
+                    </li>
+                    <li>
+                        <p>预览</p>
+                        <div id="overwatch"></div>
+                        <textarea style="resize:none;" row="5" placeholder="markdown 格式" name="content" id="content" onkeyup="compile()">
+                            {{ blog['content']['article'] }}
+                        </textarea>
+                        <p></p>
+                    </li>
+                {% else %}
+                    <li>
+                        <input type="text" placeholder="标题 (默认公开哦！你可以在标题的后面添加 ::private 来设置为隐私)" name="title" autocomplete="off"/>
+                        <p></p>
+                    </li>
+                    <li>
+                        <input type="text" name="category" id="category" placeholder="分类" onkeyup="get_category()">
+                        <p></p>
+                    </li>
+                    <li>
                             <textarea style="resize:none;" rows="2" name="introduce" placeholder="简介"></textarea>
                             <p></p>
                         </li>
-                            <li>
-                            <input type="file" multiple="" name="file">
-                            <p></p>
-                        </li>
-                            <li>
-                            <p>预览</p>
-                            <div id="overwatch"></div>
-                            <textarea style="resize:none;" row="5" placeholder="markdown 格式" name="content" id="content" onkeyup="compile()"></textarea>
-                            <p></p>
-                        </li>
-                        {% endif %}
-                        <li>
-                            <input type="submit" value="上传">
-                            <p></p>
-                        </li>
-                    </ul>
-                </form>
-            </article>
+                    <li>
+                        <input type="file" multiple="" name="file">
+                        <p></p>
+                    </li>
+                    <li>
+                        <p>预览</p>
+                        <div id="overwatch"></div>
+                        <textarea style="resize:none;" row="5" placeholder="markdown 格式" name="content" id="content" onkeyup="compile()">
+
+                        </textarea>
+                        <p></p>
+                    </li>
+                {% endif %}
+                    <li>
+                        <input type="submit" value="上传">
+                        <p></p>
+                    </li>
+            </ul>
+        </form>
+    </article>
             <!--页面显示-->
 
             <!--<ul class="actions pagination">-->
                 <!--<li><a href="#" class="disabled button big next"></a></li>-->
             <!--</ul>-->
-        </div>
+</div>
 <script type="text/javascript">
 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 function get_category(){
@@ -83,4 +96,7 @@ function compile(){
     document.getElementById("overwatch").innerHTML = html;
 }
 </script>
+{% endblock %}
+{% block javascript %}
+<script src="{{ url_for('static',filename='vendor/showdown/showdown.min.js') }}"></script>
 {% endblock %}
