@@ -1,76 +1,25 @@
 {% extends "base.html" %}
+{% block link %}
+    <script src="{{ url_for('static',filename='js/blog/common/blog_get_next.js') }}"></script>
+{% endblock %}
 {% block main %}
-
-        <!--main-->
-        <div id="main">
-            <div id="article">
-            <article class="post">
-                <header>
-                    <!--博客题目-->
-                    <div class="title">
-                        <!--标题-->
-                        <h2><a href="#">第一篇，纪念我们的爱情</a></h2>
-                        <!--简介-->
-                        <p>大狗二狗的狗窝准备开工啦，希望大猪蹄子能够每天开开心心</p>
-                    </div>
-
-                    <!--相关信息-->
-                    <div class="meta">
-                        <time class="published" datetime="2019-3-13">3-13 1:29</time>
-                        <a href="#" class="author">
-                            <span class="name">大狗</span>
-                            <img src="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" alt="" />
-                        </a>
-                    </div>
-                </header>
-                <!--图片-->
-                <a href="#" class="image featured">
-                    <img src="{{ url_for('static',filename='images/photos/2019/3/01.jpeg') }}" alt="" />
-                </a>
-                <p>
-                    这是第一篇文章,狗窝才刚刚搭上第一块砖，作为开篇的第一句当然要来一句，李雪锴！李二狗！李大猪蹄！我爱你！
-                    不知不觉已经和二狗牵手走过了两年啦，��，二狗总是担心工作的问题，有点闷闷不乐的，但我觉得宝宝完全没有必要，因为锴锴是我见过的最努力的人了，
-                    我比较担心我会待在南京回不去，我不想分开，我想如果之后不行的话，就去苏州在找一个工作吧！
-                </p>
-                <footer>
-                    <ul class="actions">
-                        <li>
-                            <a href="#" class="button big">继续阅读</a>
-                        </li>
-                    </ul>
-                    <ul class="stats">
-                        <li>
-                            <a href="#" >我的罗曼史</a>
-                        </li>
-                        <li>
-                            <a href="#" class="icon fa-heart">0</a>
-                        </li>
-                        <li>
-                            <a href="#" class="icon fa-comment">0</a>
-                        </li>
-                    </ul>
-                </footer>
-            </article>
-            </div>
-            <ul class="actions pagination">
-                <!--<li><a href="#" id="submit" class="disabled button big next">显示更多</a></li>-->
-                <li><a href="#" id="submit" class="button big next">显示更多</a></li>
-                <li><input type="hidden" name="next_data" value="1"></li>
-            </ul>
-        </div>
+    <!--main-->
+    <div id="main">
+        <a></a>
 
         <!--左侧目录-->
         <section id="sidebar">
             <!--介绍-->
             <section id="intro">
-                <a href="#" class="logo"><img src="{{ url_for('static', filename='images/icons/twodog.jpeg') }}" alt="" /></a>
+                <a href="#" class="logo">
+                    <img src="{{ url_for('static', filename='source/image/icon/twodog.jpeg') }}" alt="" />
+                </a>
                 <header>大狗二狗的狗窝</header>
             </section>
 
             <!--最近创作-->
             <section>
                 <div class="mini-posts">
-
                     <!--小简介-->
                     <article class="mini-post">
                         <header>
@@ -93,62 +42,14 @@
                 </div>
             </section>
         </section>
-<script type="text/javascript">
-  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-  $(function() {
-    $('#submit').bind('click', function() {
-      $.getJSON($SCRIPT_ROOT + '/getnext', {
-        page: $('input[name="next_data"]').val()
-      }, function(data) {
-        $('input[name="next_data"]').val(data.result['page']);
-        if (data.result['html']==null)
-        {
-            document.getElementById("submit").className = "disabled button big next";
-            document.getElementById("submit").innerHTML = "没有更多了";
-        }
-        else
-        {
-            var html = '<article class="post">'+
-                    '<header>'+
-                        '<div class="title">'+
-                            '<h2>'+'<a href="/blog/'+ data.result['html']['id'] +'">'+data.result['html']['title']+'</a>'+'</h2>'+
-                            '<p>'+data.result['html']['introduce']+'</p>'+
-                        '</div>'+
-                        '<div class="meta">'+
-                            '<time class="published" datetime="2019-3-13">'+data.result['html']['time']+'</time>'+
-                            '<a href="#" class="author">'+
-                                '<span class="name">'+'大狗'+'</span>'+
-                            '</a>'+
-                        '</div>'+
-                    '</header>'+
-                    '<a href="#" class="image featured">'+
-                        '<img src="../static/Data/Blog/'+ data.result['html']['id']+'/'+data.result['html']['images'][0]+'" alt="" />'+
-                    '</a>'+
-                    '<footer>'+
-                        '<ul class="actions">'+
-                            '<li>'+
-                                '<a href="/blog/'+ data.result['html']['id'] +'" class="button big">'+'继续阅读'+'</a>'+
-                            '</li>'+
-                        '</ul>'+
-                        '<ul class="stats">'+
-                            '<li>'+
-                                '<a href="#" >'+'我的罗曼史'+'</a>'+
-                            '</li>'+
-                            '<li>'+
-                                '<a href="#" class="icon fa-heart">'+'0'+'</a>'+
-                            '</li>'+
-                            '<li>'+
-                                '<a href="#" class="icon fa-comment">'+'0'+'</a>'+
-                            '</li>'+
-                        '</ul>'+
-                    '</footer>'+
-                '</article>'
-            $("#article").append(html);
-        }
-      });
-      return false;
-    });
-  });
-</script>
+{% endblock %}
+{% block javascript %}
+    <script>
 
+        function run_init_func(){
+            window.alert($script_root);
+            sidebar_get_blog_brif();
+        }
+        window.onload=run_init_func;
+    </script>
 {% endblock %}
