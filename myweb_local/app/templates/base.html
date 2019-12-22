@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <title>大狗二狗的狗窝</title>
     <!-- 指定图标 -->
-    <link rel="icon" href="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" type="image/x-icon">
-    {% block link %}{% endblock %}
+    <link rel="icon" href="{{ url_for('static',filename='source/image/icon/twodog.jpeg') }}" type="image/x-icon">
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage/homepage.css') }}">
+    {% block link %}{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/index/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='fonts/font-awesome.min.css') }}" >
     <!--[if lte IE 8]>
     <script src="{{ url_for('static',filename='vendor/ie/js/html5shiv.js') }}"></script>
     <![endif]-->
@@ -18,13 +18,12 @@
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="{{ url_for('static',filename='vendor/ie/css/ie8.css') }}" /><![endif]-->
 </head>
-<body onload="getInfo()">
-<!--在body里添加getInfo函数，用于各个页面通过该函数获取初始信息-->
+<body>
     <div id="wrapper">
         <header id="header">
             <a href="/">
                 <h1>
-                    两只汪财
+                    卞广刚的小窝
                 </h1>
             </a>
             <nav class="links">
@@ -65,13 +64,13 @@
                         <a href="/blog">写点日志</a>
                     </li>
                     <li>
-                        <a href="#">撒狗粮啦</a>
+                        <a href="/video">图片视频</a>
                     </li>
                     <li>
-                        <a href="#">娱乐活动</a>
+                        <a href="/music">音乐合集</a>
                     </li>
                     <li>
-                        <a href="#">留下你的爪印</a>
+                        <a href="/message">留下你的爪印</a>
                     </li>
                 </ul>
             </section>
@@ -89,12 +88,20 @@
         </section>
         {% block main %}{% endblock %}
     </div>
-
     <!--Script-->
-    <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js/skel.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js/util.js') }}"></script>
-    <!--[if lte IE 8]><script src="{{ url_for('static', filename='js/ie/respond.min.js') }}"></script><![endif]-->
-    <script src="{{ url_for('static',filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static',filename='vendor/skel/skel.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='vendor/util/util.js') }}"></script>
+    <!--[if lte IE 8]>
+    <script src="{{ url_for('static', filename='vendor/ie/js/respond.min.js') }}"></script>
+    <![endif]-->
+    <script src="{{ url_for('static',filename='vendor/main/main.js') }}"></script>
+    {% block javascript %}{% endblock %}
+    <script type="text/javascript">
+        function img_no_find(){
+            var img = event.srcElement;
+            img.src = "{{ url_for('static',filename='images/Error/default.png') }}";
+            img.onerror = null;
+        }
+    </script>
 </body>
 </html>

@@ -1,7 +1,4 @@
 {% extends "base.html" %}
-{% block link %}
-<script src="{{ url_for('static',filename='js/showdown.min.js') }}"></script>
-{% endblock %}
 {% block main %}
     <div id="main">
             <article class="post">
@@ -9,42 +6,48 @@
                     <!--博客题目-->
                     <div class="title">
                         <!--标题-->
-                        <h2><a href="#">{{ data['title'] }}</a></h2>
+                        <h2><a href="#">{{ blog['head']['title'] }}</a></h2>
                         <!--简介-->
-                        <p>{{ data['introduce'] }}</p>
+                        <p>{{ blog['content']['introduce'] }}</p>
                     </div>
 
                     <!--相关信息-->
                     <div class="meta">
-                        <time class="published" datetime="2019-3-13">{{ data['time'] }}</time>
+                        <time class="published" datetime="2019-3-13">{{ blog['head']['last_fetch_time'] }}</time>
                         <a href="#" class="author">
-                            <span class="name">大狗</span>
+                            <span class="name">{{ blog['head']['assort'] }}</span>
                             <img src="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" alt="" />
                         </a>
                     </div>
                 </header>
                 <!--图片-->
-                {% if data['images'] %}
+                {% if blog['content']['image'] %}
                     {% for image in data['images'] %}
                         <a href="#" class="image featured">
                             <img src="../static/Data/Blog/{{ data['id'] }}/{{ image }}" alt="" />
                         </a>
                     {% endfor %}
+                {% else %}
+                    <a href="#" class="image featured">
+                        <img src="{{ url_for('static',filename='source/image/error/default.jpg') }}" alt="" />
+                    </a>
                 {% endif %}
                 <div id="content">
-                    {{ data['content']|safe}}
+                    {{ blog['content']['article']|safe}}
                 </div>
-                <footer>
-
-                </footer>
             </article>
 
             <!--页面显示-->
 
             <ul class="actions pagination">
-                <li><a href="{{ data['id'] }}/modify" class="button big before">修改</a></li>
-                <li><a href="{{ data['id'] }}/delete" class="button big before">删除</a></li>
+                {% if user %}
+                    <li><a href="{{ blog['id'] }}/modify" class="button big before">修改</a></li>
+                    <li><a href="{{ blog['id'] }}/delete" class="button big before">删除</a></li>
+                {% endif %}
                 <li><a href="#" class="disabled button big next">下一篇</a></li>
             </ul>
         </div>
+{% endblock %}
+{% block javascript %}
+<script src="{{ url_for('static',filename='js/showdown.min.js') }}"></script>
 {% endblock %}

@@ -2,65 +2,69 @@
 {% block main %}
         <!--main-->
         <div id="main">
-            <div id="article">
-            {% if data %}
-                <article class="post">
-                <header>
-                    <!--博客题目-->
-                    <div class="title">
-                        <!--标题-->
-                        <h2><a href="/blog/{{ data['id'] }}">{{ data['title'] }}</a></h2>
-                        <!--简介-->
-                        <p>{{ data['introduce'] }}</p>
-                    </div>
-
-                    <!--相关信息-->
-                    <div class="meta">
-                        <time class="published" datetime="2019-3-13">{{ data['time'] }}</time>
-                        <a href="#" class="author">
-                            <span class="name">大狗</span>
-                            <img src="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" alt="" />
-                        </a>
-                    </div>
-                </header>
-                <!--图片-->
-                    {% if data['images'] %}
-                <a href="/blog/{{ data['id'] }}" class="image featured">
-                    <img src="../static/Data/Blog/{{ data['id'] }}/{{ data['images'][0] }}" alt="" />
-                </a>
-                    {% endif %}
-
-                <footer>
-                    <ul class="actions">
-                        <li>
-                            <a href="/blog/{{ data['id'] }}" class="button big">继续阅读</a>
-                        </li>
-                    </ul>
-                    <ul class="stats">
-                        <li>
-                            <a href="#" >我的罗曼史</a>
-                        </li>
-                        <li>
-                            <a href="#" class="icon fa-heart">0</a>
-                        </li>
-                        <li>
-                            <a href="#" class="icon fa-comment">0</a>
-                        </li>
-                    </ul>
-                </footer>
-            </article>
+            {% if blog_num == 0 %}
+                <h2>现在还没有博客，快去写一个把</h2>
+            {% else %}
+                <div id="article">
+                {% for blog in blog_set %}
+                        <article class="post">
+                            <header>
+                                <div class="title">
+                                    <h2><a href="/blog/{{ blog['id'] }}">{{ blog['head']['title'] }}</a></h2>
+                                    <p>{{ blog['introduce'] }}</p>
+                                </div>
+                                <div class="meta">
+                                    <time class="published" datetime="2019-3-13">{{ blog['head']['last_fetch_time'] }}</time>
+                                    <a href="#" class="author">
+                                        <span class="name">en</span>
+                                        <img src="{{ url_for('static',filename='source/image/icon/twodog.jpeg') }}" alt=""/>
+                                    </a>
+                                </div>
+                            </header>
+                            {% if 'image' in blog['content'] %}
+                                <a href="/blog/{{ blog['id'] }}" class="image featured">
+                                    <img src="../{{ blog['content']['image'] }}" alt="" />
+                                </a>
+                            {% else %}
+                                <a href="/blog/{{ blog['id'] }}" class="image featured">
+                                    <img src="../static/source/image/error/default.jpg" alt="" />
+                                </a>
+                            {% endif %}
+                            <footer>
+                                <ul class="actions">
+                                    <li>
+                                        <a href="/blog/{{ blog['id'] }}" class="button big">继续阅读</a>
+                                    </li>
+                                </ul>
+                                <ul class="stats">
+                                    <li>
+                                        {% if 'assort' in blog['head'] %}
+                                            <a href="#">{{ blog['head']['assort'] }}</a>
+                                        {% else %}
+                                            <a href="#">默认</a>
+                                        {% endif %}
+                                    </li>
+                                    <li>
+                                        <a href="#" class="icon fa-heart">0</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="icon fa-comment">0</a>
+                                    </li>
+                                </ul>
+                            </footer>
+                        </article>
+                {% endfor %}
+                </div>
             {% endif %}
-            <!--页面显示-->
-            </div>
             <ul class="actions pagination">
                 <!--<li><a href="#" id="submit" class="disabled button big next">显示更多</a></li>-->
                 <li><a href="#" id="submit" class="button big next">显示更多</a></li>
-                <li><input type="hidden" name="next_data" value="2"></li>
+                <li><input type="hidden" name="next_data" value="{{ blog_num }}"></li>
             </ul>
         </div>
 
         <!--左侧目录-->
-        <section id="sidebar">
+        <section id="sidebar" onload="getInfo()">
             <!--介绍-->
             <section id="intro">
                 <a href="#" class="logo"><img src="{{ url_for('static', filename='images/icons/twodog.jpeg') }}" alt="" /></a>
@@ -82,12 +86,16 @@
                             <option value="audi">Audi</option>
                         </select>
                     </li>
+                    <ul>
+                        <li>最近创作</li>
+
+                    </ul>
                 </ul>
             </section>
 
             <!--最近创作-->
             <section>
-                <div class="mini-posts">
+                <div class="mini-posts" id="mini-posts">
                     <!--小简介-->
                     <article class="mini-post">
                         <header>
@@ -95,77 +103,32 @@
                             <time class="published" datetime="2019-12-12">3-13 1:29</time>
                             <h5>大狗二狗的狗窝准备开工啦，希望大猪蹄子能够每天开开心心</h5>
                         </header>
-                        <a href="#" class="image"><img src="{{ url_for('static',filename='images/photos/2019/3/01.jpeg') }}" alt=""/></a>
+                        <a href="#" class="image">
+                            <img src="{{ url_for('static',filename='source/image/error/default.jpg') }}" alt=""/>
+                        </a>
                     </article>
-
                     <article class="mini-post">
                         <header>
                             <h3><a href="#">网站计划表</a></h3>
                             <time class="published" datetime="2019-12-12">3-18 1:15</time>
                             <h5>需要实现的功能的列表以及完成程度，莫名头大</h5>
                         </header>
-                        <a href="#" class="image"><img src="{{ url_for('static',filename='images/photos/2019/3/18.jpg') }}" alt=""/></a>
+                        <a href="#" class="image">
+                            <img src="{{ url_for('static',filename='source/image/error/default_1.jpg') }}" alt=""/>
+                        </a>
                     </article>
-
                 </div>
             </section>
         </section>
-
-<script type="text/javascript">
-  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-  $(function() {
-    $('#submit').bind('click', function() {
-      $.getJSON($SCRIPT_ROOT + '/getnext', {
-        page: $('input[name="next_data"]').val()
-      }, function(data) {
-        $('input[name="next_data"]').val(data.result['page']);
-        if (data.result['html']==null)
-        {
-            document.getElementById("submit").className = "disabled button big next";
-            document.getElementById("submit").innerHTML = "没有更多了";
+{% endblock %}
+{% block javascript %}
+    <script src="{{ url_for('static',filename='js/blog/common/blog_get_next.js') }}"></script>
+    <script>
+        $SCRIPT_ROOT={{ request.script_root|tojson|safe }}
+        function run_init_func(){
+            sidebar_get_blog_brief();
+            button_get_next_blogs();
         }
-        else
-        {
-        var html = '<article class="post">'+
-                '<header>'+
-                    '<div class="title">'+
-                        '<h2>'+'<a href="/blog/'+ data.result['html']['id'] +'">'+data.result['html']['title']+'</a>'+'</h2>'+
-                        '<p>'+data.result['html']['introduce']+'</p>'+
-                    '</div>'+
-                    '<div class="meta">'+
-                        '<time class="published" datetime="2019-3-13">'+data.result['html']['time']+'</time>'+
-                        '<a href="#" class="author">'+
-                            '<span class="name">'+'大狗'+'</span>'+
-                        '</a>'+
-                    '</div>'+
-                '</header>'+
-                '<a href="#" class="image featured">'+
-                    '<img src="../static/Data/Blog/'+ data.result['html']['id']+'/'+data.result['html']['images'][0]+'" alt="" />'+
-                '</a>'+
-                '<footer>'+
-                    '<ul class="actions">'+
-                        '<li>'+
-                            '<a href="/blog/'+ data.result['html']['id'] +'" class="button big">'+'继续阅读'+'</a>'+
-                        '</li>'+
-                    '</ul>'+
-                    '<ul class="stats">'+
-                        '<li>'+
-                            '<a href="#" >'+'我的罗曼史'+'</a>'+
-                        '</li>'+
-                        '<li>'+
-                            '<a href="#" class="icon fa-heart">'+'0'+'</a>'+
-                        '</li>'+
-                        '<li>'+
-                            '<a href="#" class="icon fa-comment">'+'0'+'</a>'+
-                        '</li>'+
-                    '</ul>'+
-                '</footer>'+
-            '</article>'
-        $("#article").append(html);
-        }
-      });
-      return false;
-    });
-  });
-</script>
+        window.onload=run_init_func;
+    </script>
 {% endblock %}

@@ -8,6 +8,7 @@ total_music_interface = "music/total_music_interface.html"
 music_player_interface = "music/music_player_interface.html"
 music_collection_interface = "music/music_collection_interface.html"
 
+
 @music.route('/')
 def show_music_interface():
     return render_template(total_music_interface)

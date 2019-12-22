@@ -5,6 +5,8 @@ import json
 import uuid
 
 PROFILE_FILE = 'app/static/UserData/Users/User.json'
+
+
 class User(UserMixin):
     def __init__(self,username):
         self.username = username

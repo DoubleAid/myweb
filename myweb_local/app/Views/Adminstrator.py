@@ -19,7 +19,7 @@ def login():
             return render_template('adminstartor/LoginIn.html')
         if user.verify_password(password):
             login_user(user, remember=False)
-            return redirect(url_for('main.homepage'))
+            return redirect(request.form['next'])
         else:
             return render_template('adminstartor/LoginIn.html', warn='用户名或密码错误')
     return render_template('adminstartor/LoginIn.html')
