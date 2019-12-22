@@ -89,7 +89,6 @@
         {% block main %}{% endblock %}
     </div>
     <!--Script-->
-    <script>$SCRIPT_ROOT = {{ request.script_root|to_json|safe }};</script>
     <script src="{{ url_for('static',filename='vendor/skel/skel.min.js') }}"></script>
     <script src="{{ url_for('static',filename='vendor/util/util.js') }}"></script>
     <!--[if lte IE 8]>

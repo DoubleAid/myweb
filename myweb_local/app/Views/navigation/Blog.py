@@ -32,6 +32,7 @@ def multiple_blogs():
     # 返回 渲染模板
     return render_template('blog/blog_multiply.html', user=name, blog_num=len(blog_set), blog_set=blog_set)
 
+
 @blog.route('/<num>')
 def show_blog_by_uuid(num):
     blog = Blog(num)
@@ -46,6 +47,7 @@ def show_blog_by_uuid(num):
     # 获取 blog content 格式
     blog_info['content']['article'] = markdown.markdown(blog_info['content']['article'], output_format='html5')
     return render_template('blog/blog_single.html',user=user_name, blog=blog_info)
+
 
 @blog.route('/write',methods = ['GET','POST'])
 def write_blog():
@@ -91,6 +93,7 @@ def modify(num):
         return 404
     blog_info = current_blog.get_item()
     return render_template('blog/blog_write.html', user=user_name, blog=blog_info)
+
 
 @blog.route('/<num>/delete')
 def delete(num):

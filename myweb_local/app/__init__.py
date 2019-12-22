@@ -8,6 +8,7 @@ from flask_session import Session
 from app.AssistMethod.UserMethods import User
 import os
 
+
 def config_login(app):
     app.secret_key = os.urandom(24)
     login_manager = LoginManager()
@@ -18,10 +19,12 @@ def config_login(app):
     def load_user(user_id):
         return User.get(user_id)
 
+
 def config_errorhandler(app):
     @app.errorhandler(404)
     def page_not_found(e):
         return render_template('error/404.html',e=e)
+
 
 def create_app():
     app = Flask(__name__)
