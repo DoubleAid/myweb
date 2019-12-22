@@ -3439,3 +3439,17 @@
 			}
 
 		}
+
+/*
+    四分格
+*/
+
+#blog{
+    background-color: rgba(122,50,80,0.8);
+}
+#video{
+    background-color: rgba(50,122,80,0.8);
+}
+#music{
+    background-color: rgba(50,80,122,0.8);
+}

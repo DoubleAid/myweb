@@ -5,8 +5,8 @@
             {% if blog_num == 0 %}
                 <h2>现在还没有博客，快去写一个把</h2>
             {% else %}
+                <div id="article">
                 {% for blog in blog_set %}
-                    <div id="article">
                         <article class="post">
                             <header>
                                 <div class="title">
@@ -17,7 +17,7 @@
                                     <time class="published" datetime="2019-3-13">{{ blog['head']['last_fetch_time'] }}</time>
                                     <a href="#" class="author">
                                         <span class="name">en</span>
-                                        <img src="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" alt=""/>
+                                        <img src="{{ url_for('static',filename='source/image/icon/twodog.jpeg') }}" alt=""/>
                                     </a>
                                 </div>
                             </header>
@@ -53,13 +53,13 @@
                                 </ul>
                             </footer>
                         </article>
-                    </div>
                 {% endfor %}
+                </div>
             {% endif %}
             <ul class="actions pagination">
                 <!--<li><a href="#" id="submit" class="disabled button big next">显示更多</a></li>-->
                 <li><a href="#" id="submit" class="button big next">显示更多</a></li>
-                <li><input type="hidden" name="next_data" value="2"></li>
+                <li><input type="hidden" name="next_data" value="{{ blog_num }}"></li>
             </ul>
         </div>
 
@@ -95,7 +95,7 @@
 
             <!--最近创作-->
             <section>
-                <div class="mini-posts">
+                <div class="mini-posts" id="mini-posts">
                     <!--小简介-->
                     <article class="mini-post">
                         <header>
@@ -122,5 +122,13 @@
         </section>
 {% endblock %}
 {% block javascript %}
-    <script src="{{ url_for('static',filename='css/blog/blog_multiply/get_next_blogs.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/blog/common/blog_get_next.js') }}"></script>
+    <script>
+        $SCRIPT_ROOT={{ request.script_root|tojson|safe }}
+        function run_init_func(){
+            sidebar_get_blog_brief();
+            button_get_next_blogs();
+        }
+        window.onload=run_init_func;
+    </script>
 {% endblock %}

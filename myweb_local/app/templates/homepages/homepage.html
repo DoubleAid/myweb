@@ -5,7 +5,67 @@
 {% block main %}
     <!--main-->
     <div id="main">
-        <a></a>
+        <div class="article">
+            <article class="post" id="blog">
+                <div class="title">
+                    <h2><a href="/blog">我的博客</a></h2>
+                    <p>博客介绍</p>
+                </div>
+                <div class="meta">
+                    <!--<time class="published" datetime="2019-3-13"></time>-->
+                    <a href="#" class="author">
+                        <span class="name">en</span>
+                        <img src="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" alt=""/>
+                    </a>
+                </div>
+            </article>
+        </div>
+        <div class="article">
+            <article class="post" id="video">
+                <div class="title">
+                    <h2><a href="/blog">我的相册</a></h2>
+                    <p>博客介绍</p>
+                </div>
+                <div class="meta">
+                    <!--<time class="published" datetime="2019-3-13"></time>-->
+                    <a href="#" class="author">
+                        <span class="name">en</span>
+                        <img src="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" alt=""/>
+                    </a>
+                </div>
+            </article>
+        </div>
+        <div class="article">
+            <article class="post" id="music">
+                <div class="title">
+                    <h2><a href="/blog">我的音乐</a></h2>
+                    <p>博客介绍</p>
+                </div>
+                <div class="meta">
+                    <!--<time class="published" datetime="2019-3-13"></time>-->
+                    <a href="#" class="author">
+                        <span class="name">en</span>
+                        <img src="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" alt=""/>
+                    </a>
+                </div>
+            </article>
+        </div>
+        <div class="article">
+            <article class="post" id="other">
+                <div class="title">
+                    <h2><a href="/blog">其他</a></h2>
+                    <p>博客介绍</p>
+                </div>
+                <div class="meta">
+                    <!--<time class="published" datetime="2019-3-13"></time>-->
+                    <a href="#" class="author">
+                        <span class="name">en</span>
+                        <img src="{{ url_for('static',filename='images/icons/twodog.jpeg') }}" alt=""/>
+                    </a>
+                </div>
+            </article>
+        </div>
+    </div>
 
         <!--左侧目录-->
         <section id="sidebar">
@@ -19,7 +79,7 @@
 
             <!--最近创作-->
             <section>
-                <div class="mini-posts">
+                <div class="mini-posts" id="mini-posts">
                     <!--小简介-->
                     <article class="mini-post">
                         <header>
@@ -45,10 +105,9 @@
 {% endblock %}
 {% block javascript %}
     <script>
-
+        $SCRIPT_ROOT={{ request.script_root|tojson|safe }}
         function run_init_func(){
-            window.alert($script_root);
-            sidebar_get_blog_brif();
+            sidebar_get_blog_brief();
         }
         window.onload=run_init_func;
     </script>

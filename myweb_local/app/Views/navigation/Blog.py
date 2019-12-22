@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template,url_for,request,redirect, Response
+from flask import Blueprint,render_template,url_for,request,redirect, Response,jsonify
 from app.AssistMethod.BlogMethods import Blog
 import app.Views.Users as User
 import os
@@ -102,3 +102,24 @@ def delete(num):
         return 404
     Blog(num).delete_blog()
     return redirect(url_for('blog.multiple_blogs'))
+
+
+@blog.route('/get_next_blogs')
+def get_next_blogs():
+    start = request.args.get('start', 0, type=int)
+    length = request.args.get('length', 3, type=int)
+
+    # start+length 与 blog的数量进行比较，选出最小的
+    end_num = min(Blog.get_blog_num(),start+length)
+
+    # 返回数据
+    return_data = {'length': 0, 'blogs': [], 'next_start': end_num}
+
+    for num in range(start,end_num):
+        current_blog = Blog(type="num",uuid=num)
+        blog = current_blog.get_item()
+        print(blog)
+        if blog is not False:
+            return_data['blogs'].append(blog)
+            return_data['length'] += 1
+    return jsonify(result=return_data)

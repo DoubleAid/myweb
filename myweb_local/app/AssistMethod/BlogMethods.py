@@ -11,15 +11,17 @@ import shutil
 CURRENT_PATH = os.getcwd()
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'JPG', 'PNG', 'bmp'}
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+
 # web 页面文件位置
-# SOURCE_FILE = 'app/static/source/blog/'
-# INDEX_FILE = 'app/static/source/blog/index.json'
+SOURCE_FILE = 'app/static/source/blog/'
+INDEX_FILE = 'app/static/source/blog/index.json'
 # 测试时文件位置
-SOURCE_FILE = '../static/source/blog/'
-INDEX_FILE = '../static/source/blog/index.json'
+# SOURCE_FILE = '../static/source/blog/'
+# INDEX_FILE = '../static/source/blog/index.json'
 
 HEAD = ['title', 'last_fetch_time', 'assort', 'permission']
 CONTENT = ['introduce', 'image', 'article', 'message']
@@ -35,14 +37,7 @@ CONTENT = ['introduce', 'image', 'article', 'message']
 #           ]
 # }
 # json 格式
-# [
-#   title: 标题
-#   permission: 权限 False为不公开 True为公开
-#   time: 时间
-#   introduce: 简介
-#   images: 图片名
-#   content：博文
-# ]
+
 
 class Blog:
     def __init__(self, uuid=None,type="uuid"):
@@ -233,8 +228,7 @@ class Blog:
         if not os.path.exists(source_path):
             os.makedirs(source_path)
             with open(source_file_path,mode="w+") as f:
-                blog_profiles = {}
-                blog_profiles[uuid] = self.blog
+                blog_profiles = {uuid: self.blog}
                 json.dump(blog_profiles,f)
         else:
             with open(source_file_path, mode="r+") as f:
@@ -247,20 +241,17 @@ class Blog:
                 json.dump(blog_profiles,f)
 
                 
-# if __name__ == "__main__":
-#     # # 增
-#     blog = Blog()
-#     blog.write_item('title','12345')
-#     blog.save_blog()
+if __name__ == "__main__":
 
-    # 查
-    # blog = Blog(type='uuid',uuid="03340bf5-87eb-43a1-9fed-4e8d1df9e7a0")
-    # print(blog)
-    # print(blog.get_blog_num())
-    # print(blog.get_item("ALL"))
-    #
-    #
-    # blog = Blog(type="num",uuid=1)
-    # print(blog.get_blog_num())
-    # blog.delete_blog()
-    # print(blog.get_blog_num())
+    blog = Blog()
+    blog.write_item('title','测试博客五')
+    blog.write_item('introduce',"测试博客五 介绍")
+    blog.write_item('article',"测试博客数据五 文章内容")
+    blog.save_blog()
+
+    blog = Blog()
+    blog.write_item('title', '测试博客六')
+    blog.write_item('introduce', "测试博客六 介绍")
+    blog.write_item('article', "测试博客数据六 文章内容")
+    blog.write_item('assort','python')
+    blog.save_blog()
