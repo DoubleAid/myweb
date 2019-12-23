@@ -16,16 +16,6 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
-# web 页面文件位置
-SOURCE_FILE = 'app/static/source/blog/'
-INDEX_FILE = 'app/static/source/blog/index.json'
-# 测试时文件位置
-# SOURCE_FILE = '../static/source/blog/'
-# INDEX_FILE = '../static/source/blog/index.json'
-
-HEAD = ['title', 'last_fetch_time', 'assort', 'permission']
-CONTENT = ['introduce', 'image', 'article', 'message']
-
 # 博客保存方式
 # 博客通过类别进行分类，没有指定类别的将分配到default类中去
 # 通过 index.json 按博客类别 划分
@@ -36,11 +26,38 @@ CONTENT = ['introduce', 'image', 'article', 'message']
 #               assort_name: [uuid] # 按时间排序
 #           ]
 # }
-# json 格式
+
+# web 页面文件位置
+SOURCE_FILE = 'app/static/source/blog/'
+INDEX_FILE = 'app/static/source/blog/index.json'
+# 测试时文件位置
+# SOURCE_FILE = '../static/source/blog/'
+# INDEX_FILE = '../static/source/blog/index.json'
+
+# -------------- json 格式 ----------------
+# {
+#     id 标识符
+#     head:
+#         {
+#             title 题目
+#             last_fetch_time 最后上传时间 YYMMDDHHMM 十位数
+#             assort 分类
+#             permission 0 外部可见 1 不对外可见
+#         }
+#     content：
+#         {
+#             introduce
+#             image 封面图片
+#             article 文章
+#             message 留言
+#         }
+# }
+HEAD = ['title', 'last_fetch_time', 'assort', 'permission']
+CONTENT = ['introduce', 'image', 'article', 'message']
 
 
 class Blog:
-    def __init__(self, uuid=None,type="uuid"):
+    def __init__(self, uuid=None, type="uuid"):
         """
         初始化博客类
         如果没有参数，表示为新的博客，创建通用唯一识别码
@@ -85,7 +102,7 @@ class Blog:
             print("delete operation in source file failed")
             return False
         return True
-    
+
     @staticmethod
     def create_uuid():
         """
@@ -103,7 +120,7 @@ class Blog:
             id = str(uuid.uuid4())
             if id not in id_set:
                 return id
-    
+
     # 获取 某个 类别 下 的所有 uuid 列表
     @staticmethod
     def get_blogs_by_assort(assort_name):
@@ -141,7 +158,7 @@ class Blog:
                 return blog_profiles[uuid]
         except:
             return False
-    
+
     def write_item(self, mtype, value):
         if mtype in HEAD:
             self.blog['head'][mtype] = value
