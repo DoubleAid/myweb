@@ -87,7 +87,7 @@ function button_post_next_blogs(data){
         $("div[id='article'").append(jump_tip);
 
         // 插入博客
-        for (i=0;i<=data.result['length'];i++){
+        for (i=0;i<data.result['length'];i++){
             var blog_data = data.result['blogs'][i];
             var blog_info = ('<article class="post">'+
                             '<header>'+

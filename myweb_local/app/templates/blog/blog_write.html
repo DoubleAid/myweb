@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block link %}
 <link rel="stylesheet" href="{{ url_for('static',filename='js/blog/blog_write/blog_write.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static',filename='js/blog/blog_write/visibility-display.css') }}" />
 {% endblock %}
 
 {% block main %}
@@ -40,59 +41,101 @@
                             <!--{{ blog['content']['article'] }}-->
                         <!--</textarea>-->
                         <div class="file js-code-editor container-preview show-code   mx-lg-3" data-github-confirm-unload="false">
-  <div class="file-header mb-2 d-flex flex-items-center pr-0">
-
-      <div class="tabnav-tabs js-file-editor-nav d-flex flex-auto d-md-block">
-        <button type="button" class="btn-link code px-3 px-sm-6 px-lg-3 flex-1 flex-md-auto selected tabnav-tab js-blob-edit-code js-blob-edit-tab" aria-current="true" data-tab="show-code">
-          <svg class="octicon octicon-code" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"></path></svg>
-          Edit file
-        </button>
-        <button type="button" class="flex-1 flex-md-auto btn-link preview tabnav-tab js-blob-edit-preview js-blob-edit-tab" data-tab="preview">
-          <svg class="octicon octicon-eye" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
-          Preview changes
-        </button>
-      </div>
-
-      <div class="file-actions d-none d-md-flex px-3 pr-md-6 px-lg-2">
-        <select id="indent-mode" class="form-select select-sm js-code-indent-mode" aria-label="Indent mode">
-          <optgroup label="Indent mode">
-            <option selected="selected" value="space">Spaces</option>
-<option value="tab">Tabs</option>
-          </optgroup>
-        </select>
-
-        <select id="indent-size" class="form-select select-sm js-code-indent-width" aria-label="Indent size">
-          <optgroup label="Indent size">
-            <option selected="selected" value="2">2</option>
-<option value="4">4</option>
-<option value="8">8</option>
-          </optgroup>
-        </select>
-
-        <select id="line-wrap-mode" class="form-select select-sm js-code-wrap-mode" aria-label="Line wrap mode">
-          <optgroup label="Line wrap mode">
-            <option value="off">No wrap</option>
-<option selected="selected" value="on">Soft wrap</option>
-          </optgroup>
-        </select>
-      </div>
-  </div>
-
-  <input type="hidden" name="content_changed" class="js-blob-contents-changed" value="false" data-default-value="">
-
-  <div class="commit-create  position-relative ">
-    <textarea class="form-control file-editor-textarea js-blob-contents js-code-textarea " rows="35" name="value" data-filename="README.md" data-codemirror-mode="text/x-gfm" data-allow-unchanged="" placeholder="Enter file contents here" aria-label="Enter file contents here" spellcheck="false" autofocus="" style="display: none;"># myweb
-the code of my website
-</textarea>
-  <div class="CodeMirror cm-s-github-light CodeMirror-wrap" style="height: 712px;"><div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 53px; margin-bottom: -17px; border-right-width: 13px; min-height: 62px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style="visibility: hidden;"></div><div class="CodeMirror-code" role="presentation" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" tabindex="0"><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" contenteditable="false" style="left: -53px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-header cm-header-1"># myweb</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" contenteditable="false" style="left: -53px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">the code of my website</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" contenteditable="false" style="left: -53px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 13px; width: 1px; border-bottom: 0px solid transparent; top: 62px;"></div><div class="CodeMirror-gutters" style="height: 75px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 53px;"></div></div></div></div></div>
-
-
-  <div class="loading-preview-msg"><p class="preview-msg text-gray">Loading preview…</p></div>
-  <div class="no-changes-preview-msg"><p class="preview-msg text-gray">No changes to display.</p></div>
-  <div class="error-preview-msg"><p class="preview-msg text-gray">Unable to load this preview, sorry.</p></div>
-  <div class="js-commit-preview commit-preview   ">
-  </div>
-</div>
+                            <div class="file-header mb-2 d-flex flex-items-center pr-0">
+                                <div class="tabnav-tabs js-file-editor-nav d-flex flex-auto d-md-block">
+                                    <button type="button" class="btn-link button-edit code px-3 px-sm-6 px-lg-3 flex-1 flex-md-auto selected tabnav-tab js-blob-edit-code js-blob-edit-tab" aria-current="true" data-tab="show-code">
+                                        <svg class="octicon octicon-code" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"></path></svg>
+                                        文件编辑
+                                    </button>
+                                    <button type="button" class="flex-1 button-edit flex-md-auto btn-link preview tabnav-tab js-blob-edit-preview js-blob-edit-tab" data-tab="preview">
+                                        <svg class="octicon octicon-eye" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
+                                        预览
+                                    </button>
+                                </div>
+                                <div class="file-actions d-none d-md-flex px-3 pr-md-6 px-lg-2">
+                                    <select id="indent-mode" class="form-select select-sm js-code-indent-mode" aria-label="Indent mode">
+                                        <optgroup label="Indent mode">
+                                            <option selected="selected" value="space">Spaces</option>
+                                            <option value="tab">Tabs</option>
+                                        </optgroup>
+                                    </select>
+                                    <select id="indent-size" class="form-select select-sm js-code-indent-width" aria-label="Indent size">
+                                        <optgroup label="Indent size">
+                                            <option selected="selected" value="2">2</option>
+                                            <option value="4">4</option>
+                                            <option value="8">8</option>
+                                        </optgroup>
+                                    </select>
+                                    <select id="line-wrap-mode" class="form-select select-sm js-code-wrap-mode" aria-label="Line wrap mode">
+                                        <optgroup label="Line wrap mode">
+                                            <option value="off">No wrap</option>
+                                            <option selected="selected" value="on">Soft wrap</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" name="content_changed" class="js-blob-contents-changed" value="false" data-default-value="">
+                            <div class="commit-create  position-relative ">
+                            <textarea class="form-control file-editor-textarea js-blob-contents js-code-textarea " rows="35" name="value" data-filename="README.md" data-codemirror-mode="text/x-gfm" data-allow-unchanged="" placeholder="Enter file contents here" aria-label="Enter file contents here" spellcheck="false" autofocus="" style="display: none;"># myweb the code of my website
+                            </textarea>
+                            <div class="CodeMirror cm-s-github-light CodeMirror-wrap" style="height: 712px;">
+                                <div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true">
+                                    <div style="min-width: 1px; height: 0px;">
+                                    </div>
+                                </div>
+                                <div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true">
+                                    <div style="height: 100%; min-height: 1px; width: 0px;"></div>
+                                </div>
+                                <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
+                                <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
+                                <div class="CodeMirror-scroll" tabindex="-1">
+                                    <div class="CodeMirror-sizer" style="margin-left: 53px; margin-bottom: -17px; border-right-width: 13px; min-height: 62px; padding-right: 0px; padding-bottom: 0px;">
+                                        <div style="position: relative; top: 0px;">
+                                            <div class="CodeMirror-lines" role="presentation">
+                                                <div role="presentation" style="position: relative; outline: none;">
+                                                    <div class="CodeMirror-measure"></div>
+                                                    <div class="CodeMirror-measure"></div>
+                                                    <div style="position: relative; z-index: 1;"></div>
+                                                    <div class="CodeMirror-cursors" style="visibility: hidden;">
+                                                    </div>
+                                                    <div class="CodeMirror-code" role="presentation" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" tabindex="0">
+                                                        <div style="position: relative;">
+                                                            <div class="CodeMirror-gutter-wrapper" contenteditable="false" style="left: -53px;">
+                                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div>
+                                                            </div>
+                                                            <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-header cm-header-1"># myweb</span></span></pre>
+                                                        </div>
+                                                        <div style="position: relative;">
+                                                            <div class="CodeMirror-gutter-wrapper" contenteditable="false" style="left: -53px;">
+                                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div>
+                                                            </div>
+                                                            <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">the code of my website</span></pre>
+                                                        </div>
+                                                        <div style="position: relative;">
+                                                            <div class="CodeMirror-gutter-wrapper" contenteditable="false" style="left: -53px;">
+                                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">3</div>
+                                                            </div>
+                                                            <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="position: absolute; height: 13px; width: 1px; border-bottom: 0px solid transparent; top: 62px;"></div>
+                                    <div class="CodeMirror-gutters" style="height: 75px;">
+                                        <div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 53px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="loading-preview-msg"><p class="preview-msg text-gray">Loading preview…</p></div>
+                            <div class="no-changes-preview-msg"><p class="preview-msg text-gray">No changes to display.</p></div>
+                            <div class="error-preview-msg"><p class="preview-msg text-gray">Unable to load this preview, sorry.</p></div>
+                            <div class="js-commit-preview commit-preview">
+                            </div>
+                        </div>
                     </li>
                 {% else %}
                     <!-- title -->

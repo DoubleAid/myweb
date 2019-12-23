@@ -1,0 +1,200 @@
+.d-flex {
+    display: flex!important;
+}
+.flex-auto {
+    flex: auto!important;
+}
+
+.pr-0 {
+    padding-right: 0!important;
+}
+.mb-2 {
+    margin-bottom: 8px!important;
+}
+.flex-items-center {
+    align-items: center!important;
+}
+
+/* media 768px */
+@media (min-width: 768px)
+.d-md-block {
+    display: block!important;
+}
+
+@media (min-width: 768px)
+.d-md-flex {
+    display: flex!important;
+}
+
+@media (min-width: 768px)
+.pr-md-6 {
+    padding-right: 40px!important;
+}
+
+.px-3 {
+    padding-right: 16px!important;
+}
+
+.px-3, .pl-3 {
+    padding-left: 16px!important;
+}
+
+.d-none {
+    display: none!important;
+}
+
+/* codeMirror */
+
+.cm-s-github-light.CodeMirror {
+    background: #fff;
+    color: #24292e;
+}
+
+.CodeMirror {
+    height: calc(100vh - 1px);
+    height: 300px;
+    color: #000;
+    direction: ltr;
+}
+
+.CodeMirror-scrollbar-filler {
+    right: 0;
+    bottom: 0;
+}
+
+.CodeMirror-gutter-filler {
+    left: 0;
+    bottom: 0;
+}
+
+.CodeMirror-scroll {
+    overflow: scroll!important;
+    margin-bottom: -30px;
+    margin-right: 2px;
+    padding-bottom: 30px;
+    height: 100%;
+    outline: none;
+    position: relative;
+}
+
+.CodeMirror-vscrollbar {
+    right: 0;
+    top: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.CodeMirror-hscrollbar {
+    bottom: 0;
+    left: 0;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar {
+    position: absolute;
+    z-index: 6;
+    display: none;
+}
+
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler {
+    background-color: #fff;
+}
+
+.CodeMirror-gutter, .CodeMirror-gutters, .CodeMirror-linenumber, .CodeMirror-scroll, .CodeMirror-sizer {
+    box-sizing: initial;
+}
+
+.CodeMirror-sizer {
+    position: relative;
+    border-right: 30px solid transparent;
+}
+
+.cm-s-github-light .CodeMirror-lines {
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+    font-size: 12px;
+    background: #fff;
+    line-height: 1.5;
+}
+.CodeMirror-lines {
+    cursor: text;
+    min-height: 1px;
+    padding: 4px 0;
+}
+
+.CodeMirror-measure {
+    position: absolute;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+.CodeMirror-measure pre {
+    position: static;
+}
+.CodeMirror-wrap pre {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: normal;
+}
+.CodeMirror pre {
+    border-radius: 0;
+    border-width: 0;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    margin: 0;
+    white-space: pre;
+    word-wrap: normal;
+    line-height: inherit;
+    color: inherit;
+    z-index: 2;
+    position: relative;
+    overflow: visible;
+    -webkit-tap-highlight-color: transparent;
+    font-variant-ligatures: contextual;
+}
+.CodeMirror pre {
+    padding: 0 4px;
+}
+pre {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+    white-space: pre;
+}
+
+.cm-s-github-light .CodeMirror-linenumber {
+    color: #959da5;
+    padding: 0 16px;
+}
+.CodeMirror-gutter-elt {
+    position: absolute;
+    cursor: default;
+    z-index: 4;
+}
+
+.CodeMirror-linenumber {
+    padding: 0 3px 0 5px;
+    min-width: 20px;
+    text-align: right;
+    color: #999;
+    white-space: nowrap;
+}
+
+div.CodeMirror-cursors {
+    visibility: hidden;
+    position: relative;
+    z-index: 3;
+}
+
+.CodeMirror-code {
+    outline: none;
+}
+
+.CodeMirror-gutter-wrapper {
+    position: absolute;
+    z-index: 4;
+    background: none!important;
+    border: none!important;
+}
