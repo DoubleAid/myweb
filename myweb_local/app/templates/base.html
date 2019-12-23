@@ -7,7 +7,6 @@
     <!-- 指定图标 -->
     <link rel="icon" href="{{ url_for('static',filename='source/image/icon/twodog.jpeg') }}" type="image/x-icon">
     <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
-    {% block link %}{% endblock %}
     <link rel="stylesheet" href="{{ url_for('static', filename='js/index/base.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='fonts/font-awesome.min.css') }}" >
     <!--[if lte IE 8]>
@@ -17,6 +16,7 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='vendor/ie/css/ie9.css') }}" /><![endif]-->
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="{{ url_for('static',filename='vendor/ie/css/ie8.css') }}" /><![endif]-->
+    {% block link %}{% endblock %}
 </head>
 <body>
     <div id="wrapper">
