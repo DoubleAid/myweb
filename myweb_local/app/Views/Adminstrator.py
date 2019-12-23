@@ -22,4 +22,4 @@ def login():
             return redirect(request.form['next'])
         else:
             return render_template('adminstartor/LoginIn.html', warn='用户名或密码错误')
-    return render_template('adminstartor/LoginIn.html')
+    return render_template('adminstartor/LoginIn.html',next=request.referrer)
