@@ -8,6 +8,7 @@ from app.Views.navigation.Blog import blog
 from app.Views.navigation.Music import music
 from app.Views.navigation.Video import video
 from app.Views.navigation.Message import message
+from app.Views.Users import profile
 
 # 注册蓝图
 DEFAULT_BLUEPRINT = (
