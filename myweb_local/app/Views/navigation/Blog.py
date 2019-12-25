@@ -118,7 +118,6 @@ def get_next_blogs():
     for num in range(start,end_num):
         current_blog = Blog(type="num",uuid=num)
         blog = current_blog.get_item()
-        print(blog)
         if blog is not False:
             return_data['blogs'].append(blog)
             return_data['length'] += 1
