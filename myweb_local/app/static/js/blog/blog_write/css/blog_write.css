@@ -409,6 +409,7 @@ li{
 .file-actions select {
     margin-left: 5px;
 }
+
 .file-editor-textarea {
     width: 100%;
     padding: 5px 4px;
@@ -417,8 +418,6 @@ li{
     border-radius: 0;
     outline: none;
 }
-
-
 
 .select-sm {
     height: 28px;
@@ -503,7 +502,6 @@ button, select {
     text-transform: none;
 }
 
-
 select {
     -webkit-writing-mode: horizontal-tb !important;
     text-rendering: auto;
@@ -532,7 +530,6 @@ select {
 }
 optgroup{
     font-weight: 600;
-
 }
 option{
     font-weight: normal;

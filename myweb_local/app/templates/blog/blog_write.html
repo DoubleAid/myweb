@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block link %}
-<link rel="stylesheet" href="{{ url_for('static',filename='js/blog/blog_write/blog_write.css') }}" />
-<link rel="stylesheet" href="{{ url_for('static',filename='js/blog/blog_write/visibility-display.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static',filename='js/blog/blog_write/css/blog_write.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static',filename='js/blog/blog_write/css/visibility-display.css') }}" />
 {% endblock %}
 
 {% block main %}
@@ -13,20 +13,22 @@
                 {% if blog %}
                     <!-- title -->
                     <li>
-                        <input type="text" placeholder="标题" value="{{ blog['head']['title'] }}" name="title" autocomplete="off"/>
+                        <input type="text" class="write-item title-input" placeholder="标题" value="{{ blog['head']['title'] }}" name="title" autocomplete="off"/>
                     </li>
                     <!-- permission -->
                     <li>
+			<div id="permission-box">
                     {% if blog['head']['permission'] == 0 %}
                         <input class="magic-checkbox" type="checkbox" name="permission" id="permit">
                     {% else %}
                         <input class="magic-checkbox" type="checkbox" name="permission" id="permit">
                     {% endif %}
 				        <label for="permit">是否设置为只有本人可见</label>
+			</div>
                     </li>
                     <!-- introduce -->
                     <li>
-                        <textarea style="resize:none;" rows="2" name="introduce" placeholder="简介">{{ blog['content']['introduce'] }}
+                        <textarea id="introduce-textarea" style="resize:none;" rows="2" name="introduce" placeholder="简介">{{ blog['content']['introduce'] }}
                         </textarea>
                     </li>
                     <!-- 文件上传 -->
@@ -193,4 +195,5 @@ function compile(){
 {% endblock %}
 {% block javascript %}
 <script src="{{ url_for('static',filename='vendor/showdown/showdown.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/blog/blog_write/js/listener_action.js') }}"></script>
 {% endblock %}
