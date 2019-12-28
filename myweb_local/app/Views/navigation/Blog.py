@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,url_for,request,redirect, Response,jsonify
 from app.AssistMethod.BlogMethods import Blog
-import app.Views.Users as User
+from app.Views.Users import get_current_user
 import os
 import markdown
 
@@ -28,7 +28,7 @@ def multiple_blogs():
         current_blog = Blog(uuid=i,type="num")
         blog_set.append(current_blog.get_item())
     # 检查 用户是否上线
-    name = User.get_current_user()
+    name = get_current_user()
     # 返回 渲染模板
     return render_template('blog/blog_multiply.html', user=name, blog_num=len(blog_set), blog_set=blog_set)
 
@@ -37,7 +37,7 @@ def multiple_blogs():
 def show_blog_by_uuid(num):
     blog = Blog(num)
     permission = blog.get_item('permission')
-    user_name = User.get_current_user()
+    user_name = get_current_user()
     if user_name is None and permission == 1:
         return 404
     # 获取 blog 信息
@@ -51,7 +51,7 @@ def show_blog_by_uuid(num):
 
 @blog.route('/write',methods = ['GET','POST'])
 def write_blog():
-    user_name = User.get_current_user()
+    user_name = get_current_user()
     if request.method == "POST":
         blog = Blog()
         title = request.form['title']
@@ -87,7 +87,7 @@ def write_blog():
 @blog.route('/<num>/modify',methods=['GET', 'POST'])
 def modify(num):
     current_blog = Blog(num)
-    user_name = User.get_current_user()
+    user_name = get_current_user()
     print(request.referrer)
     if user_name is None:
         return 404
@@ -97,7 +97,7 @@ def modify(num):
 
 @blog.route('/<num>/delete')
 def delete(num):
-    name = User.get_current_user()
+    name = get_current_user()
     if name is None:
         return 404
     Blog(num).delete_blog()
