@@ -102,7 +102,7 @@
                                                     </div>
                                                     <div class="CodeMirror-code" role="presentation" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" tabindex="0">
                                                         <!-- 文章内容 -->
-                                                        {% if length(blog['content']['article']) > 0 %}
+                                                        {% if blog['content']['article']|length > 0 %}
                                                             <div style="position: relative;">
                                                             <div class="CodeMirror-gutter-wrapper" contenteditable="false" style="left: -53px;">
                                                                 <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div>
@@ -110,12 +110,13 @@
                                                             <pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-header cm-header-1">{{ blog['content']['article'][0] }}}</span></span></pre>
                                                         </div>
                                                         {% endif %}
+                                                        
                                                         {% for line in blog['content']['article'][1:] %}
                                                             <div style="position: relative;">
                                                             <div class="CodeMirror-gutter-wrapper" contenteditable="false" style="left: -53px;">
                                                                 <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">2</div>
                                                             </div>
-                                                            <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">line</span></pre>
+                                                            <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">{{ line }}</span></pre>
                                                         </div>
                                                         {% endfor %}
                                                     </div>
