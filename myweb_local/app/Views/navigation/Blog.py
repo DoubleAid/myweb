@@ -49,7 +49,7 @@ def show_blog_by_uuid(num):
     return render_template('blog/blog_single.html',user=user_name, blog=blog_info)
 
 
-@blog.route('/write',methods = ['GET','POST'])
+@blog.route('/write', methods=['GET', 'POST'])
 def write_blog():
     user_name = get_current_user()
     if request.method == "POST":
@@ -84,15 +84,21 @@ def write_blog():
     return render_template('blog/blog_write.html', user=name)
 
 
-@blog.route('/<num>/modify',methods=['GET', 'POST'])
+@blog.route('/<num>/modify', methods=['GET', 'POST'])
 def modify(num):
-    current_blog = Blog(num)
-    user_name = get_current_user()
-    print(request.referrer)
-    if user_name is None:
-        return 404
-    blog_info = current_blog.get_item()
-    return render_template('blog/blog_write.html', user=user_name, blog=blog_info)
+    if request.method == "POST":
+        test = request.form.get("host")
+        print("传过来的数据为："+str(test))
+        return redirect(url_for('blog.multiple_blogs'))
+    else:
+        print("get方式")
+        current_blog = Blog(num)
+        user_name = get_current_user()
+        print(request.referrer)
+        if user_name is None:
+            return 404
+        blog_info = current_blog.get_item()
+        return render_template('blog/blog_write.html', user=user_name, blog=blog_info)
 
 
 @blog.route('/<num>/delete')

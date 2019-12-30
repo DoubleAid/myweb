@@ -74,7 +74,7 @@ function enter_key_down(event){
                 }else{
                     Textspan = $(prevDiv).find("span");
                 }
-                startOffset = $(Textspan).text().length;
+                startOffsetv = $(Textspan).text().length;
                 word = $(Textspan).text() + afterWords;
                 $(Textspan).text(word);
                 console.log($(Textspan)[0]);
@@ -96,3 +96,22 @@ function enter_key_down(event){
         }
     }
 }
+
+$("#submit").click(function () {
+    console.log("click");
+    let mdata = "123";
+     $.ajax({
+            url:'/blog/2222/modify',
+            data:{'host':mdata},
+            type:'POST',
+            async:false,
+            dataType:'json',
+            // success:function(data) {
+            //   myChart.setOption()
+            // },
+            // error:function (msg) {
+            //     console.log(msg);
+            //     alert('系统发生错误');
+            // }
+        });
+});
