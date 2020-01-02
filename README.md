@@ -7,7 +7,7 @@ the code of my website
 ```
 ├── webstart.py  项目启动文件，文件引入app中的create_app方法创建Flask对象
 └── app
-    ├── AssistMethod
+    ├── AssistMethod [123](https://github.com/DoubleAid/blog_record/blob/master/Python/002.Flask+uwsgi+nginx%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.md)
     |   ├── BlogMethods.py
     |   └── UserMethods.py
     ├── Views
