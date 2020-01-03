@@ -9,6 +9,7 @@ from app.AssistMethod.UserMethods import User
 import os
 
 
+# 登录
 def config_login(app):
     app.secret_key = os.urandom(24)
     login_manager = LoginManager()
@@ -20,6 +21,7 @@ def config_login(app):
         return User.get(user_id)
 
 
+# 错误代码 处理方式
 def config_errorhandler(app):
     @app.errorhandler(404)
     def page_not_found(e):
