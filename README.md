@@ -14,13 +14,13 @@
     ├── AssistMethod  数据类
     |   ├── BlogMethods.py  blog方法类，包括对blog的增、删、改、查、保存、读取等操作，对应的存储文件为 static/source/blog 文件夹中
     |   └── UserMethods.py  用户方法类，包括对user的增删改查，保存，读取，验证，需要保证密码的不可见性
-    ├── Views  蓝图，后台相应函数：处理相应访问路由的反应
+    ├── Views  蓝图，后台响应函数：处理相应访问路由的反应，下面每一个文件都对应着一个蓝图，最后在__init__.py里整合
     |   ├── navigation  导航部分
-    |   |   ├── Blog.py     以 /blog 开头的url的路由函数
-    |   |   ├── Message.py  以 /message 开头的url的路由函数
-    |   |   ├── Music.py    以 /music 开头的url的路由函数
-    |   |   └── Video.py    以 /video 开头的url的路由函数
-    |   ├── Adminstrator.py 登陆界面相应函数
+    |   |   ├── Blog.py     以 /blog 开头的url的路由响应函数
+    |   |   ├── Message.py  以 /message 开头的url的路由响应函数
+    |   |   ├── Music.py    以 /music 开头的url的路由响应函数
+    |   |   └── Video.py    以 /video 开头的url的路由响应函数
+    |   ├── Adminstrator.py 登陆界面响应函数
     |   ├── Users.py        之前测试页面，未使用
     |   ├── main.py         homepage 页面响应 路由函数
     |   └── __init__.py     将其他蓝图集合在一起
