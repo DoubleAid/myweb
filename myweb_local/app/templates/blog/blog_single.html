@@ -41,7 +41,7 @@
 
             <ul class="actions pagination">
                 {% if user %}
-                    <li><a href="{{ blog['id'] }}/modify" class="button big before">修改</a></li>
+                    <li><a href="modify/{{ blog['id'] }}" class="button big before">修改</a></li>
                     <li><a href="{{ blog['id'] }}/delete" class="button big before">删除</a></li>
                 {% endif %}
                 <li><a href="#" class="disabled button big next">下一篇</a></li>
