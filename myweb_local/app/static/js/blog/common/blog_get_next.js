@@ -84,7 +84,7 @@ function button_post_next_blogs(data){
         $('input[name="next_data"]').val(data.result['next_start']);
         // blog_info 需要添加 一个 跳转的 定位点 <div id="jump+start_num">
         var jump_tip = '<div id="jump'+data.result['next_start']+'"></div>';
-        $("div[id='article'").append(jump_tip);
+        $("div[id='article']").append(jump_tip);
 
         // 插入博客
         for (i=0;i<data.result['length'];i++){
@@ -133,7 +133,7 @@ function button_post_next_blogs(data){
                          '</ul>'+
                          '</footer>'+
                          '</article>');
-            $("div[id='article'").append(blog_info);
+            $("div[id='article']").append(blog_info);
         }
         // 跳转到标记位
         window.location.hash = "#jump"+data.result['next_start'];
