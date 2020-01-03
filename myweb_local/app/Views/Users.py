@@ -23,8 +23,10 @@ def about(user_url_slug):
     # return render_template('profile/about.html')
     return "about"
 
-
+DEBUG = True
 def get_current_user():
+    if DEBUG:
+        return "testUser"
     try:
         name = current_user.username
     except:
