@@ -9,7 +9,7 @@
     padding-right: 0!important;
 }
 .mb-2 {
-    margin-bottom: 8px!important;
+    margin-bottom: 4px!important;
 }
 .flex-items-center {
     align-items: center!important;
@@ -70,8 +70,8 @@
 .CodeMirror-scroll {
     overflow: scroll!important;
     margin-bottom: -30px;
-    margin-right: 2px;
-    padding-bottom: 30px;
+    margin-right: 1px;
+    padding-bottom: 0;
     height: 100%;
     outline: none;
     position: relative;
@@ -197,4 +197,9 @@ div.CodeMirror-cursors {
     z-index: 4;
     background: none!important;
     border: none!important;
+}
+
+.container-preview.show-code .error-preview-msg, .container-preview.show-code .loading-preview-msg, .container-preview.show-code .no-changes-preview-msg,
+.container-preview.show-code .commit-preview {
+    display: none!important;
 }
