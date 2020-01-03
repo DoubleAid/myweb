@@ -11,6 +11,7 @@
 ```
 ├── webstart.py  项目启动文件，文件引入app中的create_app方法创建Flask对象
 └── app
+    ├── __init__.py   create_app,创建Flask对象
     ├── AssistMethod  数据类
     |   ├── BlogMethods.py  blog方法类，包括对blog的增、删、改、查、保存、读取等操作，对应的存储文件为 static/source/blog 文件夹中
     |   └── UserMethods.py  用户方法类，包括对user的增删改查，保存，读取，验证，需要保证密码的不可见性
