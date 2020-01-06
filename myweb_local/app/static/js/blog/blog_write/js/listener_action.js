@@ -23,11 +23,11 @@ function enter_key_down(event){
     // 光标处 会将 源字符串分为两部分
     var beforeWords = content.substring(0,range.startOffset);
     var afterWords = content.substring(range.startOffset,content.length);
+    console.log("beforewords:"+beforeWords);
+    console.log("afterwords:"+afterWords);
     // 行数
     var preElement = $(container).parents("pre.CodeMirror-line");
     var lineNum = Number(preElement.prev().text());
-    // 获取所有的行
-    divs = $('div[class="CodeMirror-code"]').children();
     // 点击回车键
     if(event.keyCode === 13){
         // 禁止默认行为
@@ -35,36 +35,39 @@ function enter_key_down(event){
         event.preventDefault();
         event.stopPropagation();
         // 如果被修改的行数为第一行，需要特殊处理
-        console.log(beforeWords);
-        console.log(selection.rangeCount);
-        if(lineNum === 1){
-            $(divs[lineNum-1]).find(".cm-header").text(beforeWords);
+        // 获取所有的行
+        let divs = $("div.CodeMirror-code").children();
+        if(lineNum == 1){
+            console.log("lineNum is 1");
+            console.log(divs[0])
+            $(divs[0]).find("span.cm-header").text(beforeWords);
         }else{
             $(divs[lineNum-1]).find("span").text(beforeWords);
         }
-        newLine = $(divs[lineNum-1]).clone(true);
-        newLine.find("span").text(afterWords);
-        newLine.find(".CodeMirror-linenumber").text(lineNum+1);
+        newLine = create_article_line(lineNum+1,afterWords);
         for (let i=lineNum;i<divs.length;i++){
             $(divs[i]).find(".CodeMirror-linenumber").text(i+2);
         }
         $(divs[lineNum-1]).after(newLine);
 
-        selection.removeAllRanges();
-        var newDivs = $('div[class="CodeMirror-code"]').children();
-        var newRange = document.createRange();
-        console.log(($(newDivs[lineNum]).find("span"))[0]);
+        newDivs = $('div[class="CodeMirror-code"]').children();
+        newRange = document.createRange();
         newRange.setStart(($(newDivs[lineNum]).find("span"))[0],0);
         newRange.setEnd(($(newDivs[lineNum]).find("span"))[0],0);
+        selection.removeAllRanges();
         selection.addRange(newRange);
     }
     else if (event.keyCode === 8)
     {
-        if (beforeWords.length === 0){
+        console.log("delete button down");
+        console.log("beforewords:"+beforeWords);
+        console.log("beforewords length:"+beforeWords.length);
+        if (beforeWords.length == 0){
             event.cancelBubble=true;
             event.preventDefault();
             event.stopPropagation();
             if (lineNum > 1){
+
                 console.log("修改删除后的行数 从第"+lineNum+"开始");
                 // 将 afterwords 添加到上一行
                 //// 获取前一段的内容，注意第一行特别处理
@@ -94,6 +97,19 @@ function enter_key_down(event){
 
             }
         }
+        else if(beforeWords.length == 1){
+            // 只有一个字符时, 删除会把span标签也删除掉
+            event.cancelBubble=true;
+            event.preventDefault();
+            event.stopPropagation();
+            $(range.startContainer).text(afterWords);
+            console.log(afterWords);
+            selection.removeAllRanges();
+            var newRange = document.createRange();
+            newRange.setStart(container,0);
+            newRange.setEnd(container,0);
+            selection.addRange(newRange);
+        }
     }
 }
 
@@ -116,8 +132,8 @@ $("#submit").click(function () {
             async:false,
             dataType:'text',
             success:function(data) {
-                console.log(data);
-                // window.location.href="/blog";
+
+                window.location.href=data;
             },
             error:function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log(XMLHttpRequest);
@@ -129,13 +145,35 @@ $("#submit").click(function () {
 
 
 function get_article_content(){
-    article_content = $("textarea.file-editor-textarea").text();
-    console.log(article_content);
+    let article_content = $("textarea.file-editor-textarea").text();
     let divs = $('div[class="CodeMirror-code"]').children();
-
+    let line_list = [];
+    for(i=0;i<divs.length;i++){
+        line_list.push($(divs[i]).find("span").text().replace(/(^\s*)|(\s*$)/g, ""));
+    }
+    strn = line_list.join("\n");
+    return strn;
 }
 
 addLoadEvent(set_article_content);
 function set_article_content() {
-    article_content = $("textarea.file-editor-textarea").text()
+    let article_content = $("textarea.file-editor-textarea").text();
+    let line_list = article_content.split("\n");
+    if(line_list.length !== 0){
+        $("pre.CodeMirror-line").find("span").text(line_list[0])
+    }
+    if(line_list.length > 1) {
+        for (let i = 2; i <= line_list.length; i++) {
+            let content = line_list[i-1].replace(/(^\s*)|(\s*$)/g, "");
+            $("div.CodeMirror-code").append(create_article_line(i,content))
+        }
+    }
+}
+
+function create_article_line(i,content){
+    let ans = '<div style="position: relative;"><div class="CodeMirror-gutter-wrapper" contenteditable="false" style="left: -53px;"> ' +
+        '<div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">'+i+'</div>'+
+        '</div><pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;">'+content+'</span>'+
+        '</pre></div>';
+    return ans;
 }
