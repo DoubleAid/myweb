@@ -52,7 +52,12 @@ def show_blog_by_uuid(num):
 @blog.route('/modify/<num>', methods=['GET', 'POST'])
 def modify(num):
     if request.method == "POST":
-        current_blog = Blog(num)
+        print(type(num))
+        if num == 0:
+            # 新建博客
+            current_blog = Blog()
+        else:
+            current_blog = Blog(num)
         receive_data = request.form
         # 如果获取 blog 失败，返回错误信息
         if not current_blog:
@@ -62,19 +67,17 @@ def modify(num):
         current_blog.write_item(mtype="introduce", value=receive_data['introduce'])
         current_blog.write_item(mtype="article", value=receive_data['article'])
         current_blog.save_blog()
-        return "/blog"
+        return "/blog/"+str(current_blog.get_item(mtype="id"))
     else:
         if num == 0:
-            # num为0时表示新建一个blog
-            current_blog = Blog()
-            # 因为是新建的blog，需要先保存一下uuid
-            current_blog.save_blog()
+            # 新建博客的创建和保存应该在POST的时候进行
+            blog_info = None
         else:
-            # 否则读取 uuid 为 num 的 blog
+            # 修改博客读取 uuid 为 num 的 blog
             current_blog = Blog(num)
-        blog_info = current_blog.get_item()
+            blog_info = current_blog.get_item()
         user_name = get_current_user()
-        if user_name is None:
+        if user_name is None :
             return 404
         return render_template('blog/blog_write.html', user=user_name, blog=blog_info)
 
