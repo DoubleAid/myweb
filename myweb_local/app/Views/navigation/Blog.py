@@ -1,198 +1,124 @@
-{% extends "base.html" %}
-{% block link %}
-<link rel="stylesheet" href="{{ url_for('static',filename='js/blog/blog_write/css/blog_write.css') }}" />
-<link rel="stylesheet" href="{{ url_for('static',filename='js/blog/blog_write/css/visibility-display.css') }}" />
-{% endblock %}
+from flask import Blueprint,render_template,url_for,request,redirect, Response,jsonify
+from app.AssistMethod.BlogMethods import Blog
+from app.Views.Users import get_current_user
+import os
+import markdown
 
-{% block main %}
+CURRENT_PATH = os.getcwd()
 
-<div id="main">
-    <article class="write">
-        <form method="post" enctype="multipart/form-data">
-            <ul style="list-style: none;">
-                {% if blog %}
-                    <!-- id -->
-                    <div style="visibility: hidden">
-                        <input id="blog-id" type="hidden" value="{{ blog['id'] }}"/>
-                    </div>
-                    <!-- title -->
-                    <li>
-                        <input type="text" class="write-item title-input" placeholder="标题" value="{{ blog['head']['title'] }}" name="title" autocomplete="off"/>
-                    </li>
-                    <!-- permission -->
-                    <li>
-                        <div id="permission-box">
-                    {% if blog['head']['permission'] == 0 %}
-                        <input class="magic-checkbox" type="checkbox" name="permission" id="permit">
-                    {% else %}
-                        <input class="magic-checkbox" type="checkbox" name="permission" id="permit" checked>
-                    {% endif %}
-				        <label for="permit">是否设置为只有本人可见</label>
-                        </div>
-                    </li>
-                    <!-- assort -->
-                    <li>
-                        <select class="assort-sel" id="select-option">
-                            <option value=""></option>
-                        </select>
-                        <input type="text" class="assort-sel" id="select-input" style="display: none;" >
-                    </li>
-                    <!-- introduce -->
-                    <li>
-                        <textarea id="introduce-textarea"style="resize:none;" rows="2" name="introduce" placeholder="简介">{{ blog['content']['introduce'] }}
-                        </textarea>
-                    </li>
-                    <!-- 文件上传 -->
-                    <li>
-                        <input type="file" multiple="" name="file">
-                    </li>
-                {% else %}
-                    <!-- id -->
-                    <div style="visibility: hidden">
-                        <input id="blog-id" type="hidden" value="0"/>
-                    </div>
-                    <!-- title -->
-                    <li>
-                        <input type="text" class="write-item title-input" placeholder="标题" name="title" autocomplete="off"/>
-                    </li>
-                    <!-- permission -->
-                    <li>
-                        <div id="permission-box">
-                            <input class="magic-checkbox" type="checkbox" name="permission" id="permit">
-				            <label for="permit">是否设置为只有本人可见</label>
-                        </div>
-                    </li>
-                    <!-- assort -->
-                    <li>
-                        <select class="assort-sel" id="select-option">
-                            <option value=""></option>
-                        </select>
-                        <input type="text" class="assort-sel" id="select-input" style="display: none;" >
-                    </li>
-                    <!-- introduce -->
-                    <li>
-                        <textarea id="introduce-textarea"style="resize:none;" rows="2" name="introduce" placeholder="简介"></textarea>
-                    </li>
-                    <!-- 文件上传 -->
-                    <li>
-                        <input type="file" multiple="" name="file">
-                    </li>
-                {% endif %}
-                    <!-- article -->
-                    <li>
-                        <div class="file js-code-editor container-preview show-code mx-lg-3" data-github-confirm-unload="false">
-                            <div class="file-header mb-2 d-flex flex-items-center pr-0">
-                                <div class="tabnav-tabs js-file-editor-nav d-flex flex-auto d-md-block">
-                                    <button type="button" class="btn-link button-edit code px-3 px-sm-6 px-lg-3 flex-1 flex-md-auto selected tabnav-tab js-blob-edit-code js-blob-edit-tab" aria-current="true" data-tab="show-code">
-                                        <svg class="octicon octicon-code" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"></path></svg>
-                                        文件编辑
-                                    </button>
-                                    <button type="button" class="flex-1 button-edit flex-md-auto btn-link preview tabnav-tab js-blob-edit-preview js-blob-edit-tab" data-tab="preview">
-                                        <svg class="octicon octicon-eye" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
-                                        预览
-                                    </button>
-                                </div>
-                                <div class="file-actions d-none d-md-flex px-3 pr-md-6 px-lg-2">
-                                    <select id="indent-mode" class="form-select select-sm js-code-indent-mode" aria-label="Indent mode">
-                                        <optgroup label="Indent mode">
-                                            <option selected="selected" value="space">Spaces</option>
-                                            <option value="tab">Tabs</option>
-                                        </optgroup>
-                                    </select>
-                                    <select id="indent-size" class="form-select select-sm js-code-indent-width" aria-label="Indent size">
-                                        <optgroup label="Indent size">
-                                            <option selected="selected" value="2">2</option>
-                                            <option value="4">4</option>
-                                            <option value="8">8</option>
-                                        </optgroup>
-                                    </select>
-                                    <select id="line-wrap-mode" class="form-select select-sm js-code-wrap-mode" aria-label="Line wrap mode">
-                                        <optgroup label="Line wrap mode">
-                                            <option value="off">No wrap</option>
-                                            <option selected="selected" value="on">Soft wrap</option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-                            </div>
-                            <input type="hidden" name="content_changed" class="js-blob-contents-changed" value="false" data-default-value="">
-                            <div class="commit-create  position-relative ">
-                            <textarea class="form-control file-editor-textarea js-blob-contents js-code-textarea " rows="35" name="value" data-filename="README.md" data-codemirror-mode="text/x-gfm" data-allow-unchanged="" placeholder="Enter file contents here" aria-label="Enter file contents here" spellcheck="false" autofocus="" style="display: none;">{{ blog['content']['article'] }}
-                            </textarea>
-                            <div class="CodeMirror cm-s-github-light CodeMirror-wrap" style="height: 712px;">
-                                <div class="CodeMirror-vscrollbar" tabindex="-1" cm-not-content="true">
-                                    <div style="min-width: 1px; height: 0px;">
-                                    </div>
-                                </div>
-                                <div class="CodeMirror-hscrollbar" tabindex="-1" cm-not-content="true">
-                                    <div style="height: 100%; min-height: 1px; width: 0px;"></div>
-                                </div>
-                                <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
-                                <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
-                                <div class="CodeMirror-scroll" tabindex="-1">
-                                    <div class="CodeMirror-sizer" style="margin-left: 53px; margin-bottom: -17px; border-right-width: 13px; min-height: 62px; padding-right: 0px; padding-bottom: 0px;">
-                                        <div style="position: relative; top: 0px;">
-                                            <div class="CodeMirror-lines" role="presentation">
-                                                <div role="presentation" style="position: relative; outline: none;">
-                                                    <div class="CodeMirror-measure"></div>
-                                                    <div class="CodeMirror-measure"></div>
-                                                    <div style="position: relative; z-index: 1;"></div>
-                                                    <div class="CodeMirror-cursors" style="visibility: hidden;">
-                                                    </div>
-                                                    <div class="CodeMirror-code" role="presentation" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" tabindex="0">
-                                                        <!-- 文章内容 -->
-                                                        <div style="position: relative;">
-                                                            <div class="CodeMirror-gutter-wrapper" contenteditable="false" style="left: -53px;">
-                                                                <div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 21px;">1</div>
-                                                            </div>
-                                                            <pre class="CodeMirror-line" role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-header cm-header-1">在此处编辑文本呦！！！</span></span></pre>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="position: absolute; height: 13px; width: 1px; border-bottom: 0px solid transparent; top: 62px;"></div>
-                                    <div class="CodeMirror-gutters" style="height: 75px;">
-                                        <div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 53px;">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="loading-preview-msg"><p class="preview-msg text-gray">Loading preview…</p></div>
-                            <div class="no-changes-preview-msg"><p class="preview-msg text-gray">No changes to display.</p></div>
-                            <div class="error-preview-msg"><p class="preview-msg text-gray">Unable to load this preview, sorry.</p></div>
-                            <div class="js-commit-preview commit-preview">
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <input type="button" id="submit" value="上传">
-                    </li>
-            </ul>
-        </form>
-    </article>
-            <!--页面显示-->
+# ------------- 声明 ---------------
+# 默认获取地微博数量
+DEFAULT_SHOW_BLOG_NUM = 4
 
-            <!--<ul class="actions pagination">-->
-                <!--<li><a href="#" class="disabled button big next"></a></li>-->
-            <!--</ul>-->
-</div>
-<script type="text/javascript">
-$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-function get_category(){
-    var text = document.getElementById("category").value;
-    alert(text);
-}
-function compile(){
-    var text = document.getElementById("content").value;
-    var converter = new showdown.Converter();
-    var html = converter.makeHtml(text);
-    document.getElementById("overwatch").innerHTML = html;
-}
-</script>
-{% endblock %}
-{% block javascript %}
-<script src="{{ url_for('static',filename='vendor/showdown/showdown.min.js') }}"></script>
-<script src="{{ url_for('static',filename='js/blog/blog_write/js/listener_action.js') }}"></script>
-{% endblock %}
+blog = Blueprint('blog',__name__)
+
+
+# ----------------- 显示微博 ---------
+@blog.route('/')
+def multiple_blogs():
+    # blog 集
+    blog_set = []
+    # 比较 默认显示 的 数量
+    if DEFAULT_SHOW_BLOG_NUM > Blog.get_blog_num():
+        blog_num = Blog.get_blog_num()
+    else:
+        blog_num = DEFAULT_SHOW_BLOG_NUM
+    # 将 对应的 blog 加入到 blog 集
+    for i in range(blog_num):
+        current_blog = Blog(uuid=i,type="num")
+        blog_set.append(current_blog.get_item())
+    # 检查 用户是否上线
+    name = get_current_user()
+    # 返回 渲染模板
+    return render_template('blog/blog_multiply.html', user=name, blog_num=len(blog_set), blog_set=blog_set)
+
+
+@blog.route('/<num>')
+def show_blog_by_uuid(num):
+    blog = Blog(num)
+    permission = blog.get_item('permission')
+    user_name = get_current_user()
+    if user_name is None and permission == 1:
+        return 404
+    # 获取 blog 信息
+    blog_info = blog.get_item()
+    if not blog_info:
+        return 404
+    # 获取 blog content 格式
+    print(blog_info['content']['article'])
+    blog_info['content']['article'] = markdown.markdown(blog_info['content']['article'], output_format='html5')
+    return render_template('blog/blog_single.html',user=user_name, blog=blog_info)
+
+@blog.route('/modify/<num>', methods=['GET', 'POST'])
+def modify(num):
+    if request.method == "POST":
+        if num == 0:
+            # 新建博客
+            current_blog = Blog()
+        else:
+            current_blog = Blog(num)
+        receive_data = request.form
+        # 如果获取 blog 失败，返回错误信息
+        if not current_blog:
+            return 404
+        Flag = current_blog.write_item(mtype="title",value=receive_data['title']) & True
+        Flag &= current_blog.write_item(mtype="permission", value=receive_data['permission'])
+        Flag &= current_blog.write_item(mtype="assort", value=receive_data['assort'])
+        Flag &= current_blog.write_item(mtype="introduce", value=receive_data['introduce'])
+        Flag &= current_blog.write_item(mtype="article", value=receive_data['article'])
+        if Flag:
+            current_blog.save_blog()
+        return "/blog/"+str(current_blog.get_item(mtype="id"))
+    else:
+        if num == 0:
+            # 新建博客的创建和保存应该在POST的时候进行
+            blog_info = None
+        else:
+            # 修改博客读取 uuid 为 num 的 blog
+            current_blog = Blog(num)
+            blog_info = current_blog.get_item()
+        user_name = get_current_user()
+        if user_name is None :
+            return 404
+        return render_template('blog/blog_write.html', user=user_name, blog=blog_info)
+
+@blog.route('/<num>/delete')
+def delete(num):
+    name = get_current_user()
+    if name is None:
+        return 404
+    Blog(num).delete_blog()
+    return redirect(url_for('blog.multiple_blogs'))
+
+
+@blog.route('/get_next_blogs')
+def get_next_blogs():
+    start = request.args.get('start', 0, type=int)
+    length = request.args.get('length', 3, type=int)
+
+    # start+length 与 blog的数量进行比较，选出最小的
+    end_num = min(Blog.get_blog_num(),start+length)
+
+    # 返回数据
+    return_data = {'length': 0, 'blogs': [], 'next_start': end_num}
+
+    for num in range(start,end_num):
+        current_blog = Blog(type="num",uuid=num)
+        blog = current_blog.get_item()
+        if blog is not False:
+            return_data['blogs'].append(blog)
+            return_data['length'] += 1
+    return jsonify(result=return_data)
+
+
+@blog.route('/get_all_assort')
+def get_all_assort():
+    uuid = request.args.get("uuid",None)
+    current_blog = Blog(uuid)
+    if uuid:
+        current_assort = current_blog.get_item(mtype="assort")
+    else:
+        current_assort = None
+    all_assort = current_blog.get_all_assort()
+    return_data = {"current_assort":current_assort,"assorts":all_assort}
+    return jsonify(return_data)
