@@ -47,7 +47,7 @@ INDEX_FILE = 'app/static/source/blog/index.json'
 #     content：
 #         {
 #             introduce
-#             image 封面图片
+#             image 封面图片,图片只能是引用在 video 中的图片，删除 博客 不会删除博客
 #             article 文章 article 字符串
 #             message 留言
 #         }
@@ -121,6 +121,16 @@ class Blog:
             if id not in id_set:
                 return id
 
+    # 获取所有类别，用于 select > option
+    @staticmethod
+    def get_all_assort() -> list:
+        with open(INDEX_FILE) as f:
+            blog_profiles = json.load(f)
+        ans = []
+        for each in blog_profiles['assort']:
+            ans.append(each)
+        return ans
+
     # 获取 某个 类别 下 的所有 uuid 列表
     @staticmethod
     def get_blogs_by_assort(assort_name):
@@ -143,7 +153,8 @@ class Blog:
             with open(source_file_path,'r') as f:
                 blog_profiles = json.load(f)
                 return blog_profiles[blog[0]]
-        except:
+        except BaseException as Err:
+            print("get blog by num Err:" + str(Err))
             return False
 
     @staticmethod
@@ -156,7 +167,8 @@ class Blog:
             with open(source_file_path,'r') as blogs:
                 blog_profiles = json.load(blogs)
                 return blog_profiles[uuid]
-        except:
+        except BaseException as Err:
+            print("get blog by uuid Err:" + str(Err))
             return False
 
     def write_item(self, mtype, value):
@@ -172,7 +184,7 @@ class Blog:
             return True
         return False
 
-    def get_item(self, mtype="all"):
+    def get_item(self, mtype = "all") -> dict or bool:
         mtype = mtype.lower()
         try:
             if mtype == "id":
@@ -206,6 +218,7 @@ class Blog:
         strn = "{}-{}-{} {}:{}".format(ct.tm_year,ct.tm_mon,ct.tm_mday,ct.tm_hour,ct.tm_min)
         return [ans, strn]
 
+    # 保存时 已经 考虑了 如果类别变化 需要进行的操作
     def save_blog(self):
         uuid = self.blog['id']
         new_assort_name = self.blog['head']['assort']
