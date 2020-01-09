@@ -3,7 +3,7 @@
 *****
 目录  
 [1. flask + nginx + uwsgi 环境搭建](#flask+nginx+uwsgi+环境搭建)  
-[2. 代码结构](#代码结构)
+[2. 代码结构](#代码结构)  
 [3. Issues 全部问题](https://github.com/DoubleAid/myweb/issues?utf8=%E2%9C%93&q=is%3Aissue)
 *****
 
