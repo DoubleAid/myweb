@@ -96,12 +96,5 @@
     <![endif]-->
     <script src="{{ url_for('static',filename='vendor/main/main.js') }}"></script>
     {% block javascript %}{% endblock %}
-    <script type="text/javascript">
-        function img_no_find(){
-            var img = event.srcElement;
-            img.src = "{{ url_for('static',filename='images/Error/default.png') }}";
-            img.onerror = null;
-        }
-    </script>
 </body>
 </html>

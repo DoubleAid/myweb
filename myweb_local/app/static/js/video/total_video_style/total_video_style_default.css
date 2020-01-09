@@ -813,7 +813,7 @@ ABOUT
 .box-masonry .box-masonry-image {
   display: block;
   position: relative;
-  min-height: 12.25rem;
+  min-height: 12rem;
   background: #ccc;
 }
 
@@ -2766,4 +2766,9 @@ code {
 
 .dropdown-item.disabled, .dropdown-item:disabled {
   color: #222;
+}
+
+#wrapper {
+  padding: 2.5em;
+  width:100em;
 }
