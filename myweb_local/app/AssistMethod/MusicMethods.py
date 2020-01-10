@@ -30,15 +30,28 @@ CURRENT_PATH = os.getcwd()
 # }
 #######################################
 
+INDEX_FILE = 'app/static/source/music/index.json'
+
 class Music:
-    def __init__(self, uuid):
+    def __init__(self, uuid=None):
         if uuid is None:
-            self.music = {id:self.create_uuid()}
-        return
+            self.music = {'id': Music.create_uuid()}
+        else:
+            self.music = self.get_music_by_uuid(uuid)
 
     @staticmethod
-    def create_uuid(self):
-        return
+    def create_uuid():
+        try:
+            with open(INDEX_FILE) as f:
+                index_profiles = json.load(f)
+                id_set = index_profiles['time']
+        except:
+            id_set = {}
+        while True:
+            # 如果生成的uuid存在就重新生成，直到不相同为止
+            id = str(uuid.uuid4())
+            if id not in id_set:
+                return id
 
     def get_all_music(self):
         return
@@ -55,5 +68,5 @@ class Music:
     def delete_music(self):
         return
 
-    def get_music_by_uuid(self):
+    def get_music_by_uuid(self, uuid):
         return
