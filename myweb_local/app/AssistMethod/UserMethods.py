@@ -26,8 +26,7 @@ class User(UserMixin):
                 profiles = json.load(f)
             except ValueError:
                 profiles = {}
-            profiles[self.username] = [self.password_hash,
-                                       self.id]
+            profiles[self.username] = [self.password_hash, self.id]
             f.write(json.dumps(profiles))
 
     def verify_password(self, password):

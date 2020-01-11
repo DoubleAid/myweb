@@ -22,7 +22,7 @@
     <div id="wrapper">
         <header id="header">
             <a href="/">
-                <h1>
+                <h1 style="font-size: 13px;">
                     卞广刚的小窝
                 </h1>
             </a>
@@ -96,12 +96,5 @@
     <![endif]-->
     <script src="{{ url_for('static',filename='vendor/main/main.js') }}"></script>
     {% block javascript %}{% endblock %}
-    <script type="text/javascript">
-        function img_no_find(){
-            var img = event.srcElement;
-            img.src = "{{ url_for('static',filename='images/Error/default.png') }}";
-            img.onerror = null;
-        }
-    </script>
 </body>
 </html>

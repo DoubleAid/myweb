@@ -1,6 +1,44 @@
-{% extends "base.html" %}
-{% block main %}
+<!-- 有图片覆盖，悬浮显示标题和介绍 的物体 -->
+<div class="col-md-6 col-lg-3 grid-item">
+              <div class="box-masonry"> <a href="detail.html" title="" class="box-masonry-image with-hover-overlay">
+                  <img src="img/portfolio/paper-presentation.jpg" alt="" class="img-fluid" onerror="img_no_find()"></a>
+                <div class="box-masonry-hover-text-header"> <a href="detail.html" class="tile-link">  </a>
+                  <h4>Item with image 10</h4>
+                  <div class="box-masonry-desription">
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.  A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-<h1>total_music_interface</h1>
+<!-- 图片+标题+文字介绍 的物体 -->
+<div class="col-md-6 col-lg-3 grid-item">
+              <div class="box-masonry">
+                  <a href="detail.html" title="" class="box-masonry-image with-hover-overlay with-hover-icon">
+                      <img src="img/portfolio/envelope-brand.jpg" alt="" class="img-fluid" onerror="img_no_find()"></a>
+                <div class="box-masonry-text">
+                  <h4> <a href="detail.html">Item with image 8</a></h4>
+                  <div class="box-masonry-desription">
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.  A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-{% endblock %}
+<!-- 只有标题和文字 -->
+<div class="col-md-6 col-lg-5 grid-item">
+    <div class="box-masonry">
+        <a href="detail.html" title="" class="box-masonry-image with-hover-overlay with-hover-icon">
+            <img src="img/portfolio/label-clothes.jpg" alt="" class="img-fluid" onerror="img_no_find()">
+        </a>
+        <div class="box-masonry-text">
+            <h4>
+                <a href="detail.html">Name of the work 6</a>
+            </h4>
+            <div class="box-masonry-desription">
+                <p>Fifth abundantly made Give sixth hath. Cattle creature i be don't them.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
