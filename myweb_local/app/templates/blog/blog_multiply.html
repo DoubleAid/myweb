@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static',filename='js/blog/blog_multiply/css/blog_multiply_style.css') }}">
+{% endblock %}
 {% block main %}
         <!--main-->
         <div id="main">
@@ -68,33 +71,27 @@
             <!--介绍-->
             <section id="intro">
                 <a href="#" class="logo"><img src="{{ url_for('static', filename='images/icons/twodog.jpeg') }}" alt="" /></a>
-                <header>大狗二狗的狗窝</header>
+                <header id="title">大狗二狗的狗窝</header>
+                <p id="github-link"><a href="https://github.com/DoubleAid?tab=repositories">我的github</a></p>
                 <p></p>
-                <p></p>
-                <ul style="list-style-type: none;">
+                <ul id="select-and-write-ul" style="list-style-type: none;">
                     {% if user %}
                         <li>
                             <a href="modify/0" class="button big next">写点东西</a>
                         </li>
                     {% endif %}
                     <li>
-                        <p style="margin-top: 20px;margin-bottom: 0px;">分类</p>
-                        <select class="button big next">
-                            <option value ="volvo">Volvo</option>
-                            <option value ="saab">Saab</option>
-                            <option value="opel">Opel</option>
-                            <option value="audi">Audi</option>
+                        <span style="margin-top: 20px;margin-bottom: 0px;">分类</span>
+                        <select class="button big next" id="select-option">
+                            <option value="">全部</option>
                         </select>
                     </li>
-                    <ul>
-                        <li>最近创作</li>
-
-                    </ul>
                 </ul>
             </section>
 
             <!--最近创作-->
             <section>
+                <span>最近博客</span>
                 <div class="mini-posts" id="mini-posts">
                     <!--小简介-->
                     <article class="mini-post">
@@ -122,13 +119,9 @@
         </section>
 {% endblock %}
 {% block javascript %}
-    <script src="{{ url_for('static',filename='js/blog/common/blog_get_next.js') }}"></script>
     <script>
         $SCRIPT_ROOT={{ request.script_root|tojson|safe }}
-        function run_init_func(){
-            sidebar_get_blog_brief();
-            button_get_next_blogs();
-        }
-        window.onload=run_init_func;
     </script>
+    <script src="{{ url_for('static',filename='js/blog/common/blog_get_next.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/blog/blog_multiply/js/blog_multiply_listener.js') }}"></script>
 {% endblock %}
