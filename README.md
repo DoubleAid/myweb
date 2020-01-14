@@ -14,7 +14,7 @@
 [依赖包文件](requirements.txt)
 ```python
 # 你可以通过以下命令安装依赖包
-pip freeze >requirements.txt
+pip install -r requirements.txt
 ```
 
 ## 代码结构
