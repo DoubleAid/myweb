@@ -18,13 +18,14 @@ pip install -r requirements.txt
 ```
 
 ## 代码结构
-```
+``` diff
 ├── webstart.py  项目启动文件，文件引入app中的create_app方法创建Flask对象
 └── app
     ├── __init__.py   create_app,创建Flask对象
     ├── AssistMethod  数据类
     |   ├── BlogMethods.py  blog方法类，包括对blog的增、删、改、查、保存、读取等操作，对应的存储文件为 static/source/blog 文件夹中
     |   ├── AudioMethods.py audio方法类，对音频对象的增删改查操作，对应的存储文件为 static/source/audio 文件夹中
+    |   ├── VideoMethods.py video方法类，对视频对象的增删改查操作，对应的存储文件为 static/source/video 文件夹中
     |   └── UserMethods.py  用户方法类，包括对user的增删改查，保存，读取，验证，需要保证密码的不可见性
     |
     ├── Views  蓝图，后台响应函数：处理相应访问路由的反应，下面每一个文件都对应着一个蓝图，最后在__init__.py里整合
@@ -70,6 +71,11 @@ pip install -r requirements.txt
     |   |   |   ├── default
     |   |   |   ├── python
     |   |   |   └── index.json
+    |   |   |
+    |   |   ├── audio
+    |   |   |   ├── audio
+    |   |   |   └── index.json
+    |   |   |
     |   |   └── image   待实现
     |   |       ├── blog_image
     |   |       ├── error
@@ -84,18 +90,22 @@ pip install -r requirements.txt
     └── templates       模版，存储的是分化的 HTML 文件，包括基础文件 base.html 和 基于该文件开发的其他部分，其中有部分页面待分化   
         ├── adminstartor    名字拼错了，尴尬！！！不改了，登陆页面
         |   └── LoginIn.html
+        |
         ├── blog        blog部分
         |   ├── blog_multiply.html      多个 blog 显示界面
         |   ├── blog_single.html        单个 blog 显示界面
         |   └── blog_write.html         修改和编写 blog 显示界面
+        |
         ├── error       报错部分，其他报错功能带实现
         |   └── 404.html      404报错
         ├── homepages   欢迎界面
         |   └── homepage.html
+        |
         ├── audio       音乐播放界面部分，该部分界面待构思
         |   ├── music_collection_interface.html music
         |   ├── music_player_interface.html
         |   └── total_music_interface.html      音乐集 显示 界面
+        |
         ├── video
         |   └── total_video_interface.html
         └── base.html
