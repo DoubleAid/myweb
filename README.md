@@ -10,7 +10,7 @@
 
 ## [flask + nginx + uwsgi 环境搭建](https://github.com/DoubleAid/blog_record/blob/master/Python/002.Flask+uwsgi+nginx%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.md)
 
-## [依赖包]
+## 依赖包
 [依赖包文件](requirements.txt)
 ```python
 # 你可以通过以下命令安装依赖包
