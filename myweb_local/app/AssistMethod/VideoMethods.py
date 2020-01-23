@@ -16,22 +16,6 @@ CURRENT_PATH = os.getcwd()
 # music文件夹  通过 uuid.文件类型 的形式保存
 # --------------- index.json 文件格式 ---------------
 # {
-#   ’video‘:{ # audio 中不应该包括 有声小说, 音乐
-#       uuid:{
-#           'file_type': mp3，等，
-#           'name': 歌名
-#           ’author‘: 作者
-#           ’words‘: 歌词
-#       }
-#   }
-#   ’sets‘:{
-#       uuid:{
-#           novel_name: 小说名称
-#           introduce: 介绍
-#           audio_type: "mp3" or "wmc"
-#           audio_list: [ uuid ]
-#       }
-#   }
 # }
 #######################################
 
