@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d5cbe335-624b-4e58-8c34-5f8615a1dabc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AssistMethod/VideoMethods.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/AssistMethod/VideoMethods.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +137,7 @@
       <workItem from="1578726329606" duration="14007000" />
       <workItem from="1578920464531" duration="3278000" />
       <workItem from="1579520250239" duration="917000" />
-      <workItem from="1579672484727" duration="2393000" />
+      <workItem from="1579672484727" duration="2646000" />
     </task>
     <task id="LOCAL-00001" summary="push add music part">
       <created>1578116360984</created>
@@ -182,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579793473689</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="1. 修改blog的bug">
+      <created>1579793927945</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1579793927945</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,17 +222,17 @@
       <screen x="1680" y="-170" width="2560" height="1331" />
     </state>
     <state x="2655" y="305" key="#com.intellij.fileTypes.FileTypeChooser/1680.-170.2560.1331/0.23.1680.1027@1680.-170.2560.1331" timestamp="1578732983454" />
-    <state x="0" y="23" width="1680" height="959" key="CommitChangelistDialog2" timestamp="1579793473575">
+    <state x="0" y="23" width="1680" height="959" key="CommitChangelistDialog2" timestamp="1579793927811">
       <screen x="0" y="23" width="1680" height="959" />
     </state>
     <state x="0" y="23" key="CommitChangelistDialog2/0.23.1680.957@0.23.1680.957" timestamp="1579793114213" />
-    <state x="0" y="23" width="1680" height="959" key="CommitChangelistDialog2/0.23.1680.959@0.23.1680.959" timestamp="1579793473575" />
+    <state x="0" y="23" width="1680" height="959" key="CommitChangelistDialog2/0.23.1680.959@0.23.1680.959" timestamp="1579793927811" />
     <state x="1680" y="-193" width="2560" height="1440" key="CommitChangelistDialog2/1680.-193.2560.1440/0.0.1680.1050@1680.-193.2560.1440" timestamp="1578815407536" />
-    <state x="616" y="376" key="Github.CreatePullRequestDialog" timestamp="1579793829299">
+    <state x="616" y="376" key="Github.CreatePullRequestDialog" timestamp="1579794057740">
       <screen x="0" y="23" width="1680" height="959" />
     </state>
     <state x="616" y="375" key="Github.CreatePullRequestDialog/0.23.1680.957@0.23.1680.957" timestamp="1579793288600" />
-    <state x="616" y="376" key="Github.CreatePullRequestDialog/0.23.1680.959@0.23.1680.959" timestamp="1579793829299" />
+    <state x="616" y="376" key="Github.CreatePullRequestDialog/0.23.1680.959@0.23.1680.959" timestamp="1579794057740" />
     <state width="1638" height="325" key="GridCell.Tab.0.bottom" timestamp="1579793317576">
       <screen x="0" y="23" width="1680" height="957" />
     </state>
@@ -273,9 +279,10 @@
     <state x="255" y="153" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1578840812256" />
     <state x="255" y="153" key="SettingsEditor/1680.-193.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1578820387079" />
     <state x="2685" y="166" key="SettingsEditor/1680.-193.2560.1440/0.0.1680.1050@1680.-193.2560.1440" timestamp="1578813582311" />
-    <state x="2560" y="267" key="Vcs.Push.Dialog.v2" timestamp="1578815640561">
-      <screen x="1680" y="-193" width="2560" height="1440" />
+    <state x="578" y="329" key="Vcs.Push.Dialog.v2" timestamp="1579794188317">
+      <screen x="0" y="23" width="1680" height="957" />
     </state>
+    <state x="578" y="329" key="Vcs.Push.Dialog.v2/0.23.1680.957@0.23.1680.957" timestamp="1579794188317" />
     <state x="2560" y="267" key="Vcs.Push.Dialog.v2/1680.-193.2560.1440/0.0.1680.1050@1680.-193.2560.1440" timestamp="1578815640561" />
     <state x="0" y="23" width="1680" height="959" key="com.intellij.dvcs.ui.CompareBranchesDialog" timestamp="1579793766899">
       <screen x="0" y="23" width="1680" height="959" />
@@ -283,11 +290,11 @@
     <state x="66" y="89" key="com.intellij.dvcs.ui.CompareBranchesDialog/0.23.1680.957@0.23.1680.957" timestamp="1579793257248" />
     <state x="0" y="23" width="1680" height="959" key="com.intellij.dvcs.ui.CompareBranchesDialog/0.23.1680.959@0.23.1680.959" timestamp="1579793766899" />
     <state x="1780" y="-93" width="2360" height="1240" key="com.intellij.dvcs.ui.CompareBranchesDialog/1680.-193.2560.1440/0.0.1680.1050@1680.-193.2560.1440" timestamp="1578116190847" />
-    <state x="702" y="451" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579793308870">
+    <state x="702" y="451" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579794203510">
       <screen x="0" y="23" width="1680" height="957" />
     </state>
     <state x="702" y="470" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1050@0.0.1680.1050" timestamp="1579768022939" />
-    <state x="702" y="451" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.957@0.23.1680.957" timestamp="1579793308870" />
+    <state x="702" y="451" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.957@0.23.1680.957" timestamp="1579794203510" />
     <state x="2749" y="451" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1680.-193.2560.1440/0.0.1680.1050@1680.-193.2560.1440" timestamp="1578712847148" />
     <state x="2749" y="451" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1680.-193.2560.1440/0.23.1680.1027@1680.-193.2560.1440" timestamp="1578712897534" />
     <state x="2552" y="114" width="816" height="825" key="find.popup" timestamp="1578116183712">
