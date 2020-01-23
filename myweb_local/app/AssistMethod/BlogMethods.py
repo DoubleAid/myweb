@@ -68,7 +68,7 @@ class Blog:
         """
         if uuid is None:
             # 如果没有通用唯一识别码，表示要新生成一个博客
-            self.blog = {'head': {'assort':'default','permission':0}, 'content': {}, 'id': Blog.create_uuid()}
+            self.blog = {'head': {'assort': 'default', 'permission': 0}, 'content': {}, 'id': Blog.create_uuid()}
         elif type == "uuid" and uuid is not None:
             # 表示输入的uuid为通用唯一识别码"""
             self.blog = self.get_blog_by_uuid(uuid)
@@ -154,7 +154,7 @@ class Blog:
                 blog_profiles = json.load(f)
                 return blog_profiles[blog[0]]
         except BaseException as Err:
-            print("get blog by num Err:" + str(Err))
+            print("get blog by num Err:" + str(Err)+", num is " + str(num))
             return False
 
     @staticmethod
@@ -168,11 +168,13 @@ class Blog:
                 blog_profiles = json.load(blogs)
                 return blog_profiles[uuid]
         except BaseException as Err:
-            print("get blog by uuid Err:" + str(Err))
+            print("get blog by uuid Err:" + str(Err)+", uuid is " + str(uuid))
             return False
 
     def write_item(self, mtype, value):
         mtype = mtype.lower()
+        print("current blog is" + str(self.blog))
+        print("mtype is " + mtype + ", value is " + str(value))
         if mtype in HEAD:
             self.blog['head'][mtype] = value
             return True

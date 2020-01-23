@@ -49,24 +49,27 @@ def show_blog_by_uuid(num):
     blog_info['content']['article'] = markdown.markdown(blog_info['content']['article'], output_format='html5')
     return render_template('blog/blog_single.html',user=user_name, blog=blog_info)
 
+
 @blog.route('/modify/<num>', methods=['GET', 'POST'])
 def modify(num):
     if request.method == "POST":
-        if num == 0:
+        if str(num) == "0":
             # 新建博客
             current_blog = Blog()
         else:
             current_blog = Blog(num)
+        print(current_blog.get_item("id"))
         receive_data = request.form
         # 如果获取 blog 失败，返回错误信息
         if not current_blog:
             return 404
-        Flag = current_blog.write_item(mtype="title",value=receive_data['title']) & True
-        Flag &= current_blog.write_item(mtype="permission", value=receive_data['permission'])
-        Flag &= current_blog.write_item(mtype="assort", value=receive_data['assort'])
-        Flag &= current_blog.write_item(mtype="introduce", value=receive_data['introduce'])
-        Flag &= current_blog.write_item(mtype="article", value=receive_data['article'])
-        if Flag:
+        print(receive_data)
+        flag = current_blog.write_item(mtype="title", value=receive_data['title'])
+        flag = current_blog.write_item(mtype="permission", value=receive_data['permission']) and flag
+        flag = current_blog.write_item(mtype="assort", value=receive_data['assort']) and flag
+        flag = current_blog.write_item(mtype="introduce", value=receive_data['introduce']) and flag
+        flag = current_blog.write_item(mtype="article", value=receive_data['article']) and flag
+        if flag:
             current_blog.save_blog()
         return "/blog/"+str(current_blog.get_item(mtype="id"))
     else:
@@ -81,6 +84,7 @@ def modify(num):
         if user_name is None :
             return 404
         return render_template('blog/blog_write.html', user=user_name, blog=blog_info)
+
 
 @blog.route('/<num>/delete')
 def delete(num):
