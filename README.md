@@ -1,5 +1,6 @@
 # 网站开发代码
 **Warnning** 使用 pull request 何如代码，方便回退版本！！！
+**欢迎提意见** 有任何问题或者建议，欢迎提issue，我也会及时在issue里回答
 *****
 目录  
 [1. flask + nginx + uwsgi 环境搭建](#flask+nginx+uwsgi+环境搭建)  
