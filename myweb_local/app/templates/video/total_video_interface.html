@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block link %}
 <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ url_for('static', filename='vendor/masonry-layout/masonry.pkgd.min.js') }}"></script>
@@ -8,57 +9,89 @@
 {% endblock %}
 
 {% block main %}
-
 <div class="main">
     <div class="container-fluid">
         <div class="row row-offcanvas row-offcanvas-left">
         <!--   *** SIDEBAR ***-->
-        <div id="side_bar" class="col-md-4 col-lg-3 sidebar-offcanvas">
+        <div id="side_bar" class="col-md-4 col-lg-2 sidebar-offcanvas">
             <div class="sidebar-content">
-                <h1 class="sidebar-heading"> <a href="index.html">图片视频</a></h1>
-                <p class="sidebar-p">我的图片视频</p>
-                <!--<p class="sidebar-p">Originally from Toronto, currently based in London. </p>-->
+                <h1 class="sidebar-heading"> <a href="index.html">图片视频合集</a></h1>
+                <p class="sidebar-p">Audio&Image 合集</p>
                 <ul class="sidebar-menu">
                     <!-- Link-->
-                    <li class="sidebar-item"><a href="/video/video" class="sidebar-link active">视频</a></li>
+                    <li class="sidebar-item"><a href="index.html" class="sidebar-link active">图片</a></li>
                     <!-- Link-->
-                    <li class="sidebar-item"><a href="/video/picture" class="sidebar-link">图片</a></li>
+                    <li class="sidebar-item"><a href="about.html" class="sidebar-link">视频</a></li>
                     <!-- Link-->
                     <li class="sidebar-item"><a href="contact.html" class="sidebar-link">上传</a></li>
                 </ul>
                 <p class="social"><a href="#" data-animate-hover="pulse" class="external facebook"><i class="fa fa-facebook"></i></a><a href="#" data-animate-hover="pulse" class="external gplus"><i class="fa fa-google-plus"></i></a><a href="#" data-animate-hover="pulse" class="external twitter"><i class="fa fa-twitter"></i></a><a href="#" title="" class="external instagram"><i class="fa fa-instagram"></i></a><a href="#" data-animate-hover="pulse" class="email"><i class="fa fa-envelope"></i></a></p>
                 <div class="copyright text-center text-md-left">
-                <!--<p class="credit">Bootstrapious.com &copy;2018 Your name or company | More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>-->
+                    <!--<p class="credit">Bootstrapious.com &copy;2018 Your name or company | More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>-->
                 </div>
             </div>
         </div>
         <!--   *** SIDEBAR END ***  -->
         <!--   *** PORTFOLIO ***-->
-        <div class="col-md-8 col-lg-9 content-column">
-          <!--<div class="small-navbar d-flex d-md-none">-->
-            <!--<button type="button" data-toggle="offcanvas" class="btn btn-outline-primary"> <i class="fa fa-align-left mr-2"></i>Menu</button>-->
-            <!--<h1 class="small-navbar-heading"> <a href="index.html">Creative </a></h1>-->
-          <!--</div>-->
-          <div class="grid row">
-            <div class="col-md-6 col-lg-3 grid-item">
-              <div class="box-masonry">
-                  <a href="detail.html" title="" class="box-masonry-image with-hover-overlay">
-                      <img src="../static/source/image/error/default.jpg" alt="" class="img-fluid">
-                  </a>
-                  <div class="box-masonry-hover-text-header">
-                      <a href="detail.html" class="tile-link"></a>
-                      <h4>Name of the work 1</h4>
-                      <div class="box-masonry-desription">
-                          <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life. One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. </p>
-                      </div>
-                  </div>
-              </div>
+        <div class="col-md-8 col-lg-10 content-column">
+<!--          <div class="small-navbar d-flex d-md-none">-->
+<!--            <button type="button" data-toggle="offcanvas" class="btn btn-outline-primary"> <i class="fa fa-align-left mr-2"></i>Menu</button>-->
+<!--            <h1 class="small-navbar-heading"> <a href="index.html">Creative </a></h1>-->
+<!--          </div>-->
+            <div class="grid row">
+                <div class="col-md-6 col-lg-4 grid-item">
+                    <div class="box-masonry"> <a href="detail.html" title="" class="box-masonry-image with-hover-overlay with-hover-icon">
+                    <img src="img/portfolio/label-clothes.jpg" alt="" class="img-fluid"></a>
+                        <div class="box-masonry-text">
+                            <h4> <a href="detail.html">Name of the work 6</a></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 grid-item">
+                    <div class="box-masonry"> <a href="detail.html" title="" class="box-masonry-image with-hover-overlay with-hover-icon">
+                    <img src="../static/source/image/error/default.jpg" alt="" class="img-fluid"></a>
+                        <div class="box-masonry-text">
+                            <h4> <a href="detail.html">Name of the work 6</a></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 grid-item">
+                    <div class="box-masonry"> <a href="detail.html" title="" class="box-masonry-image with-hover-overlay with-hover-icon">
+                    <img src="img/portfolio/label-clothes.jpg" alt="" class="img-fluid"></a>
+                        <div class="box-masonry-text">
+                            <h4> <a href="detail.html">Name of the work 6</a></h4>
+<!--                        <div class="box-masonry-desription">-->
+<!--                            <p>Fifth abundantly made Give sixth hath. Cattle creature i be don't them.</p>-->
+<!--                        </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 grid-item">
+                    <div class="box-masonry"> <a href="detail.html" title="" class="box-masonry-image with-hover-overlay with-hover-icon">
+                    <img src="img/portfolio/label-clothes.jpg" alt="" class="img-fluid"></a>
+                        <div class="box-masonry-text">
+                            <h4> <a href="detail.html">Name of the work 6</a></h4>
+<!--                        <div class="box-masonry-desription">-->
+<!--                            <p>Fifth abundantly made Give sixth hath. Cattle creature i be don't them.</p>-->
+<!--                        </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 grid-item">
+                    <div class="box-masonry"> <a href="detail.html" title="" class="box-masonry-image with-hover-overlay with-hover-icon">
+                    <img src="img/portfolio/label-clothes.jpg" alt="" class="img-fluid"></a>
+                        <div class="box-masonry-text">
+                            <h4> <a href="detail.html">Name of the work 6</a></h4>
+<!--                        <div class="box-masonry-desription">-->
+<!--                            <p>Fifth abundantly made Give sixth hath. Cattle creature i be don't them.</p>-->
+<!--                        </div>-->
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
         <!--   *** PORTFOLIO END ***-->
       </div>
     </div>
 </div>
-
 {% endblock %}

@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block link %}
+<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row" id="row1">background</div>
+    <div class="row" id="player" style="max-height: 20rem;">player</div>
+</div>
+
+{% endblock %}
