@@ -3,11 +3,35 @@
 {% block link %}
 <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='js/music/music_player/css/music_player.css') }}">
 {% endblock %}
 {% block main %}
-<div class="container">
-    <div class="row" id="row1">background</div>
-    <div class="row" id="player" style="max-height: 20rem;">player</div>
+<div class="player-container">
+    <div class="music_info" id="row1">
+        <div class="container">
+            <div class="flex_item col-md-6">123</div>
+            <div class="flex-item col-md-6">456</div>
+        </div>
+    </div>
+    <div class="play_bar" id="player">
+        <div class="progress" id="progress">
+            <div class="bar"></div>
+            <div class="has_load" id="play_loading"></div>
+        </div>
+    </div>
+    <div class="play_button container">
+        <div class="col-3 btn-control">1</div>
+        <div class="col-3 btn-control">2</div>
+        <div class="col-3 btn-control">3</div>
+        <div class="col-3 btn-control">4</div>
+    </div>
+    <div class="bg-image"></div>
 </div>
 
+{% endblock %}
+{% block javascript %}
+<script>
+        $SCRIPT_ROOT={{ request.script_root|tojson|safe }}
+</script>
+<script src="{{ url_for('static',filename='js/music/music_player/js/music_player.js') }}"></script>
 {% endblock %}
