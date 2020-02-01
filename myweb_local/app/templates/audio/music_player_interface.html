@@ -1,37 +1,190 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-{% block link %}
-<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-<link rel="stylesheet" href="{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ url_for('static',filename='js/music/music_player/css/music_player.css') }}">
-{% endblock %}
-{% block main %}
-<div class="player-container">
-    <div class="music_info" id="row1">
-        <div class="container">
-            <div class="flex_item col-md-6">123</div>
-            <div class="flex-item col-md-6">456</div>
-        </div>
-    </div>
-    <div class="play_bar" id="player">
-        <div class="progress" id="progress">
-            <div class="bar"></div>
-            <div class="has_load" id="play_loading"></div>
-        </div>
-    </div>
-    <div class="play_button container">
-        <div class="col-3 btn-control">1</div>
-        <div class="col-3 btn-control">2</div>
-        <div class="col-3 btn-control">3</div>
-        <div class="col-3 btn-control">4</div>
-    </div>
-    <div class="bg-image"></div>
-</div>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <meta name="renderer" content="webkit">
+    <meta name="generator" content="KodCloud">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
 
-{% endblock %}
-{% block javascript %}
-<script>
-        $SCRIPT_ROOT={{ request.script_root|tojson|safe }}
-</script>
-<script src="{{ url_for('static',filename='js/music/music_player/js/music_player.js') }}"></script>
-{% endblock %}
+    <!-- 强制移动设备以app模式打开页面(即在移动设备下全屏，仅支持部分浏览器) -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="full-screen" content="yes"><!--UC强制全屏-->
+    <meta name="browsermode" content="application"><!--UC应用模式-->
+    <meta name="x5-fullscreen" content="true"><!--QQ强制全屏-->
+    <meta name="x5-page-mode" content="app"><!--QQ应用模式-->
+
+    <title></title>
+
+    <!-- 不支持IE8及以下版本浏览器 -->
+    <!--[if lte IE 8]>
+        <script>window.location.href="plugns/killie/"</script>
+    <![endif]-->
+
+    <!-- favicon图标 -->
+    <link rel="shortcut icon" href="https://www.17sucai.com/preview/882777/2017-11-02/music_v2.32_/favicon.ico">
+
+    <!-- jQuery文件 -->
+    <script src="./MKOnlinePlayer v2.3_files/jquery.min.js"></script>
+
+    <!-- 播放器样式表文件 -->
+    <link rel="stylesheet" type="text/css" href="./MKOnlinePlayer v2.3_files/player.css">
+
+    <!-- 小屏幕样式修复 -->
+    <link rel="stylesheet" type="text/css" href="./MKOnlinePlayer v2.3_files/small.css">
+
+    <!-- 滚动条美化样式文件 -->
+    <link rel="stylesheet" type="text/css" href="./MKOnlinePlayer v2.3_files/jquery.mCustomScrollbar.min.css">
+
+    <!-- layer弹窗插件样式文件 -->
+    <link rel="stylesheet" href="./MKOnlinePlayer v2.3_files/layer.css" id="layuicss-skinlayercss" style="">
+</head>
+<body>
+
+<div id="blur-img"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="2016" height="971" id="blurred_nu6lyi6vw" class="blured-img" viewBox="0 0 2016 971" preserveAspectRatio="none"><filter id="blur_nu6lyi6vw"><fegaussianblur in="SourceGraphic" stdDeviation="50"></fegaussianblur></filter><image x="0" y="0" width="2016" height="971" externalResourcesRequired="true" href="" style="filter:url(#blur_nu6lyi6vw)" preserveAspectRatio="none"></image></svg><div class="blur-mask" style="display: block;"></div></div>
+
+<!-- 头部logo -->
+<div class="header">
+    <div class="logo" title="Version 2.32; Based on Meting; Powered by Mengkun">
+        ♫ MKOnlinePlayer
+    </div>
+</div>  <!--class="header"-->
+
+<!-- 中间主体区域 -->
+<div class="center">
+    <div class="container">
+        <div class="btn-bar">
+            <!-- tab按钮区 -->
+            <div class="btn-box" id="btn-area">
+                <span class="btn" data-action="player" hidden="">播放器</span>
+                <span class="btn active" data-action="playing" title="正在播放列表">正在播放</span>
+                <span class="btn" data-action="sheet" title="音乐播放列表">播放列表</span>
+                <span class="btn" data-action="search" title="点击搜索音乐">歌曲搜索</span>
+            </div>
+        </div>  <!--class="btn-bar"-->
+
+        <div class="data-area">
+            <!--歌曲歌单-->
+            <div id="sheet" class="data-box mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar" hidden="" style="overflow: visible; display: none;"><div id="mCSB_1" class="mCustomScrollBox mCS-minimal mCSB_vertical mCSB_outside" style="max-height: 741px;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr"><div class="sheet-item" data-no="1">    <img class="sheet-cover" src="./MKOnlinePlayer v2.3_files/player_cover.png">    <p class="sheet-name">正在播放</p></div><div class="sheet-item" data-no="2">    <img class="sheet-cover" src="./MKOnlinePlayer v2.3_files/history.png">    <p class="sheet-name">播放历史</p></div><div class="sheet-item" data-no="3">    <img class="sheet-cover" src="./MKOnlinePlayer v2.3_files/player_cover.png">    <p class="sheet-name"><span style="color: #EA8383">读取失败</span></p></div><div class="sheet-item" data-no="4">    <img class="sheet-cover" src="./MKOnlinePlayer v2.3_files/player_cover.png">    <p class="sheet-name"><span style="color: #EA8383">读取失败</span></p></div><div class="sheet-item" data-no="5">    <img class="sheet-cover" src="./MKOnlinePlayer v2.3_files/player_cover.png">    <p class="sheet-name"><span style="color: #EA8383">读取失败</span></p></div><div class="sheet-item" data-no="6">    <img class="sheet-cover" src="./MKOnlinePlayer v2.3_files/player_cover.png">    <p class="sheet-name"><span style="color: #EA8383">读取失败</span></p></div><div class="sheet-item" data-no="7">    <img class="sheet-cover" src="./MKOnlinePlayer v2.3_files/player_cover.png">    <p class="sheet-name"><span style="color: #EA8383">读取失败</span></p></div><div class="sheet-item" data-no="8">    <img class="sheet-cover" src="./MKOnlinePlayer v2.3_files/player_cover.png">    <p class="sheet-name"><span style="color: #EA8383">读取失败</span></p></div><div class="sheet-item" data-no="9">    <img class="sheet-cover" src="./MKOnlinePlayer v2.3_files/player_cover.png">    <p class="sheet-name"><span style="color: #EA8383">读取失败</span></p></div><div class="sheet-item" data-no="10">    <img class="sheet-cover" src="./MKOnlinePlayer v2.3_files/34YW1QtKxJ_3YnX9ZzKhzw==_2946691234868155">    <p class="sheet-name">自定义列表</p></div><div class="sheet-item" data-no="11">    <img class="sheet-cover" src="./MKOnlinePlayer v2.3_files/player_cover.png">    <p class="sheet-name"><span style="color: #EA8383">读取失败</span></p></div><span id="sheet-bar"><div class="clear-fix"></div><div id="user-login" class="sheet-title-bar">我的歌单 <span class="login-btn login-in">[点击同步]</span></div></span></div></div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-minimal mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 50px; top: 0px; height: 0px;"><div class="mCSB_dragger_bar" style="line-height: 50px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div>
+
+            <!--音乐播放列表-->
+            <div id="main-list" class="music-list data-box mCustomScrollbar _mCS_2 mCS-autoHide mCS_no_scrollbar" style="overflow: visible; display: block;"><div id="mCSB_2" class="mCustomScrollBox mCS-minimal mCSB_vertical mCSB_outside" tabindex="0" style="max-height: none;"><div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr"><div class="list-item list-head">    <span class="music-album">        专辑    </span>    <span class="auth-name">        歌手    </span>    <span class="music-name">        歌曲    </span></div><div class="list-item text-center" id="list-foot">可能是个假列表，什么也没有</div></div></div><div id="mCSB_2_scrollbar_vertical" class="mCSB_scrollTools mCSB_2_scrollbar mCS-minimal mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_2_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 50px; top: 0px; height: 0px;"><div class="mCSB_dragger_bar" style="line-height: 50px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div>
+        </div>  <!--class="data-area"-->
+
+        <!-- 右侧封面及歌词展示 -->
+        <div class="player" id="player">
+            <!--歌曲封面-->
+            <div class="cover">
+                <img src="./MKOnlinePlayer v2.3_files/player_cover.png" class="music-cover" id="music-cover">
+            </div>
+            <!--滚动歌词-->
+            <div class="lyric">
+                <ul id="lyric"></ul>
+            </div>
+            <div id="music-info" title="点击查看歌曲信息"></div>
+        </div>
+    </div>  <!--class="container"-->
+</div>  <!--class="center"-->
+
+<!-- 播放器底部区域 -->
+<div class="footer">
+    <div class="container">
+        <div class="con-btn">
+            <a href="javascript:;" class="player-btn btn-prev" title="上一首"></a>
+            <a href="javascript:;" class="player-btn btn-play" title="暂停/继续"></a>
+            <a href="javascript:;" class="player-btn btn-next" title="下一首"></a>
+        </div>  <!--class="con-btn"-->
+
+        <div class="vol">
+            <div class="quiet">
+                <a href="javascript:;" class="player-btn btn-quiet" title="静音"></a>
+            </div>
+            <div class="volume">
+                <div class="volume-box">
+                    <div id="volume-progress" class="mkpgb-area"><div class="mkpgb-bar"></div><div class="mkpgb-cur" style="width: 60%;"></div><div class="mkpgb-dot" style="left: 60%;"></div></div>
+                </div>
+            </div>
+        </div>  <!--class="footer"-->
+
+        <div class="progress">
+            <div class="progress-box">
+                <div id="music-progress" class="mkpgb-area mkpgb-locked"><div class="mkpgb-bar"></div><div class="mkpgb-cur" style="width: 0%;"></div><div class="mkpgb-dot" style="left: 0%;"></div></div>
+            </div>
+        </div>  <!--class="progress"-->
+    </div>  <!--class="container"-->
+</div>  <!--class="footer"-->
+
+<!-- layer弹窗插件 -->
+<script src="./MKOnlinePlayer v2.3_files/layer.js"></script>
+
+<!-- 播放器数据加载模块 -->
+<script src="./MKOnlinePlayer v2.3_files/ajax.js"></script>
+
+<!-- 播放器歌词解析模块 -->
+<script src="./MKOnlinePlayer v2.3_files/lyric.js"></script>
+
+<!-- 音乐列表配置 -->
+<script src="./MKOnlinePlayer v2.3_files/musicList.js"></script>
+
+<!-- 封装函数及ui交互模块 -->
+<script src="./MKOnlinePlayer v2.3_files/functions.js"></script>
+
+<!-- 播放器主体功能模块 -->
+<script src="./MKOnlinePlayer v2.3_files/player.js"></script>
+
+<!-- 滚动条美化插件 -->
+<script src="./MKOnlinePlayer v2.3_files/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!-- 背景模糊化插件 -->
+<script src="./MKOnlinePlayer v2.3_files/background-blur.min.js"></script>
+
+
+
+<audio></audio><div class="layui-layer-move"></div></body></html>
+
+<!--{% extends "base.html" %}-->
+
+<!--{% block link %}-->
+<!--<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>-->
+<!--<link rel="stylesheet" href="{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}">-->
+<!--<link rel="stylesheet" href="{{ url_for('static',filename='js/music/music_player/css/music_player.css') }}">-->
+<!--{% endblock %}-->
+<!--{% block extend_area %}-->
+<!--<div class="player-container" id="container">-->
+<!--    &lt;!&ndash; 侧边歌曲目录栏 &ndash;&gt;-->
+<!--    <div id="canvas">-->
+<!--        <div id="music_nav">-->
+<!--            <h2>123</h2>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="music_info" id="row1">-->
+<!--        <div class="container">-->
+<!--            <div class="flex_item col-md-6">123</div>-->
+<!--            <div class="flex-item col-md-6">456</div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="play_bar" id="player">-->
+<!--        <div class="progress" id="progress">-->
+<!--            <div class="bar"></div>-->
+<!--            <div class="has_load" id="play_loading"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="play_button container">-->
+<!--        <div class="col-3 btn-control">1</div>-->
+<!--        <div class="col-3 btn-control">2</div>-->
+<!--        <div class="col-3 btn-control">3</div>-->
+<!--        <div class="col-3 btn-control">4</div>-->
+<!--    </div>-->
+<!--    <div class="bg-image"></div>-->
+<!--</div>-->
+
+<!--{% endblock %}-->
+<!--{% block javascript %}-->
+<!--<script>-->
+<!--        $SCRIPT_ROOT={{ request.script_root|tojson|safe }}-->
+<!--</script>-->
+<!--<script src="{{ url_for('static',filename='js/music/music_player/js/music_player.js') }}"></script>-->
+<!--{% endblock %}-->
