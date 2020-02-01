@@ -4,8 +4,8 @@
     <list default="true" id="d5cbe335-624b-4e58-8c34-5f8615a1dabc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/static/js/music/music_player/css/music_player.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/music/music_player/css/music_player.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/js/music/music_player/js/music_player.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/music/music_player/js/music_player.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/templates/audio/music_player_interface.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/audio/music_player_interface.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +28,7 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="SWAP_SIDES_IN_COMPARE_BRANCHES" value="true" />
-    <option name="UPDATE_TYPE" value="REBASE" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="GithubProjectSettings">
     <option name="CREATE_PULL_REQUEST_DEFAULT_BRANCH" value="master" />
@@ -143,7 +143,7 @@
       <workItem from="1579520250239" duration="917000" />
       <workItem from="1579672484727" duration="3983000" />
       <workItem from="1580005572738" duration="1606000" />
-      <workItem from="1580271591604" duration="13407000" />
+      <workItem from="1580271591604" duration="17222000" />
     </task>
     <task id="LOCAL-00001" summary="push add music part">
       <created>1578116360984</created>
@@ -222,7 +222,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580391275915</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="audio player test 页面开发，&#10;左边是音乐的介绍，右边是歌词，下面是进度条">
+      <created>1580478121265</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1580478121265</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -263,7 +270,8 @@
     <MESSAGE value="video类修改" />
     <MESSAGE value="audio 测试界面" />
     <MESSAGE value="video类注释修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="video类注释修改" />
+    <MESSAGE value="audio player test 页面开发，&#10;左边是音乐的介绍，右边是歌词，下面是进度条" />
+    <option name="LAST_COMMIT_MESSAGE" value="audio player test 页面开发，&#10;左边是音乐的介绍，右边是歌词，下面是进度条" />
   </component>
   <component name="WindowStateProjectService">
     <state x="440" y="166" key="#Notifications" timestamp="1580391177566">
@@ -274,9 +282,10 @@
       <screen x="1680" y="-170" width="2560" height="1331" />
     </state>
     <state x="2655" y="305" key="#com.intellij.fileTypes.FileTypeChooser/1680.-170.2560.1331/0.23.1680.1027@1680.-170.2560.1331" timestamp="1578732983454" />
-    <state x="0" y="23" width="1081" height="800" key="CommitChangelistDialog2" timestamp="1580391275791">
-      <screen x="0" y="23" width="1680" height="959" />
+    <state x="0" y="0" width="1081" height="800" key="CommitChangelistDialog2" timestamp="1580478121088">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
+    <state x="0" y="0" key="CommitChangelistDialog2/0.0.1680.1050@0.0.1680.1050" timestamp="1580478121088" />
     <state x="0" y="23" width="1081" height="800" key="CommitChangelistDialog2/0.23.1680.957@0.23.1680.957" timestamp="1579794243841" />
     <state x="0" y="23" width="1680" height="959" key="CommitChangelistDialog2/0.23.1680.959@0.23.1680.959" timestamp="1580391275791" />
     <state x="1680" y="-193" width="2560" height="1440" key="CommitChangelistDialog2/1680.-193.2560.1440/0.0.1680.1050@1680.-193.2560.1440" timestamp="1578815407536" />
@@ -289,10 +298,10 @@
     </state>
     <state x="616" y="375" key="Github.CreatePullRequestDialog/0.23.1680.957@0.23.1680.957" timestamp="1579793288600" />
     <state x="616" y="376" key="Github.CreatePullRequestDialog/0.23.1680.959@0.23.1680.959" timestamp="1579794721048" />
-    <state width="529" height="115" key="GridCell.Tab.0.bottom" timestamp="1580471010234">
+    <state width="390" height="115" key="GridCell.Tab.0.bottom" timestamp="1580478173528">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="529" height="115" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1580471010234" />
+    <state width="390" height="115" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1580478173528" />
     <state width="1638" height="324" key="GridCell.Tab.0.bottom/0.23.1680.955@0.23.1680.955" timestamp="1580032990305" />
     <state width="1638" height="324" key="GridCell.Tab.0.bottom/0.23.1680.957@0.23.1680.957" timestamp="1580009512120" />
     <state width="819" height="371" key="GridCell.Tab.0.bottom/0.23.1680.959@0.23.1680.959" timestamp="1580440472560" />
@@ -300,10 +309,10 @@
     <state width="1554" height="542" key="GridCell.Tab.0.bottom/1680.-193.2560.1440/0.0.1680.1050@1680.-193.2560.1440" timestamp="1578923668709" />
     <state width="2518" height="380" key="GridCell.Tab.0.bottom/1680.-193.2560.1440/0.23.1680.1027@1680.-193.2560.1440" timestamp="1578808280612" />
     <state width="2518" height="466" key="GridCell.Tab.0.bottom/1680.-193.2560.1440/0.23.1680.957@1680.-193.2560.1440" timestamp="1579536546474" />
-    <state width="529" height="115" key="GridCell.Tab.0.center" timestamp="1580471010232">
+    <state width="390" height="115" key="GridCell.Tab.0.center" timestamp="1580478173526">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="529" height="115" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1580471010232" />
+    <state width="390" height="115" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1580478173526" />
     <state width="1638" height="324" key="GridCell.Tab.0.center/0.23.1680.955@0.23.1680.955" timestamp="1580032990303" />
     <state width="1638" height="324" key="GridCell.Tab.0.center/0.23.1680.957@0.23.1680.957" timestamp="1580009512119" />
     <state width="819" height="371" key="GridCell.Tab.0.center/0.23.1680.959@0.23.1680.959" timestamp="1580440472559" />
@@ -311,10 +320,10 @@
     <state width="1554" height="542" key="GridCell.Tab.0.center/1680.-193.2560.1440/0.0.1680.1050@1680.-193.2560.1440" timestamp="1578923668708" />
     <state width="2518" height="380" key="GridCell.Tab.0.center/1680.-193.2560.1440/0.23.1680.1027@1680.-193.2560.1440" timestamp="1578808280610" />
     <state width="2518" height="466" key="GridCell.Tab.0.center/1680.-193.2560.1440/0.23.1680.957@1680.-193.2560.1440" timestamp="1579536546472" />
-    <state width="529" height="115" key="GridCell.Tab.0.left" timestamp="1580471010231">
+    <state width="390" height="115" key="GridCell.Tab.0.left" timestamp="1580478173525">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="529" height="115" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1580471010231" />
+    <state width="390" height="115" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1580478173525" />
     <state width="1638" height="324" key="GridCell.Tab.0.left/0.23.1680.955@0.23.1680.955" timestamp="1580032990303" />
     <state width="1638" height="324" key="GridCell.Tab.0.left/0.23.1680.957@0.23.1680.957" timestamp="1580009512119" />
     <state width="819" height="371" key="GridCell.Tab.0.left/0.23.1680.959@0.23.1680.959" timestamp="1580440472558" />
@@ -322,10 +331,10 @@
     <state width="1554" height="542" key="GridCell.Tab.0.left/1680.-193.2560.1440/0.0.1680.1050@1680.-193.2560.1440" timestamp="1578923668707" />
     <state width="2518" height="380" key="GridCell.Tab.0.left/1680.-193.2560.1440/0.23.1680.1027@1680.-193.2560.1440" timestamp="1578808280609" />
     <state width="2518" height="466" key="GridCell.Tab.0.left/1680.-193.2560.1440/0.23.1680.957@1680.-193.2560.1440" timestamp="1579536546471" />
-    <state width="529" height="115" key="GridCell.Tab.0.right" timestamp="1580471010233">
+    <state width="390" height="115" key="GridCell.Tab.0.right" timestamp="1580478173527">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="529" height="115" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1580471010233" />
+    <state width="390" height="115" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1580478173527" />
     <state width="1638" height="324" key="GridCell.Tab.0.right/0.23.1680.955@0.23.1680.955" timestamp="1580032990304" />
     <state width="1638" height="324" key="GridCell.Tab.0.right/0.23.1680.957@0.23.1680.957" timestamp="1580009512120" />
     <state width="819" height="371" key="GridCell.Tab.0.right/0.23.1680.959@0.23.1680.959" timestamp="1580440472559" />
@@ -347,9 +356,10 @@
     <state x="255" y="153" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1580371307628" />
     <state x="255" y="153" key="SettingsEditor/1680.-193.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1578820387079" />
     <state x="2685" y="166" key="SettingsEditor/1680.-193.2560.1440/0.0.1680.1050@1680.-193.2560.1440" timestamp="1578813582311" />
-    <state x="578" y="330" key="Vcs.Push.Dialog.v2" timestamp="1580391440574">
-      <screen x="0" y="23" width="1680" height="959" />
+    <state x="578" y="336" key="Vcs.Push.Dialog.v2" timestamp="1580478499499">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
+    <state x="578" y="336" key="Vcs.Push.Dialog.v2/0.0.1680.1050@0.0.1680.1050" timestamp="1580478499499" />
     <state x="578" y="329" key="Vcs.Push.Dialog.v2/0.23.1680.957@0.23.1680.957" timestamp="1579794439685" />
     <state x="578" y="330" key="Vcs.Push.Dialog.v2/0.23.1680.959@0.23.1680.959" timestamp="1580391440574" />
     <state x="2560" y="267" key="Vcs.Push.Dialog.v2/1680.-193.2560.1440/0.0.1680.1050@1680.-193.2560.1440" timestamp="1578815640561" />
@@ -359,10 +369,10 @@
     <state x="66" y="89" key="com.intellij.dvcs.ui.CompareBranchesDialog/0.23.1680.957@0.23.1680.957" timestamp="1579793257248" />
     <state x="0" y="23" width="1680" height="959" key="com.intellij.dvcs.ui.CompareBranchesDialog/0.23.1680.959@0.23.1680.959" timestamp="1579794647624" />
     <state x="1780" y="-93" width="2360" height="1240" key="com.intellij.dvcs.ui.CompareBranchesDialog/1680.-193.2560.1440/0.0.1680.1050@1680.-193.2560.1440" timestamp="1578116190847" />
-    <state x="702" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1580390882516">
-      <screen x="0" y="23" width="1680" height="959" />
+    <state x="702" y="470" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1580478529687">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="702" y="470" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1050@0.0.1680.1050" timestamp="1579768022939" />
+    <state x="702" y="470" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1050@0.0.1680.1050" timestamp="1580478529687" />
     <state x="702" y="451" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.957@0.23.1680.957" timestamp="1579794203510" />
     <state x="702" y="452" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1680.959@0.23.1680.959" timestamp="1580390882516" />
     <state x="2749" y="451" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1680.-193.2560.1440/0.0.1680.1050@1680.-193.2560.1440" timestamp="1578712847148" />
